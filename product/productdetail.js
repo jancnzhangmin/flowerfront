@@ -10,6 +10,8 @@ define(function(require) {
 	var buy_status = 0;// 0加入购物车，1立即购买
 	var buy_number = 1;
 	// var buynow = 0;// 立即购买
+	var call_self = false;
+
 	var Model = function() {
 		this.callParent();
 	};
@@ -51,18 +53,57 @@ define(function(require) {
 			});
 			// /////移动至详情////////
 			var detail_offsettop = $(self.getElementByXid("row13"))[0].offsetTop - 45;
+			var comment_offsettop = $(self.getElementByXid("row12"))[0].offsetTop - 45;
+			var tuijian_offsettop = $(self.getElementByXid("row21"))[0].offsetTop - 45;
 			if ($(dom).scrollTop() >= 0 && $(dom).scrollTop() < detail_offsettop) {
 				self.comp('buttonGroup1').set({
 					'selected' : 'button2'
 				});
-			} else if ($(dom).scrollTop() > detail_offsettop) {
+			} else if ($(dom).scrollTop() > detail_offsettop && $(dom).scrollTop() < comment_offsettop) {
 				self.comp('buttonGroup1').set({
 					'selected' : 'button3'
+				});
+			} else if ($(dom).scrollTop() > comment_offsettop && $(dom).scrollTop() < tuijian_offsettop) {
+				self.comp('buttonGroup1').set({
+					'selected' : 'button5'
+				});
+			} else if ($(dom).scrollTop() > tuijian_offsettop) {
+				self.comp('buttonGroup1').set({
+					'selected' : 'button6'
 				});
 			}
 
 		});
 		justep.Shell.on("productdetail_force_collection", this.productdetail_force_collection, this);
+		this.check_useragent_status();
+	};
+
+	Model.prototype.check_useragent_status = function() {
+		var self = this;
+		$.ajax({
+			async : false,
+			url : publicurl + "api/check_agent_status",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				openid : openid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				var data = self.comp("agentstatusData");
+				data.clear();
+				var options = {
+					defaultValues : [ {
+						status : jsonstr.status
+					} ]
+				};
+				data.newData(options);
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
 	};
 
 	Model.prototype.refreshdata = function(productid) {
@@ -96,7 +137,9 @@ define(function(require) {
 							pack : item.pack,
 							season : item.season,
 							cover : publicurl + item.cover,
-							baseprice : item.price
+							baseprice : parseFloat(item.price).toFixed(2),
+							agentprice : parseFloat(item.agentprice).toFixed(2),
+							baseagentprice : parseFloat(item.agentprice).toFixed(2)
 						} ]
 					};
 					data.newData(options);
@@ -190,12 +233,83 @@ define(function(require) {
 				// justep.Util.hint("错误，请检查网络");
 			}
 		});
+		// 获取买家相册
+		$.ajax({
+			async : true,
+			url : publicurl + "api/get_comment_img_top",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				product_id : productid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				var data = self.comp("commentimgData");
+				data.clear();
+				$.each(jsonstr.commentimgs, function(i, item) {
+					var options = {
+						defaultValues : [ {
+							id : item.id,
+							commentimg : publicurl + item.commentimg
+						} ]
+					};
+					data.newData(options);
+				});
+				$('.commentimgdiv').each(function(i, item) {
+					$(item).height($(item).width());
+					$(item).children(0).css('margin-top', ($(item).height() - $(item).children(0).height()) / 2);
+				});
+				$(self.getElementByXid("span36")).text('买家相册(' + jsonstr.commentimgcount + ')');
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+
+		// 获取前3条用户评价
+		$.ajax({
+			async : true,
+			url : publicurl + "api/get_comment_user_top",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				product_id : productid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				var data = self.comp("usercommentData");
+				data.clear();
+				$.each(jsonstr.comments, function(i, item) {
+					var options = {
+						defaultValues : [ {
+							id : item.id,
+							nickname : item.nickname,
+							headurl : item.headurl,
+							comment : item.comment,
+							anonymous : item.anonymous
+						} ]
+					};
+					data.newData(options);
+				});
+				$(self.getElementByXid("span47")).text('评价(' + jsonstr.commentcount + ')');
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+
 	};
 
 	Model.prototype.modelParamsReceive = function(event) {
 		if (event.params.data) {
 			product_id = event.params.data.id;
 			this.refreshdata(event.params.data.id);
+			this.get_tuijian(event.params.data.id);
+		}
+		if (event.params.data.call_self) {
+			call_self = true;
 		}
 	};
 
@@ -210,30 +324,67 @@ define(function(require) {
 
 	Model.prototype.span35Click = function(event) {
 		var row = event.bindingContext.$object;
+		var self = this;
 		this.comp('conditionData').each(function(params) {
 			if (params.row.val('optional_id') == row.val('optional_id')) {
 				params.row.val('isselect', 0);
 			}
 		});
 		row.val('isselect', 1);
+		$.ajax({
+			async : true,
+			url : publicurl + "api/get_conditionimg",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				id : row.val('id')
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				if (jsonstr.status == 1) {
+					$(self.getElementByXid("image1")).attr("src", publicurl + jsonstr.conditionimg);
+
+				} else {
+					var cover = self.comp('productData').getFirstRow().val('cover');
+					$(self.getElementByXid("image1")).attr("src", cover);
+				}
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
 		this.changeoptional();
 	};
 
 	Model.prototype.changeoptional = function() {
 		var self = this;
 		var baseprice = parseFloat(self.comp('productData').getFirstRow().val('baseprice'));
+		var baseagentprice = parseFloat(self.comp('productData').getFirstRow().val('baseagentprice'));
+		// var agentprice =
+		// parseFloat(self.comp('productData').getFirstRow().val('agentprice'));
+		var agentprice = baseagentprice;
+		// var price =
+		// parseFloat(self.comp('productData').getFirstRow().val('baseprice'));
+		var price = baseprice;
+
 		self.comp('conditionData').each(function(conditiondata) {
 			if (conditiondata.row.val('isselect') == 1) {
 				self.comp('optionalData').each(function(optionaldata) {
 					if (conditiondata.row.val('optional_id') == optionaldata.row.val('id')) {
 						optionaldata.row.val('selectcondition_id', conditiondata.row.val('id'));
 						optionaldata.row.val('selectcondition_name', conditiondata.row.val('name'));
-						baseprice += parseFloat(conditiondata.row.val('weighting'));
+						// baseprice +=
+						// parseFloat(conditiondata.row.val('weighting'));
+						agentprice += parseFloat(conditiondata.row.val('weighting'));
+						price += parseFloat(conditiondata.row.val('weighting'));
 					}
 				});
 			}
 		});
-		self.comp('productData').getFirstRow().val('price', baseprice.toFixed(2));
+		self.comp('productData').getFirstRow().val('baseprice', baseprice.toFixed(2));
+		self.comp('productData').getFirstRow().val('price', price.toFixed(2));
+		self.comp('productData').getFirstRow().val('agentprice', agentprice.toFixed(2));
 	};
 
 	Model.prototype.eachimg = function(htmlstr) {
@@ -406,13 +557,23 @@ define(function(require) {
 			product_id : product_id,
 			number : buy_number,
 			buycaroptional : buycaroptionalparams,
-			producttype : 0
+			producttype : 0,
+			agentuserid:0,
+			destock:0
 		}
 
 		buycar.push(buycarparams);
 		var fd = new FormData();
+		var agentuserid = 0;
+		var destock = 0;
+		if (buycar.length > 0) {
+			agentuserid = buycar[0].agentuserid;
+			destock = buycar[0].destock;
+		}
 		fd.append("openid", openid);
 		fd.append("data", JSON.stringify(buycar));
+		fd.append("agentuserid", agentuserid);
+		fd.append("destock", destock);
 
 		$.ajax({
 			type : "POST",
@@ -499,8 +660,152 @@ define(function(require) {
 	};
 
 	Model.prototype.productdetail_force_collection = function(params) {
-					$(this.getElementByXid("i11")).removeClass('my-xinxingxian');
-					$(this.getElementByXid("i11")).addClass('my-xinxingshi');
+		$(this.getElementByXid("i11")).removeClass('my-xinxingxian');
+		$(this.getElementByXid("i11")).addClass('my-xinxingshi');
+	};
+
+	Model.prototype.i1Click = function(event) {
+		var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + "api/check_subscribe",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				openid : openid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				if (jsonstr.status != 0) {
+					self.pop_subscribe();
+				} else {
+					var params = {
+						data : {
+							id : product_id,
+							name : $(self.getElementByXid("span11")).text()
+						}
+					}
+					justep.Shell.showPage(require.toUrl("./share_qr.w"), params);
+				}
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.pop_subscribe = function() {
+		var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + "api/get_sysqr",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				$(self.getElementByXid("sysqrimg")).attr('src', publicurl + jsonstr.sysqr);
+				self.comp('subscribe_popOver').show();
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.list8AfterRender = function(event) {
+
+	};
+
+	Model.prototype.smartContainer2Click = function(event) {
+		var params = {
+			data : {
+				product_id : product_id
+			}
+		}
+		justep.Shell.showPage(require.toUrl("./commitimg.w"), params);
+	};
+
+	Model.prototype.button5Click = function(event) {
+		this.getElementByXid('content1').scrollTop = $(this.getElementByXid("row12"))[0].offsetTop - 45;
+	};
+
+	Model.prototype.comment_smartContainerClick = function(event) {
+		var params = {
+			data : {
+				product_id : product_id
+			}
+		}
+		justep.Shell.showPage(require.toUrl("./usercomment.w"), params);
+	};
+
+	Model.prototype.get_tuijian = function(productid) {
+		var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + '/api/get_productdetail_tuijian_list',
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				openid : openid,
+				productid : productid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				var data = self.comp("product_tuijian_Data");
+				data.clear();
+				$.each(jsonstr.products, function(i, item) {
+					if (item.producttype == 0) {
+						var odd = 0;
+						odd = i % 2;
+						var options = {
+							defaultValues : [ {
+								id : item.id,
+								name : item.name,
+								price : item.price,
+								unit : item.unit,
+								spec : item.spec,
+								pinyin : item.pinyin,
+								fullpinyin : item.fullpinyin,
+								subtitle : item.subtitle,
+								cover : publicurl + item.cover,
+								odd : odd,
+								discount : item.discount,
+								collection : item.collection
+							} ]
+						};
+						if (productid != item.id) {
+							data.newData(options);
+						}
+					}
+				});
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.button6Click = function(event) {
+		this.getElementByXid('content1').scrollTop = $(this.getElementByXid("row21"))[0].offsetTop - 45;
+	};
+
+	Model.prototype.div25Click = function(event) {
+		var row = event.bindingContext.$object;
+
+		var params = {
+			data : {
+				id : row.val('id')
+			}
+		}
+		// justep.Shell.showPage(require.toUrl("./productdetail.w"), params);
+		this.comp('windowDialog1').open({
+			src : require.toUrl("./productdetail.w"),
+			params : params
+		});
+
 	};
 
 	return Model;

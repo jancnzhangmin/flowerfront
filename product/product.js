@@ -9,6 +9,35 @@ define(function(require) {
 	Model.prototype.modelLoad = function(event) {
 		this.refreshdata();
 		justep.Shell.on("product_collection", this.product_collection, this);
+		this.check_useragent_status();
+	};
+	
+		Model.prototype.check_useragent_status = function() {
+		var self = this;
+		$.ajax({
+			async : false,
+			url : publicurl + "api/check_agent_status",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				openid : openid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				var data = self.comp("agentstatusData");
+				data.clear();
+				var options = {
+					defaultValues : [ {
+						status : jsonstr.status
+					} ]
+				};
+				data.newData(options);
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
 	};
 
 	Model.prototype.product_collection = function(params) {
@@ -93,7 +122,8 @@ define(function(require) {
 								cover : publicurl + item.cover,
 								odd : odd,
 								discount : item.discount,
-								collection : item.collection
+								collection : item.collection,
+								agentprice:item.agentprice
 							} ]
 						};
 						data.newData(options);

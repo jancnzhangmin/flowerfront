@@ -12,12 +12,23 @@
   <column name="cover" type="String" xid="xid9"></column>
   <column name="odd" type="String" xid="xid10"></column>
   <column name="discount" type="String" xid="xid11"></column>
-  <column name="collection" type="String" xid="xid12"></column></div></div>  
+  <column name="collection" type="String" xid="xid12"></column>
+  <column name="agentprice" type="String" xid="xid22"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="searchData" idColumn="id"><column name="id" type="String" xid="xid13"></column>
+  <column name="name" type="String" xid="xid14"></column>
+  <column name="price" type="String" xid="xid15"></column>
+  <column name="unit" type="String" xid="xid16"></column>
+  <column name="spec" type="String" xid="xid17"></column>
+  <column name="pinyin" type="String" xid="xid18"></column>
+  <column name="fullpinyin" type="String" xid="xid19"></column>
+  <column name="subtitle" type="String" xid="xid20"></column>
+  <column name="cover" type="String" xid="xid21"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="agentstatusData" idColumn="status"><column name="status" type="String" xid="xid23"></column></div></div>  
   <div component="$UI/system/components/justep/panel/panel" 
     class="x-panel x-full  x-card top-trans" xid="panel1"> 
       <div class="x-panel-content" xid="content1" style="background-color:#f6f6f6;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row5" style="position:absolute;">
    <div class="x-col" xid="col17"><div class="form-group has-feedback text-muted" xid="formGroup1">
-   <i class="icon-ios7-search-strong form-control-feedback" xid="col1" style="left:0;font-size:large;"></i><input component="$UI/system/components/justep/input/input" class="form-control x-inputText" xid="key" placeHolder="玫瑰花茶"></input>
+   <i class="icon-ios7-search-strong form-control-feedback" xid="col1" style="left:0;font-size:large;"></i><input component="$UI/system/components/justep/input/input" class="form-control x-inputText" xid="key" placeHolder="玫瑰花茶" bind-click="keyClick"></input>
    </div></div>
    <div class="x-col x-col-fixed" xid="col18" style="padding-left:0px;width:38px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-sm btn-only-icon" label="button" xid="button1" icon="my my-liaotian" style="padding-top:4px;margin-left:-5px;color:#fff;">
    <i xid="i1" class="my my-liaotian" style="font-size:x-large;"></i>
@@ -30,21 +41,21 @@
    <div class="x-col text-center" xid="col4"><i xid="i4" class="my my-tubiao_dagou" style="color:#fe2d29;"></i>
   <span xid="span4" style="font-size:small;color:#fe2d29;"><![CDATA[畅享健康生活]]></span></div></div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row2" style="padding-top:20px;padding-bottom:20px;">
-   <div class="x-col text-center" xid="col5"><div xid="div1"><img src="$UI/flowerfront/image/yjmh_logo.png" alt="" xid="image2" style="width:50px;"></img></div>
+   <div class="x-col text-center" xid="yjmhcol" bind-click="yjmhcolClick"><div xid="div1"><img src="$UI/flowerfront/image/yjmh_logo.png" alt="" xid="image2" style="width:50px;"></img></div>
   <div xid="div2"><span xid="span5" style="color:#333333;"><![CDATA[遇见玫好]]></span></div></div>
-   <div class="x-col text-center" xid="col6"><div xid="div4">
+   <div class="x-col text-center" xid="azlcol" bind-click="azlcolClick"><div xid="div4">
    <img src="$UI/flowerfront/image/azl_logo.png" alt="" xid="image3" style="width:50px;"></img></div>
   <div xid="div3">
    <span xid="span6" style="color:#333333;"><![CDATA[啊咱哩]]></span></div></div>
-   <div class="x-col text-center" xid="col7"><div xid="div6">
+   <div class="x-col text-center" xid="cysycol" bind-click="cysycolClick"><div xid="div6">
    <img src="$UI/flowerfront/image/cysy_logo.png" alt="" xid="image4" style="width:50px;"></img></div>
   <div xid="div5">
    <span xid="span7" style="color:#333333;"><![CDATA[茶言水语]]></span></div></div>
-  <div class="x-col text-center" xid="col8"><div xid="div8">
+  <div class="x-col text-center" xid="peccol" bind-click="peccolClick"><div xid="div8">
    <img src="$UI/flowerfront/image/pec_logo.png" alt="" xid="image5" style="width:50px;"></img></div>
   <div xid="div7">
    <span xid="span8" style="color:#333333;"><![CDATA[普洱茶]]></span></div></div>
-  <div class="x-col text-center" xid="col9"><div xid="div10">
+  <div class="x-col text-center" xid="cpqmcol" bind-click="cpqmcolClick"><div xid="div10">
    <img src="$UI/flowerfront/image/cpqm_logo.png" alt="" xid="image6" style="width:50px;"></img></div>
   <div xid="div9">
    <span xid="span9" style="color:#333333;"><![CDATA[冲泡器皿]]></span></div></div></div>
@@ -59,16 +70,16 @@
    <span xid="span13" class="pull-right text-muted"><![CDATA[5分钟前]]></span></div></div></div></div>
    </div>
   <div component="$UI/system/components/justep/row/row" class="x-row text-center" xid="row4" style="margin-top:15px;">
-   <div class="x-col" xid="col13" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;"><div xid="div15"><span xid="span15" style="color:#333333;font-size:medium;font-weight:bold;"><![CDATA[好茶推荐]]></span></div>
+   <div class="x-col" xid="hctjcol" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" bind-click="hctjcolClick"><div xid="div15"><span xid="span15" style="color:#333333;font-size:medium;font-weight:bold;"><![CDATA[好茶推荐]]></span></div>
   <div xid="div16"><span xid="span16" class="text-muted" style="font-size:small;"><![CDATA[热卖好茶任你挑]]></span></div>
   <div xid="div17" style="padding-top:15px;padding-bottom:15px;"><img src="$UI/flowerfront/image/hctj.png" alt="" xid="image9" style="width:80%;"></img></div></div>
-   <div class="x-col" xid="col14" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;"><div xid="div20">
+   <div class="x-col" xid="czyhcol" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" bind-click="czyhcolClick"><div xid="div20">
    <span xid="span18" style="color:#333333;font-size:medium;font-weight:bold;"><![CDATA[超值优惠]]></span></div>
   <div xid="div18">
    <span xid="span17" class="text-muted" style="font-size:small;"><![CDATA[每日优惠帮你省]]></span></div>
   <div xid="div19" style="padding-top:15px;padding-bottom:15px;">
    <img src="$UI/flowerfront/image/czyh.png" alt="" xid="image10" style="width:80%;"></img></div></div>
-   <div class="x-col" xid="col15" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;"><div xid="div23">
+   <div class="x-col" xid="cjtjcol" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" bind-click="cjtjcolClick"><div xid="div23">
    <span xid="span20" style="color:#333333;font-size:medium;font-weight:bold;"><![CDATA[茶具推荐]]></span></div>
   <div xid="div21">
    <span xid="span19" class="text-muted"><![CDATA[精品茶具好看不贵]]></span></div>
@@ -86,8 +97,35 @@
   
   <div xid="div28" style="background-color:white;padding-bottom:5px;border-radius: 0 0 5px 5px;"><div xid="div26" style="padding-top:10px;padding-left:10px;"><span xid="span21" bind-text='val("name")' style="font-size:medium;"></span></div><div xid="div27" style="padding-left:10px;"><span xid="span22" bind-text='val("subtitle")' style="background-color:white;font-size:small;" class="text-muted"></span></div>
   <div xid="div29" style="padding-left:10px;padding-right:5px;"><span xid="span23" bind-text="'￥' + val(&quot;price&quot;)" style="font-size:large;color:#fe2e23;"></span>
-  <span xid="span24" style="font-size:x-small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-text="'省' + val(&quot;discount&quot;) + '元'" bind-visible=' val("discount") &gt; 0'><![CDATA[]]></span>
-  <span xid="span25" class="pull-right text-muted" style="font-size:x-small;font-weight:lighter;margin-top:9px;"><![CDATA[已售100件]]></span></div></div></div></ul> 
+  <span xid="span24" style="font-size:small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-visible=' $model.agentstatusData.val("status") == 1' bind-text="'代理 ￥' + val(&quot;agentprice&quot;)"><![CDATA[]]></span>
+  <span xid="span25" class="pull-right text-muted" style="font-size:x-small;font-weight:lighter;margin-top:9px;"><![CDATA[售100件]]></span></div></div></div></ul> 
   </div></div>
   </div> 
-<resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require></resource></div>
+<resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require>
+  </resource>
+  <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver" direction="auto" xid="serachpopOver" opacity="1">
+   <div class="x-popOver-overlay" xid="div30" style="background-color:#f6f6f6;"></div>
+   <div class="x-popOver-content" xid="div31" style="width:100%;height:100%;"><div component="$UI/system/components/justep/panel/panel" class="x-panel x-full" xid="panel2">
+   <div class="x-panel-top" xid="top1"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row7" style="position:absolute;">
+   <div class="x-col" xid="col21">
+    <div class="form-group has-feedback text-muted" xid="formGroup2">
+     <i class="icon-ios7-search-strong form-control-feedback" xid="col22" style="left:0;font-size:large;"></i>
+     <input component="$UI/system/components/justep/input/input" class="form-control x-inputText" xid="searchinput" bind-keyup="searchinputKeyup"></input></div> </div> 
+   <div class="x-col x-col-fixed" xid="col20" style="padding-left:0px;width:60px;">
+    <a component="$UI/system/components/justep/button/button" class="btn btn-link" label="取消" xid="cancelsearchBtn" style="color:#333333;" onClick="cancelsearchBtnClick">
+   <i xid="i7"></i>
+   <span xid="span27">取消</span></a></div> </div></div>
+   <div class="x-panel-content x-cards" xid="content2"><div component="$UI/system/components/justep/list/list" class="x-list" xid="list2" data="searchData">
+   <ul class="x-list-template" xid="listTemplateUl2">
+    <div xid="div33" style="border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;" bind-click="div33Click"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row8" style="background-color:white;">
+   <div class="x-col x-col-25" xid="col23"><div xid="div32" style="border-radius:5px;    overflow: hidden;"><img src=" " alt="" xid="image14" bind-attr-src=' val("cover")' style="width:100%;"></img></div></div>
+   <div class="x-col" xid="col24" style="padding:0px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row9">
+   <div class="x-col" xid="col26"><span xid="span26" bind-text='val("name")'></span>
+  <span xid="span28" bind-text='val("subtitle")'></span></div>
+   </div>
+  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row10">
+   <div class="x-col" xid="col29"><span xid="span29" bind-text="'￥' + val(&quot;price&quot;)" style="font-size:large;color: #fe2e23;"></span></div>
+   </div></div>
+   </div></div></ul> 
+  </div></div>
+   </div></div></div></div>

@@ -70,8 +70,7 @@
                   </div>  
                   <div xid="div29" style="padding-left:10px;padding-right:5px;" __cid="cfQzuq2" class="cfQzuq2"> 
                     <span xid="span23" bind-text="'￥' + val(&quot;price&quot;)" style="font-size:large;color:#fe2e23;" __cid="cfQzuq2" class="cfQzuq2"/>  
-                    <span xid="span24" style="font-size:x-small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-text="'省' + val(&quot;discount&quot;) + '元'" bind-visible=" val(&quot;discount&quot;) &gt; 0" __cid="cfQzuq2" class="cfQzuq2"/>  
-                    <span xid="span25" class="pull-right text-muted cfQzuq2" style="font-size:x-small;font-weight:lighter;margin-top:9px;" __cid="cfQzuq2">已售100件</span>
+                    <span xid="span24" style="font-size:small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-text="'代理 ￥' + val(&quot;agentprice&quot;)" bind-visible=" $model.agentstatusData.val(&quot;status&quot;) == 1" __cid="cfQzuq2" class="cfQzuq2"/> 
                   </div> 
                 </div> 
               </div> 

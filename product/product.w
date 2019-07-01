@@ -7,17 +7,19 @@
   <column name="isselect" type="String" xid="xid4"></column></div>
   <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="productData" idColumn="id">
    <column name="id" type="String" xid="column1"></column>
-   <column name="name" type="String" xid="column2"></column>
-   <column name="price" type="String" xid="column3"></column>
-   <column name="unit" type="String" xid="column4"></column>
-   <column name="spec" type="String" xid="xid5"></column>
-   <column name="pinyin" type="String" xid="xid6"></column>
-   <column name="fullpinyin" type="String" xid="xid7"></column>
-   <column name="subtitle" type="String" xid="xid8"></column>
-   <column name="cover" type="String" xid="xid9"></column>
-   <column name="odd" type="String" xid="xid10"></column>
-   <column name="discount" type="String" xid="xid11"></column>
-   <column name="collection" type="String" xid="xid12"></column></div></div>  
+  <column name="name" type="String" xid="column2"></column>
+  <column name="price" type="String" xid="column3"></column>
+  <column name="unit" type="String" xid="column4"></column>
+  <column name="spec" type="String" xid="xid5"></column>
+  <column name="pinyin" type="String" xid="xid6"></column>
+  <column name="fullpinyin" type="String" xid="xid7"></column>
+  <column name="subtitle" type="String" xid="xid8"></column>
+  <column name="cover" type="String" xid="xid9"></column>
+  <column name="odd" type="String" xid="xid10"></column>
+  <column name="discount" type="String" xid="xid11"></column>
+  <column name="collection" type="String" xid="xid12"></column>
+  <column name="agentprice" type="String" xid="xid14"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="agentstatusData" idColumn="status"><column name="status" type="String" xid="xid13"></column></div></div>  
   <div component="$UI/system/components/justep/panel/panel" 
     class="x-panel x-full" xid="panel1"> 
       <div class="x-panel-top" xid="top1"> 
@@ -64,8 +66,8 @@
        <span xid="span22" bind-text='val("subtitle")' style="background-color:white;font-size:small;" class="text-muted" bind-visible="false"></span></div> 
       <div xid="div29" style="padding-left:10px;padding-right:5px;">
        <span xid="span23" bind-text="'￥' + val(&quot;price&quot;)" style="font-size:large;color:#fe2e23;"></span>
-       <span xid="span24" style="font-size:x-small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-text="'省' + val(&quot;discount&quot;) + '元'" bind-visible=' val("discount") &gt; 0'></span>
-       <span xid="span25" class="pull-right text-muted" style="font-size:x-small;font-weight:lighter;margin-top:9px;">已售100件</span></div> </div> </div> </ul> </div>
+       <span xid="span24" style="font-size:small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-text="'代理 ￥' + val(&quot;agentprice&quot;)" bind-visible=' $model.agentstatusData.val("status") == 1'></span>
+       </div> </div> </div> </ul> </div>
   </div>
    </div></div>
   </div> 

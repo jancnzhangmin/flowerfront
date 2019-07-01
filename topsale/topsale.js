@@ -18,6 +18,35 @@ define(function(require) {
 		this.refreshdata();
 		page_width = $(document).width();
 		justep.Shell.on("topsale_change_collection", this.topsale_change_collection, this);
+		this.check_useragent_status();
+	};
+
+	Model.prototype.check_useragent_status = function() {
+		var self = this;
+		$.ajax({
+			async : false,
+			url : publicurl + "api/check_agent_status",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				openid : openid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				var data = self.comp("agentstatusData");
+				data.clear();
+				var options = {
+					defaultValues : [ {
+						status : jsonstr.status
+					} ]
+				};
+				data.newData(options);
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
 	};
 
 	Model.prototype.topsale_change_collection = function(params) {
@@ -57,12 +86,14 @@ define(function(require) {
 								cover : publicurl + item.cover,
 								odd : odd,
 								discount : item.discount,
-								collection : item.collection
+								collection : item.collection,
+								agentprice : item.agentprice
 							} ]
 						};
 						data.newData(options);
 					}
 				});
+
 			},
 			error : function(xhr) {
 				// justep.Util.hint("错误，请检查网络");
@@ -139,6 +170,147 @@ define(function(require) {
 		}
 		justep.Shell.showPage(require.toUrl("../product/productdetail.w"), params);
 
+	};
+
+	Model.prototype.keyClick = function(event) {
+		this.comp('serachpopOver').show();
+		$(this.getElementByXid("searchinput")).val($(this.getElementByXid("key")).attr('placeholder'));
+		$(this.getElementByXid("searchinput")).focus();
+	};
+
+	Model.prototype.search = function(searchkey) {
+		var self = this;
+		$.ajax({
+			async : false,
+			url : publicurl + "api/get_search",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				search : searchkey
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				var data = self.comp("searchData");
+				data.clear();
+				$.each(jsonstr.products, function(i, item) {
+
+					var options = {
+						defaultValues : [ {
+							id : item.id,
+							name : item.name,
+							price : item.price,
+							unit : item.unit,
+							spec : item.spec,
+							pinyin : item.pinyin,
+							fullpinyin : item.fullpinyin,
+							subtitle : item.subtitle,
+							cover : publicurl + item.cover
+						} ]
+					};
+					data.newData(options);
+
+				});
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.cancelsearchBtnClick = function(event) {
+		this.comp('serachpopOver').hide();
+	};
+
+	Model.prototype.searchinputKeyup = function(event) {
+		search = event.currentTarget.value;
+		if (search.length > 0) {
+			this.search(search);
+		} else {
+			this.comp("searchData").clear();
+		}
+	};
+
+	Model.prototype.div33Click = function(event) {
+		var row = event.bindingContext.$object;
+		var params = {
+			data : {
+				id : row.val('id')
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productdetail.w"), params);
+	};
+
+	Model.prototype.yjmhcolClick = function(event) {
+		var params = {
+			data : {
+				keyword : 'yjmh'
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productlist.w"), params);
+	};
+
+	Model.prototype.azlcolClick = function(event) {
+		var params = {
+			data : {
+				keyword : 'azl'
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productlist.w"), params);
+	};
+
+	Model.prototype.cysycolClick = function(event) {
+		var params = {
+			data : {
+				keyword : 'cysy'
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productlist.w"), params);
+	};
+
+	Model.prototype.peccolClick = function(event) {
+		var params = {
+			data : {
+				keyword : 'pec'
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productlist.w"), params);
+	};
+
+	Model.prototype.cpqmcolClick = function(event) {
+		var params = {
+			data : {
+				keyword : 'cpqm'
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productlist.w"), params);
+	};
+
+	Model.prototype.hctjcolClick = function(event) {
+		var params = {
+			data : {
+				keyword : 'hctj'
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productlist.w"), params);
+	};
+
+	Model.prototype.czyhcolClick = function(event) {
+		var params = {
+			data : {
+				keyword : 'czyh'
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productlist.w"), params);
+	};
+
+	Model.prototype.cjtjcolClick = function(event) {
+		var params = {
+			data : {
+				keyword : 'cjtj'
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productlist.w"), params);
 	};
 
 	return Model;

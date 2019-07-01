@@ -4,7 +4,7 @@
   </div>  
   <div component="$UI/system/components/justep/panel/panel" 
     class="x-panel x-full" xid="panel1"> 
-      <div class="x-panel-content x-cards" xid="content1" style="padding-top:0px;">
+      <div class="x-panel-content x-cards" xid="content1" style="padding-top:0px;padding-bottom:10px;">
   <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer topimg" xid="smartContainer1" style="position:relative;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row1" style="z-index:1;">
    <div class="x-col" xid="col1"></div>
    <div class="x-col text-center" xid="col2"><span xid="span1" style="font-size:large;color:#FFFFFF;"><![CDATA[个人中心]]></span></div>
@@ -31,59 +31,91 @@
    <i xid="i2" class="my my-shouyi1" style="font-size:xx-large;"></i>
    <span xid="span6">收益</span></a>
   <label xid="label2" style="height:40px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;margin-top:15px;" class="pull-right"></label></div>
-   <div class="x-col text-center" xid="col14" style="padding-left:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="提现" xid="button3" icon="my my-daifukuan" style="color:#FFFFFF;">
-   <i xid="i3" class="my my-daifukuan" style="font-size:xx-large;"></i>
+   <div class="x-col text-center" xid="col14" style="padding-left:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="提现" xid="button3" icon="my my-tixian2" style="color:#FFFFFF;">
+   <i xid="i3" class="my my-tixian2" style="font-size:xx-large;"></i>
    <span xid="span7">提现</span></a></div></div>
   </div>
   <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer2" style="margin-top:10px;background-color:white;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row6">
    <div class="x-col" xid="col15" style="border-bottom-style:solid;border-bottom-color:#f6f6f6;border-bottom-width:1px;"><span xid="span8" style="font-size:medium;"><![CDATA[我的订单]]></span></div>
-   <div class="x-col text-right" xid="col16" style="border-bottom-style:solid;border-bottom-color:#f6f6f6;border-bottom-width:1px;"><span xid="span9" class="text-muted"><![CDATA[查看全部订单]]></span>
-  <i xid="i4" class="linear linear-chevronright text-muted"></i></div>
+   <div class="x-col text-right" xid="col16" style="border-bottom-style:solid;border-bottom-color:#f6f6f6;border-bottom-width:1px;"><span xid="span9" class="text-muted" style="display:none;"><![CDATA[查看全部订单]]></span>
+  <i xid="i4" class="linear linear-chevronright text-muted" style="display:none;"></i></div>
    </div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row7">
    <div class="x-col text-center" xid="col18">
-  <div xid="div3" class="text-center btnangleBox">
-   <label xid="label4" class="btnangle"><![CDATA[12]]></label><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="待侍款" xid="button4" icon="my my-daifahuo">
-   <i xid="i5" class="my my-daifahuo btnclass" style="font-size:xx-large;"></i>
+  <div xid="unpaydiv" class="text-center btnangleBox" bind-click="unpaydivClick">
+   <label xid="unpay_count_lable" class="btnangle" style="display:none;"><![CDATA[0]]></label><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="待侍款" xid="unpaybtn" icon="my my-tixian1">
+   <i xid="i5" class="btnclass my2 my2-dingshixiaoshou my my-tixian1" style="font-size:xx-large;"></i>
    <span xid="span10" class="text-muted">待侍款</span></a></div></div>
-   <div class="x-col text-center" xid="col19"><div xid="div4" class="text-center btnangleBox">
-   <label xid="label5" class="btnangle"><![CDATA[4]]></label>
-   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="待发货" xid="button5" icon="my my-daifahuo1">
-    <i xid="i6" class="btnclass my my-daifahuo1" style="font-size:xx-large;"></i>
+   <div class="x-col text-center" xid="col19"><div xid="undeliverdiv" class="text-center btnangleBox" bind-click="undeliverdivClick">
+   <label xid="undeliver_count_lable" class="btnangle"><![CDATA[0]]></label>
+   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="待发货" xid="button5" icon="my2 my2-daifahuo">
+    <i xid="i6" class="btnclass my2 my2-daifahuo" style="font-size:xx-large;"></i>
     <span xid="span11" class="text-muted">待发货</span></a> </div></div>
-   <div class="x-col text-center" xid="col20"><div xid="div5" class="text-center btnangleBox">
-   <label xid="label6" class="btnangle"><![CDATA[3]]></label>
-   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="待收货" xid="button6" icon="my my-daishouhuo1">
-    <i xid="i7" class="btnclass my my-daishouhuo1" style="font-size:xx-large;"></i>
+   <div class="x-col text-center" xid="col20"><div xid="unreceiptdiv" class="text-center btnangleBox" bind-click="unreceiptdivClick">
+   <label xid="unreceipt_count_lable" class="btnangle"><![CDATA[0]]></label>
+   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="待收货" xid="button6" icon="my2 my2-urbantubiao-">
+    <i xid="i7" class="btnclass my2 my2-urbantubiao-" style="font-size:xx-large;"></i>
     <span xid="span12" class="text-muted">待收货</span></a> </div></div>
-  <div class="x-col text-center" xid="col21"><div xid="div6" class="text-center btnangleBox">
-   <label xid="label7" class="btnangle"><![CDATA[1]]></label>
-   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="待评价" xid="button7" icon="my my-pingjia">
-    <i xid="i8" class="btnclass my my-pingjia" style="font-size:xx-large;"></i>
+  <div class="x-col text-center" xid="col21"><div xid="uncommentdiv" class="text-center btnangleBox" bind-click="uncommentdivClick">
+   <label xid="uncomment_count_lable" class="btnangle"><![CDATA[0]]></label>
+   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="待评价" xid="button7" icon="my2 my2-daipingjia">
+    <i xid="i8" class="btnclass my2 my2-daipingjia" style="font-size:xx-large;"></i>
     <span xid="span13" class="text-muted">待评价</span></a> </div></div>
   <div class="x-col text-center" xid="col22"><div xid="div7" class="text-center btnangleBox">
    <label xid="label8" class="btnangle" style="display:none;">12</label>
-   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="售后" xid="button8" icon="my my-shouhou1">
-    <i xid="i9" class="btnclass my my-shouhou1" style="font-size:xx-large;"></i>
+   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="售后" xid="button8" icon="my2 my2-shouhou">
+    <i xid="i9" class="btnclass my2 my2-shouhou" style="font-size:xx-large;"></i>
     <span xid="span14" class="text-muted">售后</span></a> </div></div></div></div>
-  <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer3" style="background-color:white;margin-top:10px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row8" style="padding:0px;">
-   <div class="x-col x-col-fixed" xid="col7" style="width:40px;padding-top:11px;padding-left:10px;"><i xid="i10" class="my my-yemiantuiguang btnclass" style="font-size:x-large;"></i></div>
-   <div class="x-col bottom-line" xid="col8" style="padding-top:11px;padding-bottom:10px;"><span xid="span15" style="font-size:medium;"><![CDATA[我的分销]]></span></div>
-   <div class="x-col text-right bottom-line" xid="col10" style="padding-top:13px;padding-right:10px;"><i xid="i11" class="linear linear-chevronright text-muted"></i></div></div>
-  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row9" style="padding:0px;" bind-click="row9Click">
-   <div class="x-col x-col-fixed" xid="col23" style="width:40px;padding-top:14px;padding-left:10px;">
+  <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="agent_smartContainer" style="margin-top:10px;background-color:white;display:block;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row11">
+   <div class="x-col" xid="col27" style="border-bottom-style:solid;border-bottom-color:#f6f6f6;border-bottom-width:1px;"><span xid="span19" style="font-size:medium;"><![CDATA[代理]]></span></div>
+   </div>
+  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row12">
+   <div class="x-col text-center" xid="agentcol" bind-click="agentcolClick"><div xid="div3" class="text-center btnangleBox"><label xid="label4" class="btnangle" style="display:none;">0</label>
+  <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="我" xid="button4" icon="my2 my2-dailiguanli">
+   <i xid="i16" class="btnclass my2 my2-dailiguanli" style="font-size:xx-large;"></i>
+   <span xid="span20" class="text-muted">我</span></a></div></div>
+   <div class="x-col text-center" xid="directagentcol" bind-click="directagentcolClick"><div xid="div4" class="text-center btnangleBox">
+   <label xid="directagent_label" class="btnangle" style="display:none;">0</label>
+   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="直属" xid="button9" icon="my2 my2-daili1">
+    <i xid="i17" class="btnclass my2 my2-daili1" style="font-size:xx-large;"></i>
+    <span xid="span21" class="text-muted">直属</span></a> </div></div>
+   <div class="x-col text-center" xid="col32"><div xid="div5" class="text-center btnangleBox">
+   <label xid="label6" class="btnangle" style="display:none;">0</label>
+   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="任务" xid="button10" icon="my2 my2-renwu">
+    <i xid="i18" class="btnclass my2 my2-renwu" style="font-size:xx-large;"></i>
+    <span xid="span22" class="text-muted">任务</span></a> </div></div>
+  <div class="x-col text-center" xid="col33"><div xid="div6" class="text-center btnangleBox">
+   <label xid="customer_label" class="btnangle" style="display:none;">0</label>
+   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="客户" xid="button11" icon="my2 my2-dailishang2">
+    <i xid="i19" class="btnclass my2 my2-dailishang2" style="font-size:xx-large;"></i>
+    <span xid="span23" class="text-muted">客户</span></a> </div></div>
+  <div class="x-col text-center" xid="col34"><div xid="div8" class="text-center btnangleBox">
+   <label xid="label9" class="btnangle" style="display:none;">0</label>
+   <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="销售" xid="button12" icon="my2 my2-xiaoshou">
+    <i xid="i20" class="btnclass my2 my2-xiaoshou" style="font-size:xx-large;"></i>
+    <span xid="span24" class="text-muted">销售</span></a> </div></div></div></div><div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer3" style="background-color:white;margin-top:10px;"><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row9" bind-click="row9Click" style="height:55px;padding-top:12px;">
+   <div class="x-col x-col-fixed" xid="col23" style="width:40px;">
     <i xid="i13" class="my my-xinxingshi btnclass" style="font-size:x-large;"></i></div> 
-   <div class="x-col bottom-line" xid="col11" style="padding-top:14px;padding-bottom:10px;">
+   <div class="x-col" xid="col11">
     <span xid="span16" style="font-size:medium;"><![CDATA[我的收藏]]></span></div> 
-   <div class="x-col text-right bottom-line" xid="col17" style="padding-top:16px;padding-right:10px;">
+   <div class="x-col text-right" xid="col17">
     <span xid="span18" style="color:#ff4256;"><![CDATA[0]]></span><i xid="i12" class="linear linear-chevronright text-muted"></i>
   </div> </div>
-  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row10" style="padding:0px;" bind-click="row10Click">
-   <div class="x-col x-col-fixed" xid="col25" style="width:40px;padding-top:14px;padding-left:10px;">
+  <hr xid="hr2" style="margin:0px;margin-left:50px;border-top: 1px solid #f6f6f6;"></hr><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row10" style="height:55px;" bind-click="row10Click">
+   <div class="x-col x-col-fixed" xid="col25" style="width:40px;">
     <i xid="i14" class="my my-shouhuodizhi1 btnclass" style="font-size:x-large;"></i></div> 
-   <div class="x-col bottom-line" xid="col26" style="padding-top:14px;padding-bottom:10px;">
+   <div class="x-col" xid="col26">
     <span xid="span17" style="font-size:medium;"><![CDATA[收货地址]]></span></div> 
-   <div class="x-col text-right bottom-line" xid="col24" style="padding-top:16px;padding-right:10px;">
-    <i xid="i15" class="linear linear-chevronright text-muted"></i></div> </div></div></div>
+   <div class="x-col text-right" xid="col24">
+    <i xid="i15" class="linear linear-chevronright text-muted"></i></div> </div>
+  </div>
+  <div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row13" style="margin-top:10px;background-color:white;height:55px;" bind-click="row10Click">
+   <div class="x-col x-col-fixed" xid="col36" style="width:40px;">
+    <i xid="i22" class="my2 my2-dengji2 btnclass" style="font-size:x-large;"></i></div> 
+   <div class="x-col" xid="col35">
+    <span xid="span25" style="font-size:medium;"><![CDATA[成为代理]]></span></div> 
+   <div class="x-col text-right" xid="col37">
+    <i xid="i21" class="linear linear-chevronright text-muted"></i></div> </div></div>
   </div> 
-<resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require></resource></div>
+<resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require>
+  <require xid="require2" url="css!$UI/flowerfront/icon2/my2.icons"></require></resource></div>

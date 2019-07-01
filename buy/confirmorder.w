@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" component="$UI/system/components/justep/window/window" design="device:m;" xid="window" class="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="left:18px;top:83px;height:244px;" onLoad="modelLoad"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="left:18px;top:83px;height:244px;" onLoad="modelLoad" onParamsReceive="modelParamsReceive"> 
   <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="buycarData" idColumn="id">
    <column name="id" type="String" xid="xid1"></column>
    <column name="product_id" type="String" xid="xid2"></column>
@@ -152,7 +152,17 @@
   <div component="$UI/system/components/justep/row/row" class="x-row x-row-center row-class" xid="row18" style="background-color:white;">
    <div class="x-col x-col-fixed" xid="col33" style="width:80px;"><span xid="span27"><![CDATA[买家留言：]]></span></div>
    <div class="x-col" xid="col34"><textarea component="$UI/system/components/justep/textarea/textarea" class="form-control input-class" xid="textarea1"></textarea></div>
-   </div></div>
+   </div>
+  <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer3" style="background-color:white;display:none;"><div component="$UI/system/components/justep/row/row" class="x-row x-row-center text-muted" xid="paytoagentrow">
+   <div class="x-col x-col-fixed" xid="col35" style="width:40px;"></div>
+   <div class="x-col" xid="col36"><span xid="paytoagentspan"><![CDATA[给代理下单]]></span></div>
+   <div class="x-col" xid="col37"></div></div>
+  <div component="$UI/system/components/justep/row/row" class="x-row x-row-center text-muted" xid="destockrow">
+   <div class="x-col x-col-fixed" xid="col40" style="width:40px;"></div>
+   <div class="x-col" xid="col39">
+    <span xid="destockspan">去库存</span></div> 
+   <div class="x-col" xid="col38">
+    </div> </div></div></div>
   <div class="x-panel-bottom" xid="bottom1"><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row13" style="padding:0px;">
    <div class="x-col text-right" xid="col19" style="padding-right:20px;"><span xid="span18"><![CDATA[合计金额：]]></span>
   <span xid="span19" style="color:#fe2e23;font-size:large;"></span></div>
@@ -172,9 +182,8 @@
    <div class="x-col text-center" xid="col27"><span xid="span23" style="color:#fe2e23;font-size:x-large;"><![CDATA[￥0.00]]></span></div>
    <div class="x-col" xid="col28"></div></div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row16" style="margin-top:20px;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;">
-   <div class="x-col x-col-25" xid="col29"><span xid="span24"><![CDATA[余额抵扣]]></span></div>
-   <div class="x-col text-center" xid="col30"><span xid="span25"><![CDATA[可用余额：￥0.00]]></span></div>
-   <div class="x-col x-col-25 text-right" xid="col31"><span component="$UI/system/components/justep/button/toggle" class="x-toggle" xid="toggle1" style="display: inline-block;padding:0px;" ON="　" OFF="　" onChange="toggle1Change"></span></div></div>
+   <div class="x-col x-col-25" xid="col29"><span xid="span24"><![CDATA[支付方式]]></span></div>
+   <div class="x-col text-right" xid="col31"><span xid="span25"><![CDATA[可用余额：￥0.00]]></span></div></div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row17" style="position:absolute;bottom:20px;">
    <div class="x-col" xid="col32"><a component="$UI/system/components/justep/button/button" class="btn btn-default btn-block wxcolor" label="立即支付" xid="payBtn">
    <i xid="i10"></i>

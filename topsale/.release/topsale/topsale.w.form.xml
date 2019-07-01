@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<div xmlns="http://www.w3.org/1999/xhtml" component="$model/UI2/system/components/justep/window/window" design="device:m;" xid="window" class="window ciMZr6b" data-bind="component:{name:'$model/UI2/system/components/justep/window/window'}" __cid="ciMZr6b" components="$model/UI2/system/components/justep/model/model,$model/UI2/system/components/justep/loadingBar/loadingBar,$model/UI2/system/components/justep/button/button,$model/UI2/system/components/justep/row/row,$model/UI2/system/components/justep/input/input,$model/UI2/system/components/justep/list/list,$model/UI2/system/components/justep/panel/child,$model/UI2/system/components/justep/data/data,$model/UI2/system/components/justep/window/window,$model/UI2/system/components/justep/panel/panel,">
-  <xhtml:style xmlns:xhtml="http://www.w3.org/1999/xhtml">.x-titlebar.ciMZr6b{background-color: rgba(0, 0, 0, 0)} .x-titlebar.ciMZr6b .x-titlebar-title.ciMZr6b{padding: 6px 0} .x-titlebar.ciMZr6b .x-titlebar-right.ciMZr6b .btn.ciMZr6b{padding-left: 0} .x-inputText.ciMZr6b{border-radius: 20px; background-color: rgba(255, 255, 255, 0.8); height: 34px; text-indent: 20px} .form-control-feedback.ciMZr6b{height: 34px; line-height: 34px} .x-cards.ciMZr6b{padding-top: 0px} .top-trans.ciMZr6b .x-panel-top.ciMZr6b{z-index: 100} .top-trans.ciMZr6b .text-success.ciMZr6b{color: white} .top-trans.x-panel.ciMZr6b &gt; .x-panel-content.ciMZr6b{top: 0 !important} .top-trans.x-panel.ciMZr6b .no-iosstatusbar.ciMZr6b &gt; .x-panel-content.ciMZr6b{top: -20px !important} .ev.ciMZr6b{padding: 10px; padding-right: 5px} .od.ciMZr6b{padding: 10px; padding-left: 5px} .btnclass.ciMZr6b{background: linear-gradient(to bottom, rgb(255, 66, 86), rgb(254, 89, 147)); -webkit-background-clip: text; -webkit-text-fill-color: transparent}</xhtml:style>  
+<div xmlns="http://www.w3.org/1999/xhtml" component="$model/UI2/system/components/justep/window/window" design="device:m;" xid="window" class="window ciMZr6b" data-bind="component:{name:'$model/UI2/system/components/justep/window/window'}" __cid="ciMZr6b" components="$model/UI2/system/components/justep/model/model,$model/UI2/system/components/justep/popOver/popOver,$model/UI2/system/components/justep/loadingBar/loadingBar,$model/UI2/system/components/justep/button/button,$model/UI2/system/components/justep/row/row,$model/UI2/system/components/justep/input/input,$model/UI2/system/components/justep/list/list,$model/UI2/system/components/justep/panel/child,$model/UI2/system/components/justep/data/data,$model/UI2/system/components/justep/window/window,$model/UI2/system/components/justep/panel/panel,">
+  <xhtml:style xmlns:xhtml="http://www.w3.org/1999/xhtml">.x-titlebar.ciMZr6b{background-color: rgba(0, 0, 0, 0)} .x-titlebar.ciMZr6b .x-titlebar-title.ciMZr6b{padding: 6px 0} .x-titlebar.ciMZr6b .x-titlebar-right.ciMZr6b .btn.ciMZr6b{padding-left: 0} .x-inputText.ciMZr6b{border-radius: 20px; background-color: rgba(255, 255, 255, 0.8); height: 34px; text-indent: 20px} .x-inputText.ciMZr6b:focus{border-color: rgb(255, 66, 86); box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 66, 86, 0.6)} .form-control-feedback.ciMZr6b{height: 34px; line-height: 34px} .x-cards.ciMZr6b{padding-top: 0px} .top-trans.ciMZr6b .x-panel-top.ciMZr6b{z-index: 100} .top-trans.ciMZr6b .text-success.ciMZr6b{color: white} .top-trans.x-panel.ciMZr6b &gt; .x-panel-content.ciMZr6b{top: 0 !important} .top-trans.x-panel.ciMZr6b .no-iosstatusbar.ciMZr6b &gt; .x-panel-content.ciMZr6b{top: -20px !important} .ev.ciMZr6b{padding: 10px; padding-right: 5px} .od.ciMZr6b{padding: 10px; padding-left: 5px} .btnclass.ciMZr6b{background: linear-gradient(to bottom, rgb(255, 66, 86), rgb(254, 89, 147)); -webkit-background-clip: text; -webkit-text-fill-color: transparent} .x-popOver-content.ciMZr6b{bottom: 0px !important}</xhtml:style>  
   <div component="$model/UI2/system/components/justep/model/model" xid="model" style="display:none" data-bind="component:{name:'$model/UI2/system/components/justep/model/model'}" data-events="onLoad:modelLoad" __cid="ciMZr6b" class="ciMZr6b"></div>  
   <div component="$model/UI2/system/components/justep/panel/panel" class="x-panel x-full  x-card top-trans pcYv2Ej2-iosstatusbar ciMZr6b" xid="panel1" data-bind="component:{name:'$model/UI2/system/components/justep/panel/panel'}" __cid="ciMZr6b"> 
     <div class="x-panel-content ciMZr6b" xid="content1" style="background-color:#f6f6f6;" component="$model/UI2/system/components/justep/panel/child" data-bind="component:{name:'$model/UI2/system/components/justep/panel/child'}" __cid="ciMZr6b">
@@ -9,7 +9,7 @@
         <div class="x-col ciMZr6b" xid="col17" __cid="ciMZr6b">
           <div class="form-group has-feedback text-muted ciMZr6b" xid="formGroup1" __cid="ciMZr6b"> 
             <i class="icon-ios7-search-strong form-control-feedback ciMZr6b" xid="col1" style="left:0;font-size:large;" __cid="ciMZr6b"/>
-            <input component="$model/UI2/system/components/justep/input/input" class="form-control x-inputText ciMZr6b" xid="key" data-bind="component:{name:'$model/UI2/system/components/justep/input/input'}" data-config="{&quot;placeHolder&quot;:&quot;玫瑰花茶&quot;}" __cid="ciMZr6b"/> 
+            <input component="$model/UI2/system/components/justep/input/input" class="form-control x-inputText ciMZr6b" xid="key" bind-click="keyClick" data-bind="component:{name:'$model/UI2/system/components/justep/input/input'}" data-config="{&quot;placeHolder&quot;:&quot;玫瑰花茶&quot;}" __cid="ciMZr6b"/> 
           </div>
         </div>  
         <div class="x-col x-col-fixed ciMZr6b" xid="col18" style="padding-left:0px;width:38px;" __cid="ciMZr6b">
@@ -35,7 +35,7 @@
         </div>
       </div>  
       <div component="$model/UI2/system/components/justep/row/row" class="x-row ciMZr6b" xid="row2" style="padding-top:20px;padding-bottom:20px;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="ciMZr6b"> 
-        <div class="x-col text-center ciMZr6b" xid="col5" __cid="ciMZr6b">
+        <div class="x-col text-center ciMZr6b" xid="yjmhcol" bind-click="yjmhcolClick" __cid="ciMZr6b">
           <div xid="div1" __cid="ciMZr6b" class="ciMZr6b">
             <img src="$model/UI2/flowerfront/image/yjmh_logo.png" alt="" xid="image2" style="width:50px;" __cid="ciMZr6b" class="ciMZr6b"/>
           </div>  
@@ -43,7 +43,7 @@
             <span xid="span5" style="color:#333333;" __cid="ciMZr6b" class="ciMZr6b">遇见玫好</span>
           </div>
         </div>  
-        <div class="x-col text-center ciMZr6b" xid="col6" __cid="ciMZr6b">
+        <div class="x-col text-center ciMZr6b" xid="azlcol" bind-click="azlcolClick" __cid="ciMZr6b">
           <div xid="div4" __cid="ciMZr6b" class="ciMZr6b"> 
             <img src="$model/UI2/flowerfront/image/azl_logo.png" alt="" xid="image3" style="width:50px;" __cid="ciMZr6b" class="ciMZr6b"/>
           </div>  
@@ -51,7 +51,7 @@
             <span xid="span6" style="color:#333333;" __cid="ciMZr6b" class="ciMZr6b">啊咱哩</span>
           </div>
         </div>  
-        <div class="x-col text-center ciMZr6b" xid="col7" __cid="ciMZr6b">
+        <div class="x-col text-center ciMZr6b" xid="cysycol" bind-click="cysycolClick" __cid="ciMZr6b">
           <div xid="div6" __cid="ciMZr6b" class="ciMZr6b"> 
             <img src="$model/UI2/flowerfront/image/cysy_logo.png" alt="" xid="image4" style="width:50px;" __cid="ciMZr6b" class="ciMZr6b"/>
           </div>  
@@ -59,7 +59,7 @@
             <span xid="span7" style="color:#333333;" __cid="ciMZr6b" class="ciMZr6b">茶言水语</span>
           </div>
         </div>  
-        <div class="x-col text-center ciMZr6b" xid="col8" __cid="ciMZr6b">
+        <div class="x-col text-center ciMZr6b" xid="peccol" bind-click="peccolClick" __cid="ciMZr6b">
           <div xid="div8" __cid="ciMZr6b" class="ciMZr6b"> 
             <img src="$model/UI2/flowerfront/image/pec_logo.png" alt="" xid="image5" style="width:50px;" __cid="ciMZr6b" class="ciMZr6b"/>
           </div>  
@@ -67,7 +67,7 @@
             <span xid="span8" style="color:#333333;" __cid="ciMZr6b" class="ciMZr6b">普洱茶</span>
           </div>
         </div>  
-        <div class="x-col text-center ciMZr6b" xid="col9" __cid="ciMZr6b">
+        <div class="x-col text-center ciMZr6b" xid="cpqmcol" bind-click="cpqmcolClick" __cid="ciMZr6b">
           <div xid="div10" __cid="ciMZr6b" class="ciMZr6b"> 
             <img src="$model/UI2/flowerfront/image/cpqm_logo.png" alt="" xid="image6" style="width:50px;" __cid="ciMZr6b" class="ciMZr6b"/>
           </div>  
@@ -98,7 +98,7 @@
         </div> 
       </div>  
       <div component="$model/UI2/system/components/justep/row/row" class="x-row text-center ciMZr6b" xid="row4" style="margin-top:15px;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="ciMZr6b"> 
-        <div class="x-col ciMZr6b" xid="col13" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" __cid="ciMZr6b">
+        <div class="x-col ciMZr6b" xid="hctjcol" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" bind-click="hctjcolClick" __cid="ciMZr6b">
           <div xid="div15" __cid="ciMZr6b" class="ciMZr6b">
             <span xid="span15" style="color:#333333;font-size:medium;font-weight:bold;" __cid="ciMZr6b" class="ciMZr6b">好茶推荐</span>
           </div>  
@@ -109,7 +109,7 @@
             <img src="$model/UI2/flowerfront/image/hctj.png" alt="" xid="image9" style="width:80%;" __cid="ciMZr6b" class="ciMZr6b"/>
           </div>
         </div>  
-        <div class="x-col ciMZr6b" xid="col14" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" __cid="ciMZr6b">
+        <div class="x-col ciMZr6b" xid="czyhcol" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" bind-click="czyhcolClick" __cid="ciMZr6b">
           <div xid="div20" __cid="ciMZr6b" class="ciMZr6b"> 
             <span xid="span18" style="color:#333333;font-size:medium;font-weight:bold;" __cid="ciMZr6b" class="ciMZr6b">超值优惠</span>
           </div>  
@@ -120,7 +120,7 @@
             <img src="$model/UI2/flowerfront/image/czyh.png" alt="" xid="image10" style="width:80%;" __cid="ciMZr6b" class="ciMZr6b"/>
           </div>
         </div>  
-        <div class="x-col ciMZr6b" xid="col15" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" __cid="ciMZr6b">
+        <div class="x-col ciMZr6b" xid="cjtjcol" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" bind-click="cjtjcolClick" __cid="ciMZr6b">
           <div xid="div23" __cid="ciMZr6b" class="ciMZr6b"> 
             <span xid="span20" style="color:#333333;font-size:medium;font-weight:bold;" __cid="ciMZr6b" class="ciMZr6b">茶具推荐</span>
           </div>  
@@ -155,8 +155,8 @@
               </div>  
               <div xid="div29" style="padding-left:10px;padding-right:5px;" __cid="ciMZr6b" class="ciMZr6b">
                 <span xid="span23" bind-text="'￥' + val(&quot;price&quot;)" style="font-size:large;color:#fe2e23;" __cid="ciMZr6b" class="ciMZr6b"/>  
-                <span xid="span24" style="font-size:x-small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-text="'省' + val(&quot;discount&quot;) + '元'" bind-visible=" val(&quot;discount&quot;) &gt; 0" __cid="ciMZr6b" class="ciMZr6b"/>  
-                <span xid="span25" class="pull-right text-muted ciMZr6b" style="font-size:x-small;font-weight:lighter;margin-top:9px;" __cid="ciMZr6b">已售100件</span>
+                <span xid="span24" style="font-size:small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-visible=" $model.agentstatusData.val(&quot;status&quot;) == 1" bind-text="'代理 ￥' + val(&quot;agentprice&quot;)" __cid="ciMZr6b" class="ciMZr6b"/>  
+                <span xid="span25" class="pull-right text-muted ciMZr6b" style="font-size:x-small;font-weight:lighter;margin-top:9px;" __cid="ciMZr6b">售100件</span>
               </div>
             </div>
           </div>
@@ -164,5 +164,57 @@
       </div>
     </div>  
     <style __cid="ciMZr6b" class="ciMZr6b">.x-panel.pcYv2Ej2-iosstatusbar &gt;.x-panel-top {height: 0px;}.x-panel.pcYv2Ej2-iosstatusbar &gt;.x-panel-content { top: 0px;bottom: nullpx;}.x-panel.pcYv2Ej2-iosstatusbar &gt;.x-panel-bottom {height: nullpx;}.iosstatusbar .x-panel.pcYv2Ej2-iosstatusbar &gt;.x-panel-top,.iosstatusbar .x-panel .x-panel-content .x-has-iosstatusbar.x-panel.pcYv2Ej2-iosstatusbar &gt;.x-panel-top {height: 0px;}.iosstatusbar .x-panel.pcYv2Ej2-iosstatusbar &gt;.x-panel-content,.iosstatusbar .x-panel .x-panel-content .x-has-iosstatusbar.x-panel.pcYv2Ej2-iosstatusbar &gt;.x-panel-content { top: 0px;}.iosstatusbar .x-panel .x-panel-content .x-panel.pcYv2Ej2-iosstatusbar &gt;.x-panel-top {height: 0px;}.iosstatusbar .x-panel .x-panel-content .x-panel.pcYv2Ej2-iosstatusbar &gt;.x-panel-content {top: 0px;}</style>
-  </div> 
+  </div>  
+  <div component="$model/UI2/system/components/justep/popOver/popOver" class="x-popOver ciMZr6b" xid="serachpopOver" data-bind="component:{name:'$model/UI2/system/components/justep/popOver/popOver'}" data-config="{&quot;direction&quot;:&quot;auto&quot;,&quot;opacity&quot;:1}" __cid="ciMZr6b"> 
+    <div class="x-popOver-overlay ciMZr6b" xid="div30" style="background-color:#f6f6f6;" __cid="ciMZr6b"/>  
+    <div class="x-popOver-content ciMZr6b" xid="div31" style="width:100%;height:100%;" __cid="ciMZr6b">
+      <div component="$model/UI2/system/components/justep/panel/panel" class="x-panel x-full pcue2IZv-iosstatusbar ciMZr6b" xid="panel2" data-bind="component:{name:'$model/UI2/system/components/justep/panel/panel'}" __cid="ciMZr6b"> 
+        <div class="x-panel-top ciMZr6b" xid="top1" component="$model/UI2/system/components/justep/panel/child" data-bind="component:{name:'$model/UI2/system/components/justep/panel/child'}" __cid="ciMZr6b">
+          <div component="$model/UI2/system/components/justep/row/row" class="x-row ciMZr6b" xid="row7" style="position:absolute;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="ciMZr6b"> 
+            <div class="x-col ciMZr6b" xid="col21" __cid="ciMZr6b"> 
+              <div class="form-group has-feedback text-muted ciMZr6b" xid="formGroup2" __cid="ciMZr6b"> 
+                <i class="icon-ios7-search-strong form-control-feedback ciMZr6b" xid="col22" style="left:0;font-size:large;" __cid="ciMZr6b"/>  
+                <input component="$model/UI2/system/components/justep/input/input" class="form-control x-inputText ciMZr6b" xid="searchinput" bind-keyup="searchinputKeyup" data-bind="component:{name:'$model/UI2/system/components/justep/input/input'}" __cid="ciMZr6b"/>
+              </div> 
+            </div>  
+            <div class="x-col x-col-fixed ciMZr6b" xid="col20" style="padding-left:0px;width:60px;" __cid="ciMZr6b"> 
+              <a component="$model/UI2/system/components/justep/button/button" class="btn btn-link ciMZr6b" xid="cancelsearchBtn" style="color:#333333;" data-bind="component:{name:'$model/UI2/system/components/justep/button/button'}" data-events="onClick:cancelsearchBtnClick" data-config="{&quot;label&quot;:&quot;取消&quot;}" __cid="ciMZr6b"> 
+                <i xid="i7" __cid="ciMZr6b" class="ciMZr6b"/>  
+                <span xid="span27" __cid="ciMZr6b" class="ciMZr6b">取消</span>
+              </a>
+            </div> 
+          </div>
+        </div>  
+        <div class="x-panel-content x-cards ciMZr6b" xid="content2" component="$model/UI2/system/components/justep/panel/child" data-bind="component:{name:'$model/UI2/system/components/justep/panel/child'}" __cid="ciMZr6b">
+          <div component="$model/UI2/system/components/justep/list/list" class="x-list ciMZr6b" xid="list2" data-bind="component:{name:'$model/UI2/system/components/justep/list/list'}" data-config="{&quot;data&quot;:&quot;searchData&quot;}" __cid="ciMZr6b"> 
+            <ul class="x-list-template hide ciMZr6b" xid="listTemplateUl2" bind-foreach="{data:$model.foreach_list2($element),afterRender:$model.foreach_afterRender_list2.bind($model,$element)}" __cid="ciMZr6b"> 
+              <div xid="div33" style="border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;" bind-click="div33Click" __cid="ciMZr6b" class="ciMZr6b">
+                <div component="$model/UI2/system/components/justep/row/row" class="x-row ciMZr6b" xid="row8" style="background-color:white;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="ciMZr6b"> 
+                  <div class="x-col x-col-25 ciMZr6b" xid="col23" __cid="ciMZr6b">
+                    <div xid="div32" style="border-radius:5px;    overflow: hidden;" __cid="ciMZr6b" class="ciMZr6b">
+                      <img src=" " alt="" xid="image14" bind-attr-src=" val(&quot;cover&quot;)" style="width:100%;" __cid="ciMZr6b" class="ciMZr6b"/>
+                    </div>
+                  </div>  
+                  <div class="x-col ciMZr6b" xid="col24" style="padding:0px;" __cid="ciMZr6b">
+                    <div component="$model/UI2/system/components/justep/row/row" class="x-row ciMZr6b" xid="row9" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="ciMZr6b"> 
+                      <div class="x-col ciMZr6b" xid="col26" __cid="ciMZr6b">
+                        <span xid="span26" bind-text="val(&quot;name&quot;)" __cid="ciMZr6b" class="ciMZr6b"/>  
+                        <span xid="span28" bind-text="val(&quot;subtitle&quot;)" __cid="ciMZr6b" class="ciMZr6b"/>
+                      </div> 
+                    </div>  
+                    <div component="$model/UI2/system/components/justep/row/row" class="x-row ciMZr6b" xid="row10" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="ciMZr6b"> 
+                      <div class="x-col ciMZr6b" xid="col29" __cid="ciMZr6b">
+                        <span xid="span29" bind-text="'￥' + val(&quot;price&quot;)" style="font-size:large;color: #fe2e23;" __cid="ciMZr6b" class="ciMZr6b"/>
+                      </div> 
+                    </div>
+                  </div> 
+                </div>
+              </div>
+            </ul> 
+          </div>
+        </div>  
+        <style __cid="ciMZr6b" class="ciMZr6b">.x-panel.pcue2IZv-iosstatusbar &gt;.x-panel-top {height: 48px;}.x-panel.pcue2IZv-iosstatusbar &gt;.x-panel-content { top: 48px;bottom: nullpx;}.x-panel.pcue2IZv-iosstatusbar &gt;.x-panel-bottom {height: nullpx;}.iosstatusbar .x-panel.pcue2IZv-iosstatusbar &gt;.x-panel-top,.iosstatusbar .x-panel .x-panel-content .x-has-iosstatusbar.x-panel.pcue2IZv-iosstatusbar &gt;.x-panel-top {height: 68px;}.iosstatusbar .x-panel.pcue2IZv-iosstatusbar &gt;.x-panel-content,.iosstatusbar .x-panel .x-panel-content .x-has-iosstatusbar.x-panel.pcue2IZv-iosstatusbar &gt;.x-panel-content { top: 68px;}.iosstatusbar .x-panel .x-panel-content .x-panel.pcue2IZv-iosstatusbar &gt;.x-panel-top {height: 48px;}.iosstatusbar .x-panel .x-panel-content .x-panel.pcue2IZv-iosstatusbar &gt;.x-panel-content {top: 48px;}</style>
+      </div>
+    </div>
+  </div>
 </div>

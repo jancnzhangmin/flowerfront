@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<div xmlns="http://www.w3.org/1999/xhtml" component="$model/UI2/system/components/justep/window/window" design="device:m;" xid="window" class="window cf2iuye" data-bind="component:{name:'$model/UI2/system/components/justep/window/window'}" __cid="cf2iuye" components="$model/UI2/system/components/justep/model/model,$model/UI2/system/components/justep/loadingBar/loadingBar,$model/UI2/system/components/justep/button/button,$model/UI2/system/components/justep/list/list,$model/UI2/system/components/justep/smartContainer/smartContainer,$model/UI2/system/components/justep/menu/menu,$model/UI2/system/components/justep/panel/child,$model/UI2/system/components/justep/panel/panel,$model/UI2/system/components/justep/popOver/popOver,$model/UI2/system/components/justep/row/row,$model/UI2/system/components/justep/popMenu/popMenu,$model/UI2/system/components/justep/data/data,$model/UI2/system/components/justep/window/window,$model/UI2/system/components/justep/button/buttonGroup,">  
-  <style xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml">.x-flower.btn-group.cf2iuye{background-color: transparent; border-top: 0} .x-flower.btn-group.cf2iuye .btn.cf2iuye{border-top: 0; height: 45px; border-color: transparent} .x-flower.btn-group.cf2iuye .btn.cf2iuye span.cf2iuye{font-size: 14px; font-weight: normal; color: rgb(153, 153, 153)} .x-card.btn-group.cf2iuye .btn.active.cf2iuye{background: linear-gradient(to bottom, rgb(255, 66, 86), rgb(254, 89, 147)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid rgb(255, 66, 86)} .x-popOver-content.cf2iuye{bottom: 0px !important} .smartradius.cf2iuye{border-radius: 10px 10px 0px 0px} .noselect.cf2iuye{padding: 10px; background: rgb(245, 245, 245); color: rgb(0, 0, 0); border-radius: 8px} .hasselect.cf2iuye{padding: 10px; color: rgb(254, 46, 35); border-radius: 8px} .movefont.cf2iuye{color: rgb(246, 246, 246)} .moveback.cf2iuye{width: 35px; height: 35px; background: rgba(85, 85, 85, 0.65); position: relative; border-radius: 50%; margin-top: -38px; padding: 9px; padding-left: 12px} .popback.cf2iuye{background: rgba(85, 85, 85, 0.65)} .addbtn.cf2iuye{background: transparent; border-radius: 50%; border: 1px solid rgb(255, 66, 86); color: rgb(255, 66, 86); padding: 2px; padding-left: 5px; padding-right: 5px} .surebtn.cf2iuye{border-radius: 18px; border: 0px; background: linear-gradient(to right, rgb(255, 108, 160), rgb(255, 66, 86))} .popaddcar.cf2iuye{border-radius: 18px 0px 0px 18px; border: 0px; background: linear-gradient(to right, rgb(255, 203, 122), rgb(255, 156, 80))} .popbuy.cf2iuye{border-radius: 0px 18px 18px 0px; border: 0px; background: linear-gradient(to right, rgb(255, 108, 160), rgb(255, 66, 86))}</style>  
+<div xmlns="http://www.w3.org/1999/xhtml" component="$model/UI2/system/components/justep/window/window" design="device:m;" xid="window" class="window cf2iuye" data-bind="component:{name:'$model/UI2/system/components/justep/window/window'}" __cid="cf2iuye" components="$model/UI2/system/components/justep/model/model,$model/UI2/system/components/justep/loadingBar/loadingBar,$model/UI2/system/components/justep/button/button,$model/UI2/system/components/justep/list/list,$model/UI2/system/components/justep/smartContainer/smartContainer,$model/UI2/system/components/justep/menu/menu,$model/UI2/system/components/justep/panel/child,$model/UI2/system/components/justep/windowDialog/windowDialog,$model/UI2/system/components/justep/panel/panel,$model/UI2/system/components/justep/popOver/popOver,$model/UI2/system/components/justep/windowContainer/windowContainer,$model/UI2/system/components/justep/row/row,$model/UI2/system/components/justep/popMenu/popMenu,$model/UI2/system/components/justep/data/data,$model/UI2/system/components/justep/window/window,$model/UI2/system/components/justep/button/buttonGroup,">  
+  <style xmlns="" xmlns:xhtml="http://www.w3.org/1999/xhtml">.x-flower.btn-group.cf2iuye{background-color: transparent; border-top: 0} .x-flower.btn-group.cf2iuye .btn.cf2iuye{border-top: 0; height: 45px; border-color: transparent} .x-flower.btn-group.cf2iuye .btn.cf2iuye span.cf2iuye{font-size: 14px; font-weight: normal; color: rgb(153, 153, 153)} .x-card.btn-group.cf2iuye .btn.active.cf2iuye{background: linear-gradient(to bottom, rgb(255, 66, 86), rgb(254, 89, 147)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 1px solid rgb(255, 66, 86)} .x-popOver-content.cf2iuye{bottom: 0px !important} .smartradius.cf2iuye{border-radius: 10px 10px 0px 0px} .noselect.cf2iuye{padding: 10px; background: rgb(245, 245, 245); color: rgb(0, 0, 0); border-radius: 8px} .hasselect.cf2iuye{padding: 10px; color: rgb(254, 46, 35); border-radius: 8px} .movefont.cf2iuye{color: rgb(246, 246, 246)} .moveback.cf2iuye{width: 35px; height: 35px; background: rgba(85, 85, 85, 0.65); position: relative; border-radius: 50%; margin-top: -38px; padding: 9px; padding-left: 12px} .popback.cf2iuye{background: rgba(85, 85, 85, 0.65)} .addbtn.cf2iuye{background: transparent; border-radius: 50%; border: 1px solid rgb(255, 66, 86); color: rgb(255, 66, 86); padding: 2px; padding-left: 5px; padding-right: 5px} .surebtn.cf2iuye{border-radius: 18px; border: 0px; background: linear-gradient(to right, rgb(255, 108, 160), rgb(255, 66, 86))} .popaddcar.cf2iuye{border-radius: 18px 0px 0px 18px; border: 0px; background: linear-gradient(to right, rgb(255, 203, 122), rgb(255, 156, 80))} .popbuy.cf2iuye{border-radius: 0px 18px 18px 0px; border: 0px; background: linear-gradient(to right, rgb(255, 108, 160), rgb(255, 66, 86))} .textout.cf2iuye{display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden}</style>  
   <div xmlns="" component="$model/UI2/system/components/justep/model/model" xid="model" style="display:none" data-bind="component:{name:'$model/UI2/system/components/justep/model/model'}" data-events="onLoad:modelLoad;onParamsReceive:modelParamsReceive" __cid="cf2iuye" class="cf2iuye"/>  
   <div xmlns="" component="$model/UI2/system/components/justep/panel/panel" class="x-panel x-full pcvMvymu-iosstatusbar cf2iuye" xid="panel1" data-bind="component:{name:'$model/UI2/system/components/justep/panel/panel'},event:{touchend:$model._callModelFn.bind($model, 'panel1Touchend')}" __cid="cf2iuye"> 
     <div class="x-panel-top cf2iuye" xid="top1" style="z-index:10;" component="$model/UI2/system/components/justep/panel/child" data-bind="component:{name:'$model/UI2/system/components/justep/panel/child'}" __cid="cf2iuye"> 
@@ -17,11 +17,11 @@
               <i xid="i3" __cid="cf2iuye" class="cf2iuye"/>  
               <span xid="span3" __cid="cf2iuye" class="cf2iuye">详情</span> 
             </a>  
-            <a component="$model/UI2/system/components/justep/button/button" class="btn btn-default cf2iuye" xid="button5" data-bind="component:{name:'$model/UI2/system/components/justep/button/button'}" data-config="{&quot;label&quot;:&quot;评价&quot;}" __cid="cf2iuye"> 
+            <a component="$model/UI2/system/components/justep/button/button" class="btn btn-default cf2iuye" xid="button5" data-bind="component:{name:'$model/UI2/system/components/justep/button/button'}" data-events="onClick:button5Click" data-config="{&quot;label&quot;:&quot;评价&quot;}" __cid="cf2iuye"> 
               <i xid="i5" __cid="cf2iuye" class="cf2iuye"/>  
               <span xid="span5" __cid="cf2iuye" class="cf2iuye">评价</span> 
             </a>  
-            <a component="$model/UI2/system/components/justep/button/button" class="btn btn-default cf2iuye" xid="button6" data-bind="component:{name:'$model/UI2/system/components/justep/button/button'}" data-config="{&quot;label&quot;:&quot;推荐&quot;}" __cid="cf2iuye"> 
+            <a component="$model/UI2/system/components/justep/button/button" class="btn btn-default cf2iuye" xid="button6" data-bind="component:{name:'$model/UI2/system/components/justep/button/button'}" data-events="onClick:button6Click" data-config="{&quot;label&quot;:&quot;推荐&quot;}" __cid="cf2iuye"> 
               <i xid="i6" __cid="cf2iuye" class="cf2iuye"/>  
               <span xid="span6" __cid="cf2iuye" class="cf2iuye">推荐</span> 
             </a> 
@@ -33,7 +33,7 @@
         <i xid="i16" class="icon-chevron-left cf2iuye" style="color:#f0f0f0;font-size:medium;" __cid="cf2iuye" data-bind="event:{click:$model._callModelFn.bind($model, {operation:'window.close'})}"/> 
       </div>  
       <div xid="div12" class="moveback pull-right cf2iuye" style="margin-top:-34px;margin-right:8px;padding-left:8px;" __cid="cf2iuye"> 
-        <i xid="i1" class="my my-ziyuan cf2iuye" style="color:#f0f0f0;font-size:medium;" __cid="cf2iuye" data-bind="event:{click:$model._callModelFn.bind($model, {operation:'window.close'})}"/> 
+        <i xid="i1" class="my my-ziyuan cf2iuye" style="color:#f0f0f0;font-size:medium;" __cid="cf2iuye" data-bind="event:{click:$model._callModelFn.bind($model, 'i1Click')}"/> 
       </div> 
     </div>  
     <div class="x-panel-content x-cards cf2iuye" xid="content1" style="padding-top:0px;margin-top:-45px;" component="$model/UI2/system/components/justep/panel/child" data-bind="component:{name:'$model/UI2/system/components/justep/panel/child'},event:{touchmove:$model._callModelFn.bind($model, 'content1Touchmove'),touchend:$model._callModelFn.bind($model, 'content1Touchend')}" __cid="cf2iuye"> 
@@ -47,9 +47,8 @@
             <div xid="div3" style="margin-left:-5px;" __cid="cf2iuye" class="cf2iuye"> 
               <span xid="span7" style="color:#fe2e23;font-size:x-large;" __cid="cf2iuye" class="cf2iuye" data-bind="text:'￥' + $model.productData.val(&quot;price&quot;),visible:$model.productData.val(&quot;price&quot;) != undefined"/> 
             </div>  
-            <div xid="div4" style="margin-top:-5px;" __cid="cf2iuye" class="cf2iuye" data-bind="visible:$model.productData.val(&quot;discount&quot;) &gt; 0"> 
-              <span xid="span9" style="font-size:small;" class="text-muted cf2iuye" __cid="cf2iuye">价格</span>  
-              <span xid="span10" class="text-muted cf2iuye" style="text-decoration:line-through ;" __cid="cf2iuye" data-bind="text:'￥' + (parseFloat($model.productData.val(&quot;price&quot;)) + parseFloat($model.productData.val(&quot;discount&quot;)))"/> 
+            <div xid="div4" style="margin-top:-5px;" __cid="cf2iuye" class="cf2iuye"> 
+              <span xid="span10" style="background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" __cid="cf2iuye" class="cf2iuye" data-bind="text:'代理 ￥'+  $model.productData.val(&quot;agentprice&quot;),visible:$model.agentstatusData.val(&quot;status&quot;) == 1"/> 
             </div> 
           </div>  
           <div class="x-col cf2iuye" xid="col6" style="padding-top:12px;" __cid="cf2iuye"> 
@@ -90,7 +89,7 @@
             </div> 
           </ul> 
         </div>  
-        <div xid="div6" style="border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;margin-left:10px;" __cid="cf2iuye" class="cf2iuye"/>  
+        <div xid="div6" style="border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;margin-left:10px;display:none;" __cid="cf2iuye" class="cf2iuye"/>  
         <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row6" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
           <div class="x-col cf2iuye" xid="col5" __cid="cf2iuye"> 
             <span xid="span16" class="text-muted cf2iuye" __cid="cf2iuye">品牌：</span>  
@@ -127,7 +126,7 @@
           <i xid="i9" class="linear linear-chevronright text-muted cf2iuye" __cid="cf2iuye"/> 
         </div> 
       </div>  
-      <div component="$model/UI2/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer cf2iuye" xid="smartContainer2" style="background-color:white;margin-top:10px;padding-bottom:10px;" data-bind="component:{name:'$model/UI2/system/components/justep/smartContainer/smartContainer'}" __cid="cf2iuye"> 
+      <div component="$model/UI2/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer cf2iuye" xid="smartContainer2" style="background-color:white;margin-top:10px;padding-bottom:10px;" data-bind="component:{name:'$model/UI2/system/components/justep/smartContainer/smartContainer'},event:{click:$model._callModelFn.bind($model, 'smartContainer2Click')}" __cid="cf2iuye"> 
         <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row11" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
           <div class="x-col cf2iuye" xid="col29" __cid="cf2iuye"> 
             <span xid="span36" __cid="cf2iuye" class="cf2iuye">买家相册(10)</span> 
@@ -138,19 +137,12 @@
             <i xid="i14" class="linear linear-chevronright cf2iuye" style="color:#ff4256;" __cid="cf2iuye"/> 
           </div> 
         </div>  
-        <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row12" style="padding:0px;padding-left:9px;padding-right:9px;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
-          <div class="x-col cf2iuye" xid="col32" style="padding:1px;border-radius: 10px 0px 0px 10px;overflow: hidden;" __cid="cf2iuye"> 
-            <img src="@justepContextPath@/v_fe8fa79dd3194b26a20c4a3a61ec6d13l_zh_CNs_d_m/flowerfront/image/p4.png" alt="" xid="image2" style="width:100%;" __cid="cf2iuye" class="cf2iuye"/> 
-          </div>  
-          <div class="x-col cf2iuye" xid="col33" style="padding:1px;" __cid="cf2iuye"> 
-            <img src="@justepContextPath@/v_cbf937edda614cf5908b980294564e03l_zh_CNs_d_m/flowerfront/image/p6.png" alt="" xid="image3" style="width:100%;" __cid="cf2iuye" class="cf2iuye"/> 
-          </div>  
-          <div class="x-col cf2iuye" xid="col34" style="padding:1px;" __cid="cf2iuye"> 
-            <img src="@justepContextPath@/v_f8b6ecded2ee441cbb60e02fcd188442l_zh_CNs_d_m/flowerfront/image/p7.png" alt="" xid="image4" style="width:100%;" __cid="cf2iuye" class="cf2iuye"/> 
-          </div>  
-          <div class="x-col cf2iuye" xid="col35" style="padding:1px;border-radius: 0px 10px 10px 0px;overflow: hidden;" __cid="cf2iuye"> 
-            <img src="@justepContextPath@/v_398900fa22cb45dfaf65eeba5e978f0el_zh_CNs_d_m/flowerfront/image/p10.png" alt="" xid="image5" style="width:100%;" __cid="cf2iuye" class="cf2iuye"/> 
-          </div> 
+        <div component="$model/UI2/system/components/justep/list/list" class="x-list cf2iuye" xid="list8" data-bind="component:{name:'$model/UI2/system/components/justep/list/list'}" data-events="onAfterRender:list8AfterRender" data-config="{&quot;data&quot;:&quot;commentimgData&quot;}" __cid="cf2iuye"> 
+          <ul class="x-list-template hide cf2iuye" xid="listTemplateUl8" style="margin-left:10px;margin-right:10px;border-radius: 10px;overflow: hidden;" __cid="cf2iuye" data-bind="foreach:{data:$model.foreach_list8($element),afterRender:$model.foreach_afterRender_list8.bind($model,$element)}"> 
+            <div xid="div21" class="col-xs-3 col-sm-3 commentimgdiv cf2iuye" style="padding:1px;overflow: hidden;" __cid="cf2iuye"> 
+              <img src=" " alt="" xid="image6" style="width:100%;" __cid="cf2iuye" class="cf2iuye" data-bind="attr:{src:val(&quot;commentimg&quot;)}"/> 
+            </div> 
+          </ul> 
         </div> 
       </div>  
       <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row13" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
@@ -165,6 +157,36 @@
       <div component="$model/UI2/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer cf2iuye" xid="smartContainer3" style="background-color:white;padding:10px;" data-bind="component:{name:'$model/UI2/system/components/justep/smartContainer/smartContainer'}" __cid="cf2iuye"> 
         <div xid="contentdiv" __cid="cf2iuye" class="cf2iuye"/> 
       </div>  
+      <div component="$model/UI2/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer cf2iuye" xid="comment_smartContainer" style="background-color:white;margin-top:10px;padding-bottom:10px;" data-bind="component:{name:'$model/UI2/system/components/justep/smartContainer/smartContainer'},event:{click:$model._callModelFn.bind($model, 'comment_smartContainerClick')}" __cid="cf2iuye"> 
+        <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row12" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
+          <div class="x-col cf2iuye" xid="col32" __cid="cf2iuye"> 
+            <span xid="span47" __cid="cf2iuye" class="cf2iuye">评价(10)</span> 
+          </div>  
+          <div class="x-col cf2iuye" xid="col34" __cid="cf2iuye"/>  
+          <div class="x-col text-right cf2iuye" xid="col33" style="padding-right:0px;" __cid="cf2iuye"> 
+            <span xid="span48" style="color:#ff4256;" __cid="cf2iuye" class="cf2iuye">查看全部</span>  
+            <i xid="i19" class="linear linear-chevronright cf2iuye" style="color:#ff4256;" __cid="cf2iuye"/> 
+          </div> 
+        </div>  
+        <div component="$model/UI2/system/components/justep/list/list" class="x-list cf2iuye" xid="list10" data-bind="component:{name:'$model/UI2/system/components/justep/list/list'}" data-config="{&quot;data&quot;:&quot;usercommentData&quot;}" __cid="cf2iuye"> 
+          <ul class="x-list-template hide cf2iuye" xid="listTemplateUl9" __cid="cf2iuye" data-bind="foreach:{data:$model.foreach_list10($element),afterRender:$model.foreach_afterRender_list10.bind($model,$element)}"> 
+            <div component="$model/UI2/system/components/justep/row/row" class="x-row x-row-center cf2iuye" xid="row19" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
+              <div class="x-col x-col-fixed cf2iuye" xid="col35" style="width:30px;" __cid="cf2iuye"> 
+                <img src=" " alt="" xid="image2" style="border-radius: 50%;width:25px;" __cid="cf2iuye" class="cf2iuye" data-bind="visible:val(&quot;anonymous&quot;) != 1,attr:{src:val(&quot;headurl&quot;)}"/>  
+                <i xid="i20" class="my2 my2-niming text-muted cf2iuye" style="font-size:large;" __cid="cf2iuye" data-bind="visible:val(&quot;anonymous&quot;) == 1"/> 
+              </div>  
+              <div class="x-col cf2iuye" xid="col43" __cid="cf2iuye"> 
+                <span xid="span49" class="text-muted cf2iuye" __cid="cf2iuye" data-bind="text:val(&quot;anonymous&quot;) == 1 ? '匿名' :  val(&quot;nickname&quot;)"/> 
+              </div> 
+            </div>  
+            <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row20" style="padding-top:0px;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
+              <div class="x-col cf2iuye" xid="col47" style="padding-top:0px;" __cid="cf2iuye"> 
+                <span xid="span50" class="textout cf2iuye" __cid="cf2iuye" data-bind="text:val(&quot;comment&quot;)"/> 
+              </div> 
+            </div> 
+          </ul> 
+        </div> 
+      </div>  
       <div component="$model/UI2/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer cf2iuye" xid="explain_smartContainer" style="background-color:white;margin-top:10px;" data-bind="component:{name:'$model/UI2/system/components/justep/smartContainer/smartContainer'}" __cid="cf2iuye"> 
         <div component="$model/UI2/system/components/justep/list/list" class="x-list cf2iuye" xid="list7" data-bind="component:{name:'$model/UI2/system/components/justep/list/list'}" data-config="{&quot;data&quot;:&quot;explainData&quot;}" __cid="cf2iuye"> 
           <ul class="x-list-template hide cf2iuye" xid="listTemplateUl7" __cid="cf2iuye" data-bind="foreach:{data:$model.foreach_list7($element),afterRender:$model.foreach_afterRender_list7.bind($model,$element)}"> 
@@ -174,6 +196,39 @@
               </div> 
             </div>  
             <div xid="explain_div" style="padding:10px;" __cid="cf2iuye" class="cf2iuye" data-bind="html:val(&quot;explain&quot;)"/> 
+          </ul> 
+        </div> 
+      </div>  
+      <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row21" style="padding-bottom:0px;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
+        <div class="x-col cf2iuye" xid="col49" __cid="cf2iuye"> 
+          <span xid="span51" __cid="cf2iuye" class="cf2iuye"/> 
+        </div>  
+        <div class="x-col text-center cf2iuye" xid="col48" __cid="cf2iuye"> 
+          <span xid="span52" class="text-muted cf2iuye" __cid="cf2iuye">推荐商品</span> 
+        </div>  
+        <div class="x-col cf2iuye" xid="col44" __cid="cf2iuye"/> 
+      </div>  
+      <div component="$model/UI2/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer cf2iuye" xid="tuijian_smartContainer" data-bind="component:{name:'$model/UI2/system/components/justep/smartContainer/smartContainer'}" __cid="cf2iuye"> 
+        <div component="$model/UI2/system/components/justep/list/list" class="x-list cf2iuye" xid="list9" style="margin-top:-10px;" data-bind="component:{name:'$model/UI2/system/components/justep/list/list'}" data-config="{&quot;data&quot;:&quot;product_tuijian_Data&quot;}" __cid="cf2iuye"> 
+          <ul class="x-list-template hide cf2iuye" xid="listTemplateUl10" __cid="cf2iuye" data-bind="foreach:{data:$model.foreach_list9($element),afterRender:$model.foreach_afterRender_list9.bind($model,$element)}"> 
+            <div xid="div25" class="col-xs-4 col-sm-4 cf2iuye" style="padding:5px;padding-top:5px;padding-bottom:5px;" __cid="cf2iuye" data-bind="event:{click:$model._callModelFn.bind($model, 'div25Click')}"> 
+              <div xid="div24" style="border-radius:5px 5px 0px 0px;overflow: hidden;background-color:#eaeaea;" class="imagediv cf2iuye" __cid="cf2iuye"> 
+                <img src=" " alt="" xid="image13" style="width:100%;" __cid="cf2iuye" class="cf2iuye" data-bind="attr:{src:val(&quot;cover&quot;)}"/> 
+              </div>  
+              <div xid="div28" style="background-color:white;padding-bottom:5px;border-radius: 0 0 5px 5px;" __cid="cf2iuye" class="cf2iuye"> 
+                <div xid="div26" style="padding-top:10px;padding-left:10px;" __cid="cf2iuye" class="cf2iuye"> 
+                  <span xid="span55" style="font-size:small;" __cid="cf2iuye" class="cf2iuye" data-bind="text:val(&quot;name&quot;)"/> 
+                </div>  
+                <div xid="div27" style="padding-left:10px;" __cid="cf2iuye" class="cf2iuye"> 
+                  <span xid="span57" style="background-color:white;font-size:small;" class="text-muted cf2iuye" __cid="cf2iuye" data-bind="text:val(&quot;subtitle&quot;),visible:false"/> 
+                </div>  
+                <div xid="div29" style="padding-left:10px;padding-right:5px;" __cid="cf2iuye" class="cf2iuye"> 
+                  <span xid="span56" style="font-size:large;color:#fe2e23;" __cid="cf2iuye" class="cf2iuye" data-bind="text:'￥' + val(&quot;price&quot;)"/>  
+                  <span xid="span54" style="font-size:x-small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" __cid="cf2iuye" class="cf2iuye" data-bind="text:'省' + val(&quot;discount&quot;) + '元',visible:val(&quot;discount&quot;) &gt; 0"/>  
+                  <span xid="span53" class="pull-right text-muted cf2iuye" style="font-size:x-small;font-weight:lighter;margin-top:9px;" __cid="cf2iuye">已售100件</span> 
+                </div> 
+              </div> 
+            </div> 
           </ul> 
         </div> 
       </div> 
@@ -205,7 +260,7 @@
   </div>  
   <div xmlns="" component="$model/UI2/system/components/justep/popOver/popOver" class="x-popOver cf2iuye" xid="choosepop" data-bind="component:{name:'$model/UI2/system/components/justep/popOver/popOver'}" data-config="{&quot;direction&quot;:&quot;auto&quot;,&quot;position&quot;:&quot;bottom&quot;}" __cid="cf2iuye"> 
     <div class="x-popOver-overlay cf2iuye" xid="div7" __cid="cf2iuye"/>  
-    <div class="x-popOver-content cf2iuye" xid="div8" style="height:70%;" __cid="cf2iuye"> 
+    <div class="x-popOver-content cf2iuye" xid="div8" style="height:70%;width:100%;" __cid="cf2iuye"> 
       <div component="$model/UI2/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer smartradius cf2iuye" xid="smartContainer1" style="background-color:white;height:100%;" data-bind="component:{name:'$model/UI2/system/components/justep/smartContainer/smartContainer'}" __cid="cf2iuye"> 
         <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row8" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
           <div class="x-col x-col-33 cf2iuye" xid="col8" __cid="cf2iuye"> 
@@ -213,7 +268,7 @@
           </div>  
           <div class="x-col x-col-bottom cf2iuye" xid="col18" __cid="cf2iuye"> 
             <div xid="div10" __cid="cf2iuye" class="cf2iuye"> 
-              <span xid="span26" style="color:#fe2e23;font-size:x-large;margin-left:-5px;" __cid="cf2iuye" class="cf2iuye" data-bind="text:'￥' + $model.productData.val(&quot;price&quot;)"/> 
+              <span xid="span26" style="color:#fe2e23;font-size:x-large;margin-left:-5px;" __cid="cf2iuye" class="cf2iuye" data-bind="text:'￥' + $model.productData.val(&quot;agentprice&quot;)"/> 
             </div>  
             <div xid="div11" __cid="cf2iuye" class="cf2iuye"> 
               <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row10" style="padding:0px;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
@@ -304,5 +359,29 @@
         </div> 
       </div> 
     </div> 
-  </div> 
+  </div>  
+  <div xmlns="" component="$model/UI2/system/components/justep/popOver/popOver" class="x-popOver cf2iuye" xid="subscribe_popOver" data-bind="component:{name:'$model/UI2/system/components/justep/popOver/popOver'}" data-config="{&quot;direction&quot;:&quot;auto&quot;}" __cid="cf2iuye"> 
+    <div class="x-popOver-overlay cf2iuye" xid="div14" __cid="cf2iuye"/>  
+    <div class="x-popOver-content text-center cf2iuye" xid="div20" style="width:100%;top:10%;height:80%;" __cid="cf2iuye"> 
+      <img src=" " alt="" xid="sysqrimg" style="width:60%;" __cid="cf2iuye" class="cf2iuye"/>  
+      <div component="$model/UI2/system/components/justep/row/row" class="x-row cf2iuye" xid="row18" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cf2iuye"> 
+        <div class="x-col text-center cf2iuye" xid="col41" __cid="cf2iuye"> 
+          <span xid="span46" __cid="cf2iuye" class="cf2iuye">长按二维码识别关注公众号后继续</span> 
+        </div> 
+      </div> 
+    </div> 
+  </div>  
+  <span xmlns="" component="$model/UI2/system/components/justep/windowDialog/windowDialog" xid="windowDialog1" data-bind="component:{name:'$model/UI2/system/components/justep/windowDialog/windowDialog'}" __cid="cf2iuye" class="cf2iuye"> 
+    <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="x-dialog-overlay cf2iuye" __cid="cf2iuye"></div>  
+    <div xmlns:xhtml="http://www.w3.org/1999/xhtml" class="x-dialog cf2iuye" style="display:none;" __cid="cf2iuye">  
+      <div class="x-dialog-title cf2iuye" __cid="cf2iuye"> 
+        <button class="close cf2iuye" __cid="cf2iuye"> 
+          <span __cid="cf2iuye" class="cf2iuye">×</span> 
+        </button>  
+        <div class="x-dialog-title-text cf2iuye" __cid="cf2iuye"/> 
+      </div>  
+      <div class="x-dialog-body cf2iuye" __cid="cf2iuye"/> 
+    </div> 
+  </span>  
+  <div xmlns="" component="$model/UI2/system/components/justep/windowContainer/windowContainer" class="x-window-container cf2iuye" xid="windowContainer1" __component-context__="block" data-bind="component:{name:'$model/UI2/system/components/justep/windowContainer/windowContainer'}" __cid="cf2iuye"/> 
 </div>

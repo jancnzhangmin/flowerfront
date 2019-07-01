@@ -1,0 +1,40 @@
+.bottom-color{
+				border-bottom:1px solid #ddd;
+
+			border-image: -webkit-linear-gradient(#fff, #000) 30 30;
+			border-image: -moz-linear-gradient(#000, #fff) 30 30;
+			border-image: -o-linear-gradient(#fff, #000) 30 30;
+			border-image: linear-gradient(#fff, #000) 30 30;
+}
+
+.x-toggle input:checked + label {
+    background-color:#ff4665;
+    line-height: -1em;
+}
+
+.x-flower.btn-group {
+	background-color: #fff;
+	border-top: 0;
+
+}
+
+.x-flower.btn-group .btn {
+	border-top: 0;
+	height:45px;
+	border-color:transparent;
+background-color: #fff;
+}
+
+.x-flower.btn-group .btn span {
+	font-size: 14px;
+	font-weight: normal;
+	color:#999999;
+}
+
+.x-flower.btn-group .btn.active {
+		background: linear-gradient(to bottom, #ff4256, #fe5993);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	border-bottom:1px solid #ff4256;
+
+}

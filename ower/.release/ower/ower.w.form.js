@@ -20,5 +20,6 @@ var __result = __parent1._extend(__parent0).extend({
 	this._appCfg_={};
 	this.callParent(contextUrl);
  require('css!$UI/flowerfront/icon/my.icons').load();
+ require('css!$UI/flowerfront/icon2/my2.icons').load();
 }}); 
 return __result;});

@@ -1,0 +1,23 @@
+.textout {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.x-popOver-content{
+	bottom:0px !important;
+	max-height: unset !important;
+}
+
+.x-popOver .x-popOver-overlay{
+	    background-color: #000;
+}
+
+.topdiv-gradient{
+	background: -webkit-linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0));
+}
+
+.bottomdiv-gradient{
+	background: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.65));
+}

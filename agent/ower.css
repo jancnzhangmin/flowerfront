@@ -1,0 +1,15 @@
+.btnclass{
+		background: linear-gradient(to bottom, #ff4256, #fe5993);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.bottom-line{
+	border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#F6F6F6;
+}
+
+.x-toggle input:checked + label {
+    background-color:#ff4665;
+    line-height: -1em;
+}
+

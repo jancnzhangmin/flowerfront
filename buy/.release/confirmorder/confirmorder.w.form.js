@@ -5,7 +5,6 @@ require('$model/UI2/system/components/justep/button/button');
 require('$model/UI2/system/components/justep/list/list');
 require('$model/UI2/system/components/justep/smartContainer/smartContainer');
 require('$model/UI2/system/components/justep/panel/child');
-require('$model/UI2/system/components/justep/button/toggle');
 require('$model/UI2/system/components/justep/textarea/textarea');
 require('$model/UI2/system/components/justep/panel/panel');
 require('$model/UI2/system/components/justep/popOver/popOver');

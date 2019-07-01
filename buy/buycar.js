@@ -7,6 +7,8 @@ define(function(require) {
 	var originalX = 0;
 	var lastX = 0;
 	var swiper;
+	var agentuserid = 0;
+	var destock = 0;
 	var Model = function() {
 		this.callParent();
 	};
@@ -26,10 +28,87 @@ define(function(require) {
 	};
 
 	Model.prototype.modelLoad = function(event) {
+		if (buycar.length > 0) {
+			agentuserid = buycar[0].agentuserid;
+			if (buycar[0].destock == 1) {
+				this.comp('destockcheckbox').set({
+					'checked' : true
+				});
+				destock = 1;
+			}
+		}
 		justep.Shell.on("buycar_change", this.buycar_change, this);
 		this.refreshdata();
 		$('#x-default-loadingbar').css('z-index', -1);
+		justep.Shell.on("buycar_change_directagent", this.buycar_change_directagent, this);
+		this.change_destck_status();
+		this.get_agent_name();
 
+	};
+
+	Model.prototype.buycar_change_directagent = function(params) {
+		if (params.agentuserid == 0) {
+			$(this.getElementByXid("agentnamespan")).text('');
+		} else {
+			$(this.getElementByXid("agentnamespan")).text(params.name);
+		}
+		agentuserid = params.agentuserid;
+		this.comp('buycarData').each(function(param) {
+			param.row.val('agentuserid', agentuserid);
+		});
+		// this.change_destck_status();
+	};
+
+	Model.prototype.change_destck_status = function() {
+		// var destock = this.comp('buycarData').getFirstRow();
+		if (agentuserid != 0 || destock == 1) {
+			$(this.getElementByXid("smartContainer4")).show();
+			if (agentuserid != 0) {
+				$(this.getElementByXid("directagentrow")).show();
+			} else {
+				$(this.getElementByXid("directagentrow")).hide();
+			}
+			if (destock == 1) {
+				$(this.getElementByXid("destockrow")).show();
+				this.comp('destockcheckbox').set({
+					'checked' : true
+				});
+				// $(this.getElementByXid("destockcheckbox")).set({'checked':true});
+			} else {
+				$(this.getElementByXid("destockrow")).hide();
+				this.comp('destockcheckbox').set({
+					'checked' : false
+				});
+				// $(this.getElementByXid("destockcheckbox")).set({'checked':false});
+			}
+		} else {
+			$(this.getElementByXid("smartContainer4")).hide();
+		}
+
+	};
+
+	Model.prototype.get_agent_name = function() {
+		if (agentuserid != 0) {
+			var self = this;
+			$.ajax({
+				async : true,
+				url : publicurl + "api/get_directagent_detail",
+				type : "GET",
+				dataType : 'jsonp',
+				jsonp : 'callback',
+				timeout : 5000,
+				data : {
+					id : agentuserid
+				},
+				success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+					$(self.getElementByXid("agentnamespan")).text(jsonstr.agent.nickname + '(' + jsonstr.agent.name + ')');
+					$(self.getElementByXid("span25")).text('给' + jsonstr.agent.nickname + '(' + jsonstr.agent.name + ')下单');
+				},
+				error : function(xhr) {
+					// justep.Util.hint("错误，请检查网络");
+				}
+			});
+		}
 	};
 
 	Model.prototype.buycar_change = function() {
@@ -69,9 +148,12 @@ define(function(require) {
 					openid : item.openid,
 					name : item.name,
 					subtitle : item.subtitle,
-					hasoptional : hasoptional
+					hasoptional : hasoptional,
+					agentuserid : item.agentuserid,
+					destock : item.destock
 				} ]
 			}
+
 			buycardata.newData(option);
 			$.each(item.buycaroptional, function(oi, oitem) {
 				var ouuid = new UUID().toString();
@@ -118,7 +200,6 @@ define(function(require) {
 	};
 
 	Model.prototype.addBtnClick = function(event) {
-
 		this.changeNum('add', event);
 
 	};
@@ -161,8 +242,11 @@ define(function(require) {
 		});
 
 		var fd = new FormData();
+
 		fd.append("openid", openid);
 		fd.append("data", JSON.stringify(buycar));
+		fd.append("agentuserid", agentuserid);
+		fd.append("destock", destock);
 		$.ajax({
 			type : "POST",
 			async : true,
@@ -207,18 +291,7 @@ define(function(require) {
 		} else {
 			$(this.getElementByXid("row12")).hide();
 		}
-		try {
-			if (this.comp('buycarData').count() > 0) {
-				this.comp('button3').set({
-					'label' : '结算(' + this.comp('buycarData').count() + ')'
-				});
-			} else {
-				this.comp('button3').set({
-					'label' : '结算'
-				});
-			}
-		} catch (e) {
-		}
+
 	};
 
 	Model.prototype.row1Touchmove = function(event) {
@@ -335,6 +408,71 @@ define(function(require) {
 		var fd = new FormData();
 		fd.append("openid", openid);
 		fd.append("data", JSON.stringify(buycar));
+		fd.append("agentuserid", agentuserid);
+		fd.append("destock", destock);
+		$.ajax({
+			type : "POST",
+			async : true,
+			url : publicurl + "api/submitbuycar",
+			data : fd,
+			contentType : false,
+			processData : false,
+			success : function(data) {
+				// 成功
+				AddToBuycar(data.buycars);
+				self.calower();
+
+			},
+			error : function() {
+
+				// 错误
+			}
+		});
+	};
+
+	Model.prototype.change_buycar = function() {
+		var self = this;
+		buycar = [];
+
+		self.comp('buycarData').each(function(params) {
+			var buycaroptionalparams = [];
+			self.comp('optionalData').each(function(oparams) {
+				if (oparams.row.val('buycar_id') == params.row.val('id')) {
+					var optionalparams = {
+						selectcondition_id : oparams.row.val('selectcondition_id'),
+						selectcondition_name : oparams.row.val('selectcondition_name')
+					}
+					buycaroptionalparams.push(optionalparams);
+				}
+			});
+			var buycarparams = {
+				id : new UUID().toString(),
+				product_id : params.row.val('product_id'),
+				number : params.row.val('number'),
+				producttype : params.row.val('producttype'),
+				buycaroptional : buycaroptionalparams,
+				producttype : params.row.val('producttype')
+			}
+			if (params.row.val('producttype') == 0) {
+				buycar.push(buycarparams);
+			}
+		});
+
+		// debugger;
+		// if (this.comp('destockcheckbox').val() == true) {
+		// destock = 1;
+		// }
+
+		// var row = self.comp('buycarData').getFirstRow();
+		// if(row && row.val('destock') == 1){
+		// destock = 1;
+		// }
+
+		var fd = new FormData();
+		fd.append("openid", openid);
+		fd.append("data", JSON.stringify(buycar));
+		fd.append("agentuserid", agentuserid);
+		fd.append("destock", destock);
 		$.ajax({
 			type : "POST",
 			async : true,
@@ -406,6 +544,8 @@ define(function(require) {
 		var fd = new FormData();
 		fd.append("openid", openid);
 		fd.append("data", JSON.stringify(buycar));
+		fd.append("agentuserid", agentuserid);
+		fd.append("destock", destock);
 		$.ajax({
 			type : "POST",
 			async : true,
@@ -432,8 +572,63 @@ define(function(require) {
 		justep.Shell.fireEvent("productdetail_force_collection", this);
 	};
 
-	Model.prototype.settleBtnClick = function(event){
-justep.Shell.showPage(require.toUrl("./confirmorder.w"));
+	Model.prototype.settleBtnClick = function(event) {
+	var params = {
+	agentuserid:agentuserid,
+	agentusertext:$(this.getElementByXid("span25")).text(),
+	destock:destock
+	}
+		justep.Shell.showPage(require.toUrl("./confirmorder.w"),params);
+	};
+
+	Model.prototype.morebuttonClick = function(event) {
+		this.comp('directagentpopOver').show();
+	};
+
+	Model.prototype.closedirectagentpopiClick = function(event) {
+		this.comp('directagentpopOver').hide();
+	};
+
+	Model.prototype.directagnetrowClick = function(event) {
+		var params = {
+			agentuserid : agentuserid
+		};
+		// justep.Shell.showPage(require.toUrl("./directagent.w"), params);
+		this.comp('directagentpopOver').hide();
+		this.comp('windowDialog1').open({
+			src : require.toUrl("./directagent.w"),
+			params : params
+		});
+	};
+
+	Model.prototype.destockcheckboxChange = function(event) {
+
+		if (this.comp('destockcheckbox').val() == true) {
+			destock = 1;
+		} else {
+			destock = 0;
+		}
+		this.comp('buycarData').each(function(param) {
+			param.row.val('destock', destock);
+		});
+		this.change_buycar();
+		this.change_destck_status();
+	};
+
+	Model.prototype.windowDialog1Receive = function(event) {
+		this.comp('directagentpopOver').show();
+		if (event.data.agentuserid == 0) {
+			$(this.getElementByXid("agentnamespan")).text('');
+		} else {
+			$(this.getElementByXid("agentnamespan")).text(event.data.name);
+			$(this.getElementByXid("span25")).text('给' + event.data.name + '下单');
+		}
+		agentuserid = event.data.agentuserid;
+		this.comp('buycarData').each(function(param) {
+			param.row.val('agentuserid', agentuserid);
+		});
+		this.change_buycar();
+		this.change_destck_status();
 	};
 
 	return Model;

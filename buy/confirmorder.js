@@ -7,14 +7,15 @@ define(function(require) {
 	var frontuuid = '';
 	var price = 0;
 	var banlance = 0;
-	var localbuycar;
+	var localbuycar = [];
 	var deduction = 0;// 抵扣
 	var Model = function() {
 		this.callParent();
 	};
 
 	Model.prototype.modelLoad = function(event) {
-		if (frontuuid == '') {
+		localbuycar = [];
+		if (localbuycar.length == 0) {
 			frontuuid = new UUID().toString();
 			localbuycar = buycar;
 		}
@@ -193,16 +194,13 @@ define(function(require) {
 	};
 
 	Model.prototype.submitBtnClick = function(event) {
-	buycar = [];
-	justep.Shell.fireEvent("buycar_change", this);
-	var params = {
-	number:0
-	}
-	justep.Shell.fireEvent("buycar_change_buynumber", params);
+		buycar = [];
+		justep.Shell.fireEvent("buycar_change", this);
+		var params = {
+			number : 0
+		}
+		justep.Shell.fireEvent("buycar_change_buynumber", params);
 		var self = this;
-		this.comp('toggle1').set({
-			'disabled' : true
-		});
 		this.comp('payBtn').set({
 			'disabled' : true
 		});
@@ -211,8 +209,8 @@ define(function(require) {
 		fd.append("openid", openid);
 		fd.append("data", JSON.stringify(localbuycar));
 		fd.append("frontuuid", frontuuid);
-		fd.append("address_id",address_id);
-		fd.append("summary",this.comp('textarea1').val());
+		fd.append("address_id", address_id);
+		fd.append("summary", this.comp('textarea1').val());
 		$.ajax({
 			type : "POST",
 			async : true,
@@ -222,22 +220,25 @@ define(function(require) {
 			processData : false,
 			success : function(data) {
 				// 成功
-				if (price == 0 && deduction == 0) {
-					price = parseFloat(data.price);
-					$(self.getElementByXid("span23")).text("￥" + price.toFixed(2));
-					balance = parseFloat(data.balance);
-					$(self.getElementByXid("span25")).text("可用余额：￥" + balance.toFixed(2));
+				$(self.getElementByXid("span23")).text("￥" + parseFloat(data.price).toFixed(2));
+								self.comp('payBtn').set({
+					'disabled' : false
+				});
+				if(data.paytype == 0){
+				$(self.getElementByXid("span25")).text('微信支付');
+				}else if(data.paytype == 1){
+				$(self.getElementByXid("span25")).text('货款支付');
+				}else if(data.paytype == 2){
+				$(self.getElementByXid("span25")).text(data.agentname + '的货款支付');
+				}else if(data.paytype == 3){
+				$(self.getElementByXid("span25")).text(data.agentname + '的货款不足');
+								self.comp('payBtn').set({
+					'disabled' : true
+				});
 				}
-				if (balance != 0 || deduction != 0) {
-					self.comp('toggle1').set({
-						'disabled' : false
-					});
-				}
-				if (price != 0 || deduction != 0) {
-					self.comp('payBtn').set({
-						'disabled' : false
-					});
-				}
+
+				justep.Shell.fireEvent("ower_refresh_unpay_count", self);
+				// localbuycar = [];
 			},
 			error : function(e) {
 				// 错误
@@ -268,6 +269,24 @@ define(function(require) {
 		}
 		$(this.getElementByXid("span23")).text("￥" + price.toFixed(2));
 		$(this.getElementByXid("span25")).text("可用余额：￥" + balance.toFixed(2));
+	};
+
+	Model.prototype.modelParamsReceive = function(event) {
+		if (parseInt(event.params.agentuserid) != 0 || parseInt(event.params.destock) == 1) {
+			$(this.getElementByXid("smartContainer3")).show();
+			if (parseInt(event.params.agentuserid) != 0) {
+				$(this.getElementByXid("paytoagentrow")).show();
+				$(this.getElementByXid("paytoagentspan")).text(event.params.agentusertext);
+			} else {
+				$(this.getElementByXid("paytoagentrow")).hide();
+			}
+			if (parseInt(event.params.destock) == 1) {
+				$(this.getElementByXid("destockrow")).show();
+			} else {
+				$(this.getElementByXid("destockrow")).hide();
+			}
+		}
+
 	};
 
 	return Model;

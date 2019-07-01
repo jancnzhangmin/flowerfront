@@ -39,7 +39,7 @@
         <div class="col col-xs-9 cfQzuq2" xid="col3" __cid="cfQzuq2">
           <div component="$model/UI2/system/components/justep/row/row" class="x-row cfQzuq2" xid="row2" style="padding-top:0px;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cfQzuq2"> 
             <div class="x-col cfQzuq2" xid="col4" style="padding-top:0px;" __cid="cfQzuq2">
-              <img src="@justepContextPath@/v_54ec22699347454ca3ac47c28ebdaf54l_zh_CNs_d_m/flowerfront/image/product_top.png" alt="" xid="image1" style="width:100%;" __cid="cfQzuq2" class="cfQzuq2">
+              <img src="@justepContextPath@/v_322098402d3a4fedb1b014ef15d1ade2l_zh_CNs_d_m/flowerfront/image/product_top.png" alt="" xid="image1" style="width:100%;" __cid="cfQzuq2" class="cfQzuq2">
             </div> 
           </div>
           <div component="$model/UI2/system/components/justep/row/row" class="x-row x-row-center cfQzuq2" xid="row3" style="padding-bottom:0px;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cfQzuq2"> 
@@ -69,8 +69,7 @@
                   </div>  
                   <div xid="div29" style="padding-left:10px;padding-right:5px;" __cid="cfQzuq2" class="cfQzuq2"> 
                     <span xid="span23" style="font-size:large;color:#fe2e23;" __cid="cfQzuq2" class="cfQzuq2" data-bind="text:'￥' + val(&#34;price&#34;)"></span>  
-                    <span xid="span24" style="font-size:x-small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" __cid="cfQzuq2" class="cfQzuq2" data-bind="text:'省' + val(&#34;discount&#34;) + '元',visible:val(&#34;discount&#34;) &gt; 0"></span>  
-                    <span xid="span25" class="pull-right text-muted cfQzuq2" style="font-size:x-small;font-weight:lighter;margin-top:9px;" __cid="cfQzuq2">已售100件</span>
+                    <span xid="span24" style="font-size:small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" __cid="cfQzuq2" class="cfQzuq2" data-bind="text:'代理 ￥' + val(&#34;agentprice&#34;),visible:$model.agentstatusData.val(&#34;status&#34;) == 1"></span> 
                   </div> 
                 </div> 
               </div> 

@@ -46,7 +46,9 @@ var AddToBuycar = function(buycardata){
 				spec:item.spec,
 				unit:item.unit,
 				cover:item.cover,
-				pack:item.pack
+				pack:item.pack,
+				agentuserid:item.agentuserid,
+				destock:item.destock
 		};
 		
 		buycar.push(option);

@@ -18,10 +18,14 @@ this.comp('windowContainer2').refresh();
 	}else{
 	$(this.getElementByXid("label2")).hide();
 	}
-	}
+	};
 
 	Model.prototype.modelLoad = function(event){
 justep.Shell.on("buycar_change_buynumber", this.buycar_change_buynumber, this);
+	};
+
+	Model.prototype.topsalecontentActive = function(event){
+
 	};
 
 	return Model;

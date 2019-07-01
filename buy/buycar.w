@@ -17,7 +17,9 @@
   <column name="openid" type="String" xid="xid13"></column>
   <column name="name" type="String" xid="xid24"></column>
   <column name="subtitle" type="String" xid="xid25"></column>
-  <column name="hasoptional" type="String" xid="xid26"></column></div> 
+  <column name="hasoptional" type="String" xid="xid26"></column>
+  <column name="agentuserid" type="String" xid="xid27"></column>
+  <column name="destock" type="String" xid="xid28"></column></div> 
    <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="optionalData" idColumn="id">
     <column name="id" type="String" xid="xid14"></column>
   <column name="selectcondition_id" type="String" xid="xid15"></column>
@@ -67,7 +69,7 @@
    <ul class="x-list-template" xid="listTemplateUl3">
     <span xid="span4" bind-text='val("selectcondition_name")' style="font-size:small;" class="text-muted"></span></ul> 
   </div></div>
-   <div class="x-col" xid="col15"><i xid="i1" class="linear linear-chevrondown text-muted" style="font-size:x-small;" bind-visible=' val("hasoptional") &gt; 0'></i></div></div>
+   <div class="x-col" xid="col15"></div></div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row5" style="padding:0px;">
    <div class="x-col" xid="col5"><span xid="span5" style="color:#fe2e23;font-size:large;" bind-text="'￥' + val(&quot;price&quot;)"></span>
   <span xid="span10" bind-text="'￥' + (parseFloat(val(&quot;price&quot;)) + parseFloat(val(&quot;discount&quot;)))" class="text-muted" style="text-decoration:line-through;margin-left:5px;" bind-visible=' val("discount") &gt; 0'></span></div>
@@ -86,7 +88,7 @@
   <div xid="deletediv" style="background-color:#ff4256;height:100%;width:50%;display: flex;justify-content:center;align-items:Center;overflow:hidden;" class="text-center" bind-click="deletedivClick"><span xid="span21" style="white-space:nowrap;width:100%;color:#FFFFFF;"><![CDATA[删除]]></span></div></div></div></div></div></ul> 
   </div>
   </div>
-  <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer2" style="background-color:white;overflow-x: unset;padding-bottom:0px;border-radius:5px;">
+  <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer2" style="background-color:white;overflow-x: unset;padding-bottom:0px;border-radius:5px;display:none;">
    <div component="$UI/system/components/justep/row/row" class="x-row" xid="row11" style="color:#ff4665;">
    <div class="x-col x-col-fixed" xid="col17" style="width:30px;"><i xid="i6" class="my my-shouyi"></i></div>
    <div class="x-col" xid="col18"><span xid="span15"><![CDATA[节省了35.32元]]></span></div>
@@ -128,15 +130,49 @@
          <a component="$UI/system/components/justep/button/button" class="btn btn-default btn-sm btn-only-icon addbtn" label="button" xid="button1" icon="icon-android-add" onClick="addBtnClick" bind-visible="false">
           <i xid="i2" class="icon-android-add"></i>
           <span xid="span7"></span></a> </div> </div> </div> </div> </ul> </div> 
-  </div></div>
-  <div class="x-panel-bottom" xid="bottom1" style="border-top-style:solid;border-top-color:#f6f6f6;border-top-width:1px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row13">
-   <div class="x-col x-col-20 text-center" xid="col22" style="padding-top:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link" label="清空" xid="button4" icon="glyphicon glyphicon-trash" style="color:#555555;">
+  </div>
+  <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer4" style="background-color:white;display:none;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="directagentrow">
+   <div class="x-col x-col-fixed" xid="col35" style="width:50px;"></div>
+   <div class="x-col" xid="col36"><span xid="span25" class="text-muted"><![CDATA[给直属代理下单]]></span></div>
+   <div class="x-col" xid="col38"></div></div>
+  <div component="$UI/system/components/justep/row/row" class="x-row" xid="destockrow">
+   <div class="x-col x-col-fixed" xid="col39" style="width:50px;"></div>
+   <div class="x-col" xid="col40"><span xid="span29" class="text-muted"><![CDATA[去库存]]></span></div>
+   <div class="x-col" xid="col41"></div></div></div></div>
+  <div class="x-panel-bottom" xid="bottom1" style="border-top-style:solid;border-top-color:#f6f6f6;border-top-width:1px;"><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row13" style="height:48px;padding:2px;">
+   <div class="x-col x-col-20" xid="col19" style="padding-left:0px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;"><a component="$UI/system/components/justep/button/button" class="btn btn-link" label="更多" xid="morebutton" style="color:#555555;" icon="linear linear-menu" onClick="morebuttonClick">
+   <i xid="i10" class="linear linear-menu"></i>
+   <span xid="span23">更多</span></a></div><div class="x-col x-col-20 text-right" xid="col22" style="padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link" label="清空" xid="button4" icon="glyphicon glyphicon-trash" style="color:#555555;">
    <i xid="i9" class="glyphicon glyphicon-trash"></i>
    <span xid="span20">清空</span></a>
   </div>
-   <div class="x-col text-right" xid="col23" style="padding-top:9px;"><label xid="label2" style="height:30px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;margin-top:-5px;" class="pull-left"><![CDATA[]]></label><span xid="span18"><![CDATA[合计：]]></span>
+   <div class="x-col text-right" xid="col23"><span xid="span18"><![CDATA[合计：]]></span>
   <span xid="span19" style="color:#fe2e23;"></span></div>
-   <div class="x-col" xid="col24" style="padding-top:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-default btn-block surebtn" label="结算" xid="settleBtn" onClick="settleBtnClick">
+   <div class="x-col" xid="col24" style="padding:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-default btn-block surebtn" label="结算" xid="settleBtn" onClick="settleBtnClick">
    <i xid="i8"></i>
-   <span xid="span17">结算</span></a></div></div></div></div> 
-<resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require></resource></div>
+   <span xid="span17">结算</span></a></div>
+  </div></div></div> 
+<resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require></resource>
+  <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver" direction="auto" xid="directagentpopOver" position="bottom">
+   <div class="x-popOver-overlay" xid="div3"></div>
+   <div class="x-popOver-content" xid="div4" style="width:100%;height:80%;"><div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer3" style="height:100%;background-color:white;border-top-left-radius:5px;border-top-right-radius:5px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row14">
+   <div class="x-col" xid="col25"></div>
+   <div class="x-col" xid="col26"></div>
+   <div class="x-col text-right" xid="col27"><i xid="closedirectagentpopi" class="linear linear-cross" bind-click="closedirectagentpopiClick"></i></div></div>
+  <hr xid="hr1" style="margin:0px;margin-left:0px;border-top: 1px solid #f6f6f6;"></hr><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="directagnetrow" style="height:50px;" bind-click="directagnetrowClick">
+   <div class="x-col" xid="col28"><span xid="span24"><![CDATA[给直属代理下单]]></span></div>
+   <div class="x-col text-right" xid="col29"><span xid="agentnamespan"></span></div>
+   <div class="x-col x-col-fixed text-right" xid="col30" style="width:30px;"><i xid="i12" class="linear linear-chevronright"></i></div></div>
+  <hr xid="hr2" style="margin:0px;margin-left:0px;border-top: 1px solid #f6f6f6;"></hr>
+  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row16" style="height:50px;">
+   <div class="x-col" xid="col31"><span xid="span26"><![CDATA[订单方式]]></span></div>
+   <div class="x-col text-right" xid="col32"><span component="$UI/system/components/justep/button/checkbox" class="x-checkbox" xid="destockcheckbox" label="去库存" onChange="destockcheckboxChange"></span></div>
+   <div class="x-col x-col-fixed" xid="col33" style="width:20px;"></div></div>
+  <hr xid="hr3" style="margin:0px;margin-left:0px;border-top: 1px dashed #f6f6f6;margin-top:10px;"></hr>
+  <div component="$UI/system/components/justep/row/row" class="x-row text-muted" xid="row17">
+   <div class="x-col" xid="col34"><span xid="span27"><![CDATA[给直属代理下单：下单时，将扣除指定直属代理的货款]]></span></div>
+   </div>
+  <div component="$UI/system/components/justep/row/row" class="x-row text-muted" xid="row18">
+   <div class="x-col" xid="col37">
+    <span xid="span28"><![CDATA[去库存：下单后，订单不提交至公司，公司不安排发货，客户所需货品由自己安排处理；选中直属代理时，以直属代理价扣除直属代理货款，你获得直属与自己商品价差提现额。]]></span></div> </div></div></div></div>
+  <span component="$UI/system/components/justep/windowDialog/windowDialog" xid="windowDialog1" onReceive="windowDialog1Receive"></span></div>

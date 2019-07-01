@@ -24,3 +24,12 @@
 	border:0px;
 	background: linear-gradient(to right,#ff6ca0,#ff4256);
 }
+
+.x-popOver-content{
+	bottom:0px !important;
+}
+
+.x-radio input[type="radio"]:checked + label:before, .x-checkbox input[type="checkbox"]:checked + label:before {
+    background-color: #ff6ca0;
+    border: 1px solid #ff6ca0;
+}

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<div xmlns="http://www.w3.org/1999/xhtml" component="$model/UI2/system/components/justep/window/window" design="device:m;" xid="window" class="window cvMvqQv" data-bind="component:{name:'$model/UI2/system/components/justep/window/window'}" __cid="cvMvqQv" components="$model/UI2/system/components/justep/model/model,$model/UI2/system/components/justep/loadingBar/loadingBar,$model/UI2/system/components/justep/button/button,$model/UI2/system/components/justep/list/list,$model/UI2/system/components/justep/smartContainer/smartContainer,$model/UI2/system/components/justep/panel/child,$model/UI2/system/components/justep/button/toggle,$model/UI2/system/components/justep/textarea/textarea,$model/UI2/system/components/justep/panel/panel,$model/UI2/system/components/justep/popOver/popOver,$model/UI2/system/components/justep/row/row,$model/UI2/system/components/justep/titleBar/titleBar,$model/UI2/system/components/justep/data/data,$model/UI2/system/components/justep/window/window,">
+<div xmlns="http://www.w3.org/1999/xhtml" component="$model/UI2/system/components/justep/window/window" design="device:m;" xid="window" class="window cvMvqQv" data-bind="component:{name:'$model/UI2/system/components/justep/window/window'}" __cid="cvMvqQv" components="$model/UI2/system/components/justep/model/model,$model/UI2/system/components/justep/loadingBar/loadingBar,$model/UI2/system/components/justep/button/button,$model/UI2/system/components/justep/list/list,$model/UI2/system/components/justep/smartContainer/smartContainer,$model/UI2/system/components/justep/panel/child,$model/UI2/system/components/justep/textarea/textarea,$model/UI2/system/components/justep/panel/panel,$model/UI2/system/components/justep/popOver/popOver,$model/UI2/system/components/justep/row/row,$model/UI2/system/components/justep/titleBar/titleBar,$model/UI2/system/components/justep/data/data,$model/UI2/system/components/justep/window/window,">
   <xhtml:style xmlns:xhtml="http://www.w3.org/1999/xhtml">.letter.cvMvqQv{width: 100%; padding-bottom: 10px; border: 0px; background: white; border-bottom: 10px solid; border-image: repeating-linear-gradient(-225deg, rgba(255, 0, 0, 0.2) 0, rgba(255, 0, 0, 0.2) 10px, white 10px, white 20px, rgba(85, 136, 170, 0.2) 20px, rgba(85, 136, 170, 0.2) 30px, white 30px, white 40px) 20} .imageradius.cvMvqQv{border-radius: 5px; overflow: hidden} .lastborder.cvMvqQv{border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: rgb(246, 246, 246)} .lastborder.cvMvqQv div.cvMvqQv:last{border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: rgb(246, 246, 246)} .surebtn.cvMvqQv{border-radius: 0px; border: 0px; background: linear-gradient(to bottom, rgb(255, 108, 160), rgb(255, 66, 86))} .x-popOver-content.cvMvqQv{bottom: 0px !important} .x-toggle.cvMvqQv input.cvMvqQv:checked + label.cvMvqQv{background-color: rgb(255, 70, 101); line-height: -1em} .wxcolor.cvMvqQv{background: rgb(68, 181, 73); border-color: rgb(68, 181, 73)} .input-class.cvMvqQv{border: 0px} .input-class.cvMvqQv:focus{box-shadow: 0 0 0px rgba(102, 175, 233, 0)} .row-class.cvMvqQv{border-bottom: solid 1px rgb(246, 246, 246); padding-top: 5px; padding-bottom: 0px}</xhtml:style>  
-  <div component="$model/UI2/system/components/justep/model/model" xid="model" style="display:none" data-bind="component:{name:'$model/UI2/system/components/justep/model/model'}" data-events="onLoad:modelLoad" __cid="cvMvqQv" class="cvMvqQv"></div>  
+  <div component="$model/UI2/system/components/justep/model/model" xid="model" style="display:none" data-bind="component:{name:'$model/UI2/system/components/justep/model/model'}" data-events="onLoad:modelLoad;onParamsReceive:modelParamsReceive" __cid="cvMvqQv" class="cvMvqQv"></div>  
   <div component="$model/UI2/system/components/justep/panel/panel" class="x-panel x-full pcERrQ3u-iosstatusbar cvMvqQv" xid="panel1" data-bind="component:{name:'$model/UI2/system/components/justep/panel/panel'}" __cid="cvMvqQv"> 
     <div class="x-panel-top cvMvqQv" xid="top1" component="$model/UI2/system/components/justep/panel/child" data-bind="component:{name:'$model/UI2/system/components/justep/panel/child'}" __cid="cvMvqQv"> 
       <div component="$model/UI2/system/components/justep/titleBar/titleBar" class="x-titlebar cvMvqQv" style="background-color:white;" data-bind="component:{name:'$model/UI2/system/components/justep/titleBar/titleBar'}" data-config="{&quot;title&quot;:&quot;确认订单&quot;}" __cid="cvMvqQv"> 
@@ -198,6 +198,22 @@
         <div class="x-col cvMvqQv" xid="col34" __cid="cvMvqQv">
           <textarea component="$model/UI2/system/components/justep/textarea/textarea" class="form-control input-class cvMvqQv" xid="textarea1" data-bind="component:{name:'$model/UI2/system/components/justep/textarea/textarea'}" __cid="cvMvqQv"/>
         </div> 
+      </div>  
+      <div component="$model/UI2/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer cvMvqQv" xid="smartContainer3" style="background-color:white;display:none;" data-bind="component:{name:'$model/UI2/system/components/justep/smartContainer/smartContainer'}" __cid="cvMvqQv">
+        <div component="$model/UI2/system/components/justep/row/row" class="x-row x-row-center text-muted cvMvqQv" xid="paytoagentrow" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cvMvqQv"> 
+          <div class="x-col x-col-fixed cvMvqQv" xid="col35" style="width:40px;" __cid="cvMvqQv"/>  
+          <div class="x-col cvMvqQv" xid="col36" __cid="cvMvqQv">
+            <span xid="paytoagentspan" __cid="cvMvqQv" class="cvMvqQv">给代理下单</span>
+          </div>  
+          <div class="x-col cvMvqQv" xid="col37" __cid="cvMvqQv"/>
+        </div>  
+        <div component="$model/UI2/system/components/justep/row/row" class="x-row x-row-center text-muted cvMvqQv" xid="destockrow" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cvMvqQv"> 
+          <div class="x-col x-col-fixed cvMvqQv" xid="col40" style="width:40px;" __cid="cvMvqQv"/>  
+          <div class="x-col cvMvqQv" xid="col39" __cid="cvMvqQv"> 
+            <span xid="destockspan" __cid="cvMvqQv" class="cvMvqQv">去库存</span>
+          </div>  
+          <div class="x-col cvMvqQv" xid="col38" __cid="cvMvqQv"></div> 
+        </div>
       </div>
     </div>  
     <div class="x-panel-bottom cvMvqQv" xid="bottom1" component="$model/UI2/system/components/justep/panel/child" data-bind="component:{name:'$model/UI2/system/components/justep/panel/child'}" __cid="cvMvqQv">
@@ -237,18 +253,10 @@
       </div>  
       <div component="$model/UI2/system/components/justep/row/row" class="x-row cvMvqQv" xid="row16" style="margin-top:20px;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cvMvqQv"> 
         <div class="x-col x-col-25 cvMvqQv" xid="col29" __cid="cvMvqQv">
-          <span xid="span24" __cid="cvMvqQv" class="cvMvqQv">余额抵扣</span>
+          <span xid="span24" __cid="cvMvqQv" class="cvMvqQv">支付方式</span>
         </div>  
-        <div class="x-col text-center cvMvqQv" xid="col30" __cid="cvMvqQv">
+        <div class="x-col text-right cvMvqQv" xid="col31" __cid="cvMvqQv">
           <span xid="span25" __cid="cvMvqQv" class="cvMvqQv">可用余额：￥0.00</span>
-        </div>  
-        <div class="x-col x-col-25 text-right cvMvqQv" xid="col31" __cid="cvMvqQv">
-          <span component="$model/UI2/system/components/justep/button/toggle" class="x-toggle cvMvqQv" xid="toggle1" style="display: inline-block;padding:0px;" ON="　" OFF="　" data-config="{&quot;checked&quot;:false,&quot;disabled&quot;:false,&quot;label&quot;:{&quot;off&quot;:&quot;　&quot;,&quot;on&quot;:&quot;　&quot;}}" data-bind="component:{name:'$model/UI2/system/components/justep/button/toggle'}" data-events="onChange:toggle1Change" __cid="cvMvqQv">
-            <xhtml:input xmlns:xhtml="http://www.w3.org/1999/xhtml" type="checkbox" __cid="cvMvqQv" class="cvMvqQv"/>
-            <xhtml:label xmlns:xhtml="http://www.w3.org/1999/xhtml" data-on="　" data-off="　" __cid="cvMvqQv" class="cvMvqQv">
-              <xhtml:span __cid="cvMvqQv" class="cvMvqQv"/>
-            </xhtml:label>
-          </span>
         </div>
       </div>  
       <div component="$model/UI2/system/components/justep/row/row" class="x-row cvMvqQv" xid="row17" style="position:absolute;bottom:20px;" data-bind="component:{name:'$model/UI2/system/components/justep/row/row'}" __cid="cvMvqQv"> 
