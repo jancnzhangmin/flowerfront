@@ -48,13 +48,14 @@ var AddToBuycar = function(buycardata){
 				cover:item.cover,
 				pack:item.pack,
 				agentuserid:item.agentuserid,
-				destock:item.destock
+				destock:item.destock,
+				isselect:item.isselect
 		};
 		
 		buycar.push(option);
 		
 	});
-	
+
 	justep.Shell.fireEvent("buycar_change", this);
 	var params={
 			number:buycarnum

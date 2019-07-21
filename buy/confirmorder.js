@@ -8,6 +8,7 @@ define(function(require) {
 	var price = 0;
 	var banlance = 0;
 	var localbuycar = [];
+	var surbuycar = [];
 	var deduction = 0;// 抵扣
 	var Model = function() {
 		this.callParent();
@@ -15,9 +16,17 @@ define(function(require) {
 
 	Model.prototype.modelLoad = function(event) {
 		localbuycar = [];
+		surbuycar = [];
 		if (localbuycar.length == 0) {
 			frontuuid = new UUID().toString();
-			localbuycar = buycar;
+			$.each(buycar, function(i, item) {
+				if (item.isselect == 1) {
+					localbuycar.push(item);
+				} else {
+					surbuycar.push(item);
+				}
+			});
+			// localbuycar = buycar;
 		}
 		this.refresh_receive();
 		this.refreshdata();
@@ -63,59 +72,62 @@ define(function(require) {
 		activedata.clear();
 
 		$.each(buycar, function(i, item) {
-			var hasoptional = 0;
-			if (item.buycaroptional.length > 0) {
-				hasoptional = 1;
-			}
-			var uuid = new UUID().toString();
-			var option = {
-				defaultValues : [ {
-					id : uuid,
-					product_id : item.product_id,
-					user_id : item.user_id,
-					number : item.number,
-					price : item.price,
-					cost : item.cost,
-					discount : item.discount,
-					cover : publicurl + item.cover,
-					firstprofit : item.firstprofit,
-					secondprofit : item.secondprofit,
-					owerprofit : item.owerprofit,
-					producttype : item.producttype,
-					openid : item.openid,
-					name : item.name,
-					subtitle : item.subtitle,
-					hasoptional : hasoptional
-				} ]
-			}
-			buycardata.newData(option);
-			$.each(item.buycaroptional, function(oi, oitem) {
-				var ouuid = new UUID().toString();
-				var option = {
-					defaultValues : [ {
-						id : ouuid,
-						selectcondition_id : oitem.selectcondition_id,
-						selectcondition_name : oitem.selectcondition_name,
-						buycar_id : uuid
-					} ]
-				}
-				optionaldata.newData(option);
-			});
 
-			$.each(item.activetype, function(ai, aitem) {
-				var auuid = new UUID().toString();
+			if (item.isselect == 1) {
+				var hasoptional = 0;
+				if (item.buycaroptional.length > 0) {
+					hasoptional = 1;
+				}
+				var uuid = new UUID().toString();
 				var option = {
 					defaultValues : [ {
-						id : auuid,
-						buycar_id : uuid,
-						active : aitem.active,
-						showlable : aitem.showlable,
-						summary : aitem.summary,
-						keywords : aitem.keywords
+						id : uuid,
+						product_id : item.product_id,
+						user_id : item.user_id,
+						number : item.number,
+						price : item.price,
+						cost : item.cost,
+						discount : item.discount,
+						cover : publicurl + item.cover,
+						firstprofit : item.firstprofit,
+						secondprofit : item.secondprofit,
+						owerprofit : item.owerprofit,
+						producttype : item.producttype,
+						openid : item.openid,
+						name : item.name,
+						subtitle : item.subtitle,
+						hasoptional : hasoptional
 					} ]
 				}
-				activedata.newData(option);
-			});
+				buycardata.newData(option);
+				$.each(item.buycaroptional, function(oi, oitem) {
+					var ouuid = new UUID().toString();
+					var option = {
+						defaultValues : [ {
+							id : ouuid,
+							selectcondition_id : oitem.selectcondition_id,
+							selectcondition_name : oitem.selectcondition_name,
+							buycar_id : uuid
+						} ]
+					}
+					optionaldata.newData(option);
+				});
+
+				$.each(item.activetype, function(ai, aitem) {
+					var auuid = new UUID().toString();
+					var option = {
+						defaultValues : [ {
+							id : auuid,
+							buycar_id : uuid,
+							active : aitem.active,
+							showlable : aitem.showlable,
+							summary : aitem.summary,
+							keywords : aitem.keywords
+						} ]
+					}
+					activedata.newData(option);
+				});
+			}
 		});
 		this.calower();
 
@@ -194,7 +206,6 @@ define(function(require) {
 	};
 
 	Model.prototype.submitBtnClick = function(event) {
-		buycar = [];
 		justep.Shell.fireEvent("buycar_change", this);
 		var params = {
 			number : 0
@@ -221,26 +232,59 @@ define(function(require) {
 			success : function(data) {
 				// 成功
 				$(self.getElementByXid("span23")).text("￥" + parseFloat(data.price).toFixed(2));
-								self.comp('payBtn').set({
+				self.comp('payBtn').set({
 					'disabled' : false
 				});
-				if(data.paytype == 0){
-				$(self.getElementByXid("span25")).text('微信支付');
-				}else if(data.paytype == 1){
-				$(self.getElementByXid("span25")).text('货款支付');
-				}else if(data.paytype == 2){
-				$(self.getElementByXid("span25")).text(data.agentname + '的货款支付');
-				}else if(data.paytype == 3){
-				$(self.getElementByXid("span25")).text(data.agentname + '的货款不足');
-								self.comp('payBtn').set({
-					'disabled' : true
-				});
+				if (data.paytype == 0) {
+					$(self.getElementByXid("span25")).text('微信支付');
+				} else if (data.paytype == 1) {
+					$(self.getElementByXid("span25")).text('货款支付');
+				} else if (data.paytype == 2) {
+					$(self.getElementByXid("span25")).text(data.agentname + '的货款支付');
+				} else if (data.paytype == 3) {
+					$(self.getElementByXid("span25")).text(data.agentname + '的货款不足');
+					self.comp('payBtn').set({
+						'disabled' : true
+					});
 				}
 
 				justep.Shell.fireEvent("ower_refresh_unpay_count", self);
+				self.submit_buycar();
 				// localbuycar = [];
 			},
 			error : function(e) {
+				// 错误
+			}
+		});
+	};
+	
+	Model.prototype.submit_buycar = function(){
+			var self = this;
+			var agentuserid = 0;
+			var destock = 0;
+			if(buycar.length > 0){
+			agentuserid = buycar[0].agentuserid;
+			destock = buycar[0].destock;
+			}
+			buycar = [];
+		var fd = new FormData();
+		fd.append("openid", openid);
+		fd.append("data", JSON.stringify(surbuycar));
+		fd.append("agentuserid", agentuserid);
+		fd.append("destock", destock);
+		$.ajax({
+			type : "POST",
+			async : true,
+			url : publicurl + "api/submitbuycar",
+			data : fd,
+			contentType : false,
+			processData : false,
+			success : function(data) {
+				// 成功
+				AddToBuycar(data.buycars);
+			},
+			error : function() {
+
 				// 错误
 			}
 		});

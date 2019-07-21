@@ -78,7 +78,7 @@
    <div class="x-col x-col-fixed" xid="col3" style="width:50px;padding-top:6px;"></div></div>
   <div xid="div15" class="moveback" style="margin-left:8px;" bind-click="{operation:'window.close'}"><i xid="i16" class="icon-chevron-left" style="color:#f0f0f0;font-size:medium;" bind-click="{operation:'window.close'}"></i></div>
   <div xid="div12" class="moveback pull-right" style="margin-top:-34px;margin-right:8px;padding-left:8px;"><i xid="i1" class="my my-ziyuan" style="color:#f0f0f0;font-size:medium;" bind-click="i1Click"></i></div></div>  
-    <div class="x-panel-content x-cards" xid="content1" style="padding-top:0px;margin-top:-45px;" bind-touchmove="content1Touchmove" bind-touchend="content1Touchend"><a xid="a1" name="product"><![CDATA[]]></a><div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="productSmartContainer" style="background-color:white;"><div xid="div1" class="swiper-container"><div xid="div2" class="swiper-wrapper"></div></div>
+    <div class="x-panel-content x-cards" xid="content1" style="padding-top:0px;margin-top:-45px;" bind-touchmove="content1Touchmove" bind-touchend="content1Touchend"><a xid="a1" name="product"><![CDATA[]]></a><div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="productSmartContainer" style="background-color:white;"><div xid="productdetailswiper" class="swiper-container"><div xid="productdetailswiperwrapper" class="swiper-wrapper"></div></div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row2">
    <div class="x-col x-col-fixed" xid="col4" style="width:110px;">
   <div xid="div3" style="margin-left:-5px;"><span xid="span7" bind-text="'￥' + $model.productData.val(&quot;price&quot;)" style="color:#fe2e23;font-size:x-large;" bind-visible=' $model.productData.val("price") != undefined'><![CDATA[]]></span></div>
@@ -231,7 +231,7 @@
    <span xid="span43">确定</span></a></div>
    </div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row17">
-   <div class="x-col" xid="col45" style="padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-default btn-block popaddcar" label="加入购物车" xid="popaddcarBtn">
+   <div class="x-col" xid="col45" style="padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-default btn-block popaddcar" label="加入购物车" xid="popaddcarBtn" onClick="popaddcarBtnClick">
    <i xid="i17"></i>
    <span xid="span44">加入购物车</span></a></div>
    <div class="x-col" xid="col46" style="padding-left:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-default btn-block popbuy" label="立即购买" xid="popbuyBtn" onClick="popbuyBtnClick">

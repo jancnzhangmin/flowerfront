@@ -27,11 +27,11 @@
    <label xid="label3" class="angle"><![CDATA[2]]></label></div></a>
   <label xid="label1" style="height:40px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;margin-top:15px;" class="pull-right"></label>
   </div>
-   <div class="x-col text-center" xid="col13" style="padding-left:0px;padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="收益" xid="button2" icon="my my-shouyi1" style="color:#FFFFFF;">
+   <div class="x-col text-center" xid="col13" style="padding-left:0px;padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="收益" xid="incomebtn" icon="my my-shouyi1" style="color:#FFFFFF;" onClick="incomebtnClick">
    <i xid="i2" class="my my-shouyi1" style="font-size:xx-large;"></i>
    <span xid="span6">收益</span></a>
   <label xid="label2" style="height:40px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;margin-top:15px;" class="pull-right"></label></div>
-   <div class="x-col text-center" xid="col14" style="padding-left:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="提现" xid="button3" icon="my my-tixian2" style="color:#FFFFFF;">
+   <div class="x-col text-center" xid="col14" style="padding-left:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="提现" xid="withdrawbtn" icon="my my-tixian2" style="color:#FFFFFF;" onClick="withdrawbtnClick">
    <i xid="i3" class="my my-tixian2" style="font-size:xx-large;"></i>
    <span xid="span7">提现</span></a></div></div>
   </div>
@@ -79,17 +79,17 @@
    <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="直属" xid="button9" icon="my2 my2-daili1">
     <i xid="i17" class="btnclass my2 my2-daili1" style="font-size:xx-large;"></i>
     <span xid="span21" class="text-muted">直属</span></a> </div></div>
-   <div class="x-col text-center" xid="col32"><div xid="div5" class="text-center btnangleBox">
+   <div class="x-col text-center" xid="taskcol" bind-click="taskcolClick"><div xid="div5" class="text-center btnangleBox">
    <label xid="label6" class="btnangle" style="display:none;">0</label>
    <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="任务" xid="button10" icon="my2 my2-renwu">
     <i xid="i18" class="btnclass my2 my2-renwu" style="font-size:xx-large;"></i>
     <span xid="span22" class="text-muted">任务</span></a> </div></div>
-  <div class="x-col text-center" xid="col33"><div xid="div6" class="text-center btnangleBox">
+  <div class="x-col text-center" xid="customercol" bind-click="customercolClick"><div xid="div6" class="text-center btnangleBox">
    <label xid="customer_label" class="btnangle" style="display:none;">0</label>
    <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="客户" xid="button11" icon="my2 my2-dailishang2">
     <i xid="i19" class="btnclass my2 my2-dailishang2" style="font-size:xx-large;"></i>
     <span xid="span23" class="text-muted">客户</span></a> </div></div>
-  <div class="x-col text-center" xid="col34"><div xid="div8" class="text-center btnangleBox">
+  <div class="x-col text-center" xid="salescol" bind-click="salescolClick"><div xid="div8" class="text-center btnangleBox">
    <label xid="label9" class="btnangle" style="display:none;">0</label>
    <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="销售" xid="button12" icon="my2 my2-xiaoshou">
     <i xid="i20" class="btnclass my2 my2-xiaoshou" style="font-size:xx-large;"></i>
@@ -109,7 +109,7 @@
    <div class="x-col text-right" xid="col24">
     <i xid="i15" class="linear linear-chevronright text-muted"></i></div> </div>
   </div>
-  <div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row13" style="margin-top:10px;background-color:white;height:55px;" bind-click="row10Click">
+  <div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row13" style="margin-top:10px;background-color:white;height:55px;" bind-click="row13Click">
    <div class="x-col x-col-fixed" xid="col36" style="width:40px;">
     <i xid="i22" class="my2 my2-dengji2 btnclass" style="font-size:x-large;"></i></div> 
    <div class="x-col" xid="col35">

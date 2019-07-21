@@ -7,16 +7,102 @@ define(function(require) {
 	var localbuycar;
 	var deduction = 0;// 抵扣
 	var page = 1;
+	var paytype = 0;// 0微信支付 1货款支付 2代理货款支付 3代理货款不足
+	var agentname = '';
+	var pwdstep = 0;
+	var mergeorderids = [];
 
 	var Model = function() {
 		this.callParent();
 	};
 
 	Model.prototype.modelLoad = function(event) {
-	page = 1;
+		page = 1;
+		mergeorderids = [];
 		this.refreshdata();
 		$('.x-modal-button.x-modal-button-bold.Yes')[0].innerText = '否';
 		$('.x-modal-button.x-modal-button-bold.No')[0].innerText = '是';
+		var self = this;
+		$(self.getElementByXid("mergediv")).show();
+		$(this.getElementByXid("mergediv")).slideUp(0);
+
+		$('.mz').text('');
+		$(".mm_box li").removeClass("mmdd");
+		$(".mm_box li").attr("data", "");
+		pwdstep = 0;
+		$(".xiaq_tb").click(function() {
+			$(".numb_box").slideUp(100);
+		});
+		$(".mm_box").click(function() {
+			$(".numb_box").slideDown(100);
+		});
+
+		$(".nub_ggg li .zf_num").click(function() {
+			if (pwdstep < 6) {
+				$(".mm_box li").eq(pwdstep).addClass("mmdd");
+				$(".mm_box li").eq(pwdstep).attr("data", $(this).text());
+				pwdstep++
+				if (pwdstep == 6) {
+					var data = "";
+					$(".mm_box li").each(function() {
+						data += $(this).attr("data");
+					});
+
+					$.ajax({
+						async : true,
+						url : publicurl + '/api/validation_user_password',
+						type : "GET",
+						dataType : 'jsonp',
+						jsonp : 'callback',
+						timeout : 5000,
+						data : {
+							openid : openid,
+							password : data
+						},
+						success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+							if (jsonstr.status == 0) {
+								$('.mz').text('密码错误');
+								setTimeout(function() {
+
+									$(".mm_box li").removeClass("mmdd");
+									$(".mm_box li").attr("data", "");
+									pwdstep = 0;
+								}, 100);
+							} else {
+self.create_agentpayment_order();								
+							}
+						},
+						error : function(xhr) {
+							// justep.Util.hint("错误，请检查网络");
+						}
+					});
+
+				};
+			}
+		});
+
+	};
+	
+	Model.prototype.create_agentpayment_order = function(){
+			var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + "api/create_agentpayment_order",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				openid : openid,
+				mergeorderids : mergeorderids
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
 	};
 
 	Model.prototype.refreshdata = function() {
@@ -30,22 +116,22 @@ define(function(require) {
 			timeout : 10000,
 			data : {
 				openid : openid,
-				page:page
+				page : page
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 				var orderdata = self.comp("orderData");
-				
+
 				var orderdetaildata = self.comp("orderdetailData");
-				
+
 				var optionaldata = self.comp("optionalData");
-				
+
 				var activedata = self.comp("activeData");
-				
-				if(page == 1){
-				orderdata.clear();
-				orderdetaildata.clear();
-				optionaldata.clear();
-				activedata.clear();
+
+				if (page == 1) {
+					orderdata.clear();
+					orderdetaildata.clear();
+					optionaldata.clear();
+					activedata.clear();
 				}
 				$.each(jsonstr.orders, function(i, item) {
 					var ordermessage = '';
@@ -99,9 +185,10 @@ define(function(require) {
 							deliverstatus : item.deliverstatus,
 							orderstatus : order_status,
 							ordermessage : ordermessage,
-							destock:item.destock,
-							agentuserid:item.agentuserid,
-							agentname:item.agentname
+							destock : item.destock,
+							agentuserid : item.agentuserid,
+							agentname : item.agentname,
+							isselect : 0
 						} ]
 					};
 					orderdata.newData(order_options);
@@ -187,7 +274,7 @@ define(function(require) {
 			timeout : 5000,
 			data : {
 				orderid : orderid,
-				openid:openid
+				openid : openid
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 				justep.Shell.fireEvent("ower_refresh_unpay_count", self);
@@ -203,6 +290,8 @@ define(function(require) {
 	Model.prototype.paynowBtnClick = function(event) {
 		var row = event.bindingContext.$object;
 		var self = this;
+		mergeorderids = [];
+		mergeorderids.push(row.val('id'));
 		$.ajax({
 			async : true,
 			url : publicurl + "api/get_unapyorder",
@@ -215,19 +304,28 @@ define(function(require) {
 				openid : openid
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				self.comp('payBtn').set({
+					'disabled' : false
+				});
 				price = parseFloat(jsonstr.order.paysum);
 				balance = parseFloat(jsonstr.balance);
-				if (balance == 0) {
-					self.comp('toggle1').set({
-						'disabled' : true,
-						'checked' : false
-					});
+				paytype = jsonstr.order.paytype;
+				agentname = jsonstr.order.agentname;
+				if (jsonstr.order.paytype == 0) {
+					$(self.getElementByXid("span25")).text('微信支付');
+				} else if (jsonstr.order.paytype == 1) {
+					$(self.getElementByXid("span25")).text('货款支付');
+				} else if (jsonstr.order.paytype == 2) {
+					$(self.getElementByXid("span25")).text(jsonstr.order.agentname + '货款支付');
 				} else {
-					self.comp('toggle1').set({
-						'disabled' : false
+					$(self.getElementByXid("span25")).text(jsonstr.order.agentname + '货款不足');
+					self.comp('payBtn').set({
+						'disabled' : true
 					});
 				}
+
 				$(self.getElementByXid("span23")).text("￥" + price.toFixed(2));
+				$(self.getElementByXid("span31")).text("￥" + price.toFixed(2));
 			},
 			error : function(xhr) {
 				// justep.Util.hint("错误，请检查网络");
@@ -244,14 +342,73 @@ define(function(require) {
 		this.comp('popOver1').hide();
 	};
 
-	Model.prototype.scrollView1PullDown = function(event){
-	page = 1;
-this.refreshdata();
+	Model.prototype.scrollView1PullDown = function(event) {
+		page = 1;
+		this.refreshdata();
 	};
 
-	Model.prototype.scrollView1PullUp = function(event){
-	page +=1;
-	this.refreshdata();
+	Model.prototype.scrollView1PullUp = function(event) {
+		page += 1;
+		this.refreshdata();
+	};
+
+	Model.prototype.selectiClick = function(event) {
+		var row = event.bindingContext.$parentContext.$object;
+		if (row.val('isselect') == 0) {
+			row.val('isselect', 1);
+
+		} else {
+			row.val('isselect', 0);
+
+		}
+		this.bottom_slide();
+	};
+
+	Model.prototype.bottom_slide = function() {
+		var row = this.comp('orderData').find([ 'isselect' ], [ '1' ]);
+		if (row.length > 0) {
+			// $(this.getElementByXid("bottom1")).slideUp();
+			$(this.getElementByXid("mergediv")).slideDown(100);
+
+		} else {
+			$(this.getElementByXid("mergediv")).slideUp(100);
+
+		}
+	};
+
+	Model.prototype.change_select = function(el, order_id) {
+		var row = this.comp('orderData').find([ 'id' ], [ order_id ]);
+		if (row[0].val('isselect') == 1) {
+			$(el).removeClass('my2-xuanzhong2');
+			$(el).removeClass('text-muted');
+			$(el).addClass('my2-xuanzhong1');
+			$(el).addClass('isselect');
+		} else {
+			$(el).removeClass('my2-xuanzhong1');
+			$(el).removeClass('isselect');
+			$(el).addClass('my2-xuanzhong2');
+			$(el).addClass('text-muted');
+		}
+	};
+
+	Model.prototype.forgetbtnClick = function(event) {
+
+	};
+
+	Model.prototype.payBtnClick = function(event) {
+	this.comp('popOver1').hide();
+		if (paytype == 1 || paytype == 2) {
+			this.comp('passwordpopOver').show();
+		}
+	};
+
+	Model.prototype.i2Click = function(event){
+		this.comp('passwordpopOver').hide();
+		$('.mz').text('');
+
+		$(".mm_box li").removeClass("mmdd");
+		$(".mm_box li").attr("data", "");
+		pwdstep = 0;
 	};
 
 	return Model;

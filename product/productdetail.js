@@ -147,9 +147,10 @@ define(function(require) {
 					$.each(item.images, function(imagei, imageitem) {
 						var myimage = publicurl + imageitem;
 						myimage = '<div class="swiper-slide"><img width=100% src=' + myimage + '></div>';
-						$('.swiper-wrapper').append(myimage);
+						//$('.swiper-wrapper').append(myimage);
+						$(self.getElementByXid("productdetailswiperwrapper")).append(myimage);
 					});
-					var mySwiper = new Swiper('.swiper-container', {
+					var productdetailSwiper = new Swiper(self.getElementByXid('productdetailswiper'), {
 						loop : false
 					// 循环模式选项
 					});
@@ -559,7 +560,8 @@ define(function(require) {
 			buycaroptional : buycaroptionalparams,
 			producttype : 0,
 			agentuserid:0,
-			destock:0
+			destock:0,
+			isselect:0
 		}
 
 		buycar.push(buycarparams);
@@ -806,6 +808,22 @@ define(function(require) {
 			params : params
 		});
 
+	};
+
+	Model.prototype.popaddcarBtnClick = function(event){
+		var selectstatus = true;
+		this.comp('optionalData').each(function(params) {
+			if (params.row.val('selectcondition_id') == 0) {
+				selectstatus = false;
+			}
+		});
+
+		if (!selectstatus) {
+			return false;
+		} else {
+			this.comp('choosepop').hide();
+			this.addTocar();
+		}
 	};
 
 	return Model;

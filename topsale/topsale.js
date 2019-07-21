@@ -7,18 +7,66 @@ define(function(require) {
 		this.callParent();
 	};
 	var page_width = 0;
+	var wxwebsocket = new WebSocket(publicws);
+	var publictime;
+	var topSwiper;
+	var swiperindex = 0;
 
 	Model.prototype.modelLoad = function(event) {
-		var mySwiper = new Swiper('.swiper-container', {
+		topSwiper = new Swiper(this.getElementByXid('topswiperdiv'), {
 			direction : 'vertical', // 垂直切换选项
 			loop : true, // 循环模式选项
-			autoplay : true
+			autoplay : {
+				disableOnInteraction : false,
+			}
+
 		});
-		mySwiper.allowTouchMove = false;
+		topSwiper.allowTouchMove = false;
 		this.refreshdata();
 		page_width = $(document).width();
 		justep.Shell.on("topsale_change_collection", this.topsale_change_collection, this);
 		this.check_useragent_status();
+		this.get_wxmessage();
+
+		wxwebsocket = new WebSocket(publicws);
+		wxwebsocket.onopen = function() {
+			var identifier = '"{"channel":"WxmessageChannel"}"';
+			identifier = identifier.substring(1, identifier.length - 1);
+			var param = {
+				command : 'subscribe',
+				identifier : identifier
+			}
+			this.send(JSON.stringify(param));
+
+		};
+
+		var self = this;
+
+		wxwebsocket.onmessage = function(evt) {
+			if (JSON.parse(evt.data).identifier && JSON.parse(evt.data).message) {
+				self.add_wxmessage(JSON.parse(evt.data).message);
+			}
+			//console.log(JSON.stringify(evt.data));
+		};
+
+		publictime = setInterval(function() {
+			if (wxwebsocket.readyState == 3) {
+				self.get_websocket_msg();
+			}
+			//console.log(topSwiper.autoplay.paused);
+			//console.log(window.location.href.indexOf('topsalecontent'));
+			if (topSwiper.autoplay.paused) {
+				topSwiper.slideTo(0);
+				topSwiper.autoplay.stop();
+				topSwiper.autoplay.start();
+			}
+
+			//console.log(wxwebsocket.readyState);
+			$('.timespan').each(function(i, el) {
+				difftime = self.timediff($(el).attr('value'));
+				$(el).text(difftime);
+			});
+		}, 10000);
 	};
 
 	Model.prototype.check_useragent_status = function() {
@@ -311,6 +359,125 @@ define(function(require) {
 			}
 		}
 		justep.Shell.showPage(require.toUrl("../product/productlist.w"), params);
+	};
+
+	Model.prototype.get_websocket_msg = function() {
+		wxwebsocket = new WebSocket(publicws);
+		wxwebsocket.onopen = function() {
+			var identifier = '"{"channel":"WxmessageChannel"}"';
+			identifier = identifier.substring(1, identifier.length - 1);
+			var param = {
+				command : 'subscribe',
+				identifier : identifier
+			}
+			this.send(JSON.stringify(param));
+		};
+
+		wxwebsocket.onmessage = function(evt) {
+			if (JSON.parse(evt.data).identifier && JSON.parse(evt.data).message) {
+				self.add_wxmessage(JSON.parse(evt.data).message);
+			}
+		};
+	};
+
+	Model.prototype.add_wxmessage = function(jsonstr) {
+		var data = this.comp("wxmessageData");
+		var self = this;
+		data.clear();
+		$.each(JSON.parse(jsonstr.message), function(i, item) {
+			var options = {
+				defaultValues : [ {
+					id : item.id,
+					name : item.name,
+					message : item.message,
+					created_at : item.created_at,
+					timesummary : self.timediff(item.created_at)
+				} ]
+			};
+			data.newData(options);
+		});
+	};
+
+	Model.prototype.modelActive = function(event) {
+
+	};
+
+	Model.prototype.get_wxmessage = function() {
+		var self = this;
+		$.ajax({
+			async : false,
+			url : publicurl + "api/get_wxmessage",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				var data = self.comp("wxmessageData");
+				data.clear();
+				$.each(jsonstr.wxmessages, function(i, item) {
+					var options = {
+						defaultValues : [ {
+							id : item.id,
+							name : item.name,
+							message : item.message,
+							created_at : item.created_at,
+							timesummary : self.timediff(item.created_at)
+						} ]
+					};
+					data.newData(options);
+				});
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.timediff = function(endtime) {
+		var diff = (new Date() - new Date(endtime)) / 1000 / 60;
+		diff = parseInt(diff.toString());
+		var summary = '刚刚';
+		if (diff > 4320) {
+			summary = '3天前';
+		} else if (diff > 2880) {
+			summary = '2天前';
+		} else if (diff >= 1440) {
+			summary = '1天前';
+		} else if (diff >= 60 && diff < 1440) {
+			summary = (parseInt(diff / 60).toString()).toString() + '小时前';
+		} else if (diff > 1) {
+			summary = diff + '分钟前';
+		} else {
+			summary = '刚刚';
+		}
+		return summary;
+	};
+
+	Model.prototype.wxmessageDataDataChange = function(event) {
+
+	};
+
+	Model.prototype.wxmessageDataAfterNew = function(event) {
+		if (this.comp('wxmessageData').count() > 0) {
+			topSwiper.removeAllSlides();
+		}
+		this.comp('wxmessageData').each(function(param) {
+			var swiper = $('<div class="swiper-slide" style="padding-top:10px;"></div>');
+			var namespan = $('<span></span>');
+			namespan.text(param.row.val('name') + ' ' + param.row.val('message'));
+			var timespan = $('<span class="text-muted pull-right timespan" value="' + param.row.val('created_at') + '"></span>');
+			timespan.text(param.row.val('timesummary'));
+			swiper.append(namespan);
+			swiper.append(timespan);
+			topSwiper.appendSlide(swiper);
+		});
+		// topSwiper.slideTo(0);
+
+		topSwiper.update();
+	};
+
+	Model.prototype.hotcolClick = function(event) {
+
 	};
 
 	return Model;

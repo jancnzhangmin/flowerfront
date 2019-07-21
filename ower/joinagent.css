@@ -1,0 +1,20 @@
+.circle-lable {
+	width: 40px;
+	height: 40px;
+	background-color: #ff6ca0;
+	border-radius: 5px;
+	color:white;
+	text-align: center;
+	display: inline-block;
+	font-size: large;
+	padding-top:8px;
+}
+
+.flower-row {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	border-radius: 5px;
+	
+	background: linear-gradient(to bottom,#ff6ca0,#ff4256);
+	background: white;
+}

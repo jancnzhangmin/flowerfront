@@ -52,3 +52,17 @@
 	padding-top:5px;
 	padding-bottom:0px;
 }
+
+.merge-btn{
+	background:transparent;
+	color:#ff4256;
+	border-radius:20px;
+	border-color:#ff4256;
+	margin-left:5px;
+}
+
+.isselect:before {
+	background: linear-gradient(to top, #ff4256, #fe5993);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}

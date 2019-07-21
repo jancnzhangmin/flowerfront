@@ -1,0 +1,52 @@
+.fileinput-button-front {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	background-image: url(../image/idfront.png);
+	width: 300px;
+	height: 188px;
+}
+
+.fileinput-button-front input {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	opacity: 0;
+	-ms-filter: 'alpha(opacity=0)';
+	font-size: 200px;
+}
+
+.fileinput-button-back {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	background-image: url(../image/idback.png);
+	width: 300px;
+	height: 188px;
+}
+
+.fileinput-button-back input {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	opacity: 0;
+	-ms-filter: 'alpha(opacity=0)';
+	font-size: 200px;
+}
+
+.input-class {
+	border: 0px;
+}
+
+.input-class:focus {
+	box-shadow: 0 0 0px rgba(102, 175, 233, 0);
+}
+
+.row-class {
+	border-bottom:solid 1px #f6f6f6;
+}
+
+.surebtn{
+	border:0px;
+	background: linear-gradient(to bottom,#ff6ca0,#ff4256);
+}

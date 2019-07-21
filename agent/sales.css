@@ -1,0 +1,24 @@
+.x-flower.btn-group {
+	background-color: #fff;
+	border-top: 0;
+}
+
+.x-flower.btn-group .btn {
+	border-top: 0;
+	height: 45px;
+	border-color: transparent;
+	background-color: #fff;
+}
+
+.x-flower.btn-group .btn span {
+	font-size: 14px;
+	font-weight: normal;
+	color: #999999;
+}
+
+.x-flower.btn-group .btn.active {
+	background: linear-gradient(to bottom, #ff4256, #fe5993);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	border-bottom: 1px solid #ff4256;
+}

@@ -36,7 +36,11 @@ define(function(require) {
 				});
 				destock = 1;
 			}
+			$.each(buycar, function(i, item) {
+				item.isselect = 0;
+			});
 		}
+
 		justep.Shell.on("buycar_change", this.buycar_change, this);
 		this.refreshdata();
 		$('#x-default-loadingbar').css('z-index', -1);
@@ -61,7 +65,7 @@ define(function(require) {
 
 	Model.prototype.change_destck_status = function() {
 		// var destock = this.comp('buycarData').getFirstRow();
-		if (agentuserid != 0 || destock == 1) {
+		if ((agentuserid != 0 && agentuserid != undefined) || destock == 1) {
 			$(this.getElementByXid("smartContainer4")).show();
 			if (agentuserid != 0) {
 				$(this.getElementByXid("directagentrow")).show();
@@ -88,7 +92,7 @@ define(function(require) {
 	};
 
 	Model.prototype.get_agent_name = function() {
-		if (agentuserid != 0) {
+		if (agentuserid != 0 && agentuserid != undefined) {
 			var self = this;
 			$.ajax({
 				async : true,
@@ -150,7 +154,8 @@ define(function(require) {
 					subtitle : item.subtitle,
 					hasoptional : hasoptional,
 					agentuserid : item.agentuserid,
-					destock : item.destock
+					destock : item.destock,
+					isselect : item.isselect
 				} ]
 			}
 
@@ -183,6 +188,7 @@ define(function(require) {
 				activedata.newData(option);
 			});
 		});
+
 		this.calower();
 
 		swiper = new Swiper('.swiper-container', {
@@ -234,7 +240,9 @@ define(function(require) {
 				number : params.row.val('number'),
 				producttype : params.row.val('producttype'),
 				buycaroptional : buycaroptionalparams,
-				producttype : params.row.val('producttype')
+				producttype : params.row.val('producttype'),
+				isselect : params.row.val('isselect')
+
 			}
 			if (params.row.val('producttype') == 0) {
 				buycar.push(buycarparams);
@@ -258,7 +266,6 @@ define(function(require) {
 				// 成功
 				AddToBuycar(data.buycars);
 				self.calower();
-
 			},
 			error : function() {
 
@@ -275,7 +282,9 @@ define(function(require) {
 			if (params.row.val('producttype') == 0) {
 				saveprofit += parseFloat(params.row.val('number')) * parseFloat(params.row.val('discount'));
 				owerprofit += parseFloat(params.row.val('number')) * parseFloat(params.row.val('owerprofit'));
-				sumprice += parseFloat(params.row.val('number')) * parseFloat(params.row.val('price'));
+				if (params.row.val('isselect') == 1) {
+					sumprice += parseFloat(params.row.val('number')) * parseFloat(params.row.val('price'));
+				}
 			}
 		});
 		$(this.getElementByXid("span15")).text('节省了' + saveprofit.toFixed(2) + '元');
@@ -573,12 +582,32 @@ define(function(require) {
 	};
 
 	Model.prototype.settleBtnClick = function(event) {
-	var params = {
-	agentuserid:agentuserid,
-	agentusertext:$(this.getElementByXid("span25")).text(),
-	destock:destock
-	}
-		justep.Shell.showPage(require.toUrl("./confirmorder.w"),params);
+		var self = this;
+		this.comp('buycarData').each(function(param) {
+			var paramap = [];
+			var rows = self.comp('optionalData').find([ 'buycar_id' ], [ param.row.val('id') ]);
+			$.each(rows, function(rowi, rowitem) {
+				paramap.push(rowitem.val('selectcondition_id'));
+			});
+			paramap = paramap.sort();
+			$.each(buycar, function(i, item) {
+				var buymap = [];
+				$.each(item.buycaroptional, function(oi, oitem) {
+					buymap.push(oitem.selectcondition_id);
+				});
+				buymap = buymap.sort();
+				if (item.product_id == param.row.val('product_id') && paramap.toString() == buymap.toString()) {
+					item.isselect = param.row.val('isselect');
+				}
+			});
+		});
+
+		var params = {
+			agentuserid : agentuserid,
+			agentusertext : $(this.getElementByXid("span25")).text(),
+			destock : destock
+		}
+		justep.Shell.showPage(require.toUrl("./confirmorder.w"), params);
 	};
 
 	Model.prototype.morebuttonClick = function(event) {
@@ -629,6 +658,75 @@ define(function(require) {
 		});
 		this.change_buycar();
 		this.change_destck_status();
+	};
+
+	Model.prototype.selectiClick = function(event) {
+		var row = event.bindingContext.$object;
+		if (row.val('isselect') == 0) {
+			row.val('isselect', 1);
+		} else {
+			row.val('isselect', 0);
+		}
+		var flag = true;
+		this.comp('buycarData').each(function(param) {
+			if (param.row.val('isselect') == 0) {
+				flag = false
+			}
+		});
+		if (flag) {
+			$(this.getElementByXid("selectalli")).removeClass('my2-xuanzhong2');
+			$(this.getElementByXid("selectalli")).removeClass('text-muted');
+			$(this.getElementByXid("selectalli")).addClass('my2-xuanzhong1');
+			$(this.getElementByXid("selectalli")).addClass('isselect');
+		} else {
+			$(this.getElementByXid("selectalli")).removeClass('my2-xuanzhong1');
+			$(this.getElementByXid("selectalli")).removeClass('isselect');
+			$(this.getElementByXid("selectalli")).addClass('my2-xuanzhong2');
+			$(this.getElementByXid("selectalli")).addClass('text-muted');
+		}
+		this.calower();
+	};
+
+	Model.prototype.selectallbtnClick = function(event) {
+		var flag = true;
+		this.comp('buycarData').each(function(param) {
+			if (param.row.val('isselect') == 0) {
+				flag = false
+			}
+		});
+		if (!flag) {
+			this.comp('buycarData').each(function(param) {
+				param.row.val('isselect', 1);
+			});
+			$(this.getElementByXid("selectalli")).removeClass('my2-xuanzhong2');
+			$(this.getElementByXid("selectalli")).removeClass('text-muted');
+			$(this.getElementByXid("selectalli")).addClass('my2-xuanzhong1');
+			$(this.getElementByXid("selectalli")).addClass('isselect');
+		} else {
+			this.comp('buycarData').each(function(param) {
+				param.row.val('isselect', 0);
+			});
+			$(this.getElementByXid("selectalli")).removeClass('my2-xuanzhong1');
+			$(this.getElementByXid("selectalli")).removeClass('isselect');
+			$(this.getElementByXid("selectalli")).addClass('my2-xuanzhong2');
+			$(this.getElementByXid("selectalli")).addClass('text-muted');
+		}
+		this.calower();
+	};
+
+	Model.prototype.change_select_css = function(isselect, event) {
+		if (isselect == 1) {
+			$(event).removeClass('my2-xuanzhong2');
+			$(event).removeClass('text-muted');
+			$(event).addClass('my2-xuanzhong1');
+			$(event).addClass('isselect');
+		} else {
+			$(event).removeClass('my2-xuanzhong1');
+			$(event).removeClass('isselect');
+			$(event).addClass('my2-xuanzhong2');
+			$(event).addClass('text-muted');
+		}
+
 	};
 
 	return Model;

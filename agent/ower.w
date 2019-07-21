@@ -48,7 +48,8 @@
    <div class="x-col bottom-line" xid="col4" style="padding-top:20px;padding-bottom:10px;">
     <span xid="span4" style="font-size:medium;"><![CDATA[授权证书]]></span></div> 
    <div class="x-col bottom-line text-right" xid="col5" style="padding-top:22px;padding-right:10px;">
-    <i xid="i3" class="linear linear-chevronright text-muted"></i></div> </div>
+    <span xid="realnamespan"><![CDATA[]]></span><i xid="i3" class="linear linear-chevronright text-muted"></i>
+  </div> </div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row3" style="padding:0px;">
    <div class="x-col x-col-fixed" xid="col7" style="width:40px;padding-left:10px;margin-top:16px;margin-bottom:6px;">
     <i xid="i4" class="my2 my2-huokuanpipeidan  btnclass" style="font-size:x-large;"></i></div> 

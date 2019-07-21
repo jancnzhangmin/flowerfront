@@ -1,35 +1,48 @@
-.imageradius{
-	border-radius:5px;overflow: hidden;
+.imageradius {
+	border-radius: 5px;
+	overflow: hidden;
 }
 
-.lastborder{
-	border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;
-}
-.lastborder div:last{
-	border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;
-}
-
-.addbtn{
-	background:transparent;
-	border-radius:50%;
-	border:1px solid #ff4256;
-	color:#ff4256;
-	padding:2px;
-	padding-left:5px;
-	padding-right:5px;
+.lastborder {
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #f6f6f6;
 }
 
-.surebtn{
-	border-radius:18px;
-	border:0px;
-	background: linear-gradient(to right,#ff6ca0,#ff4256);
+.lastborder div:last {
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: #f6f6f6;
 }
 
-.x-popOver-content{
-	bottom:0px !important;
+.addbtn {
+	background: transparent;
+	border-radius: 50%;
+	border: 1px solid #ff4256;
+	color: #ff4256;
+	padding: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
-.x-radio input[type="radio"]:checked + label:before, .x-checkbox input[type="checkbox"]:checked + label:before {
-    background-color: #ff6ca0;
-    border: 1px solid #ff6ca0;
+.surebtn {
+	border-radius: 18px;
+	border: 0px;
+	background: linear-gradient(to right, #ff6ca0, #ff4256);
+}
+
+.x-popOver-content {
+	bottom: 0px !important;
+}
+
+.x-radio input[type="radio"]:checked+label:before,.x-checkbox input[type="checkbox"]:checked+label:before
+	{
+	background-color: #ff6ca0;
+	border: 1px solid #ff6ca0;
+}
+
+.isselect:before {
+	background: linear-gradient(to top, #ff4256, #fe5993);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }

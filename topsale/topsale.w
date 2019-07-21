@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" component="$UI/system/components/justep/window/window" design="device:m;" xid="window" class="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="left:18px;top:83px;height:244px;" onLoad="modelLoad"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="left:18px;top:83px;height:244px;" onLoad="modelLoad" onActive="modelActive"> 
   <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="productData" idColumn="id"><column name="id" type="String" xid="xid1"></column>
   <column name="name" type="String" xid="xid2"></column>
   <column name="price" type="String" xid="xid3"></column>
@@ -23,7 +23,12 @@
   <column name="fullpinyin" type="String" xid="xid19"></column>
   <column name="subtitle" type="String" xid="xid20"></column>
   <column name="cover" type="String" xid="xid21"></column></div>
-  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="agentstatusData" idColumn="status"><column name="status" type="String" xid="xid23"></column></div></div>  
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="agentstatusData" idColumn="status"><column name="status" type="String" xid="xid23"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="wxmessageData" idColumn="id" onDataChange="wxmessageDataDataChange" onAfterNew="wxmessageDataAfterNew"><column name="id" type="String" xid="xid24"></column>
+  <column name="name" type="String" xid="xid25"></column>
+  <column name="message" type="String" xid="xid26"></column>
+  <column name="created_at" type="String" xid="xid27"></column>
+  <column name="timesummary" type="String" xid="xid28"></column></div></div>  
   <div component="$UI/system/components/justep/panel/panel" 
     class="x-panel x-full  x-card top-trans" xid="panel1"> 
       <div class="x-panel-content" xid="content1" style="background-color:#f6f6f6;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row5" style="position:absolute;">
@@ -60,14 +65,10 @@
   <div xid="div9">
    <span xid="span9" style="color:#333333;"><![CDATA[冲泡器皿]]></span></div></div></div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row3" style="background-color:white;padding-bottom:0px;">
-   <div class="x-col x-col-fixed" xid="col10" style="width:110px;"><img src="$UI/flowerfront/image/hot_logo.png" alt="" xid="image7" style="width:40px;"></img>
+   <div class="x-col x-col-fixed" xid="hotcol" style="width:110px;" bind-click="hotcolClick"><img src="$UI/flowerfront/image/hot_logo.png" alt="" xid="image7" style="width:40px;"></img>
   <span xid="span10" style="margin-left:5px;"><![CDATA[花当家]]></span>
   <img src="$UI/flowerfront/image/vertical_line.png" alt="" xid="image8" height="25px" class="pull-right" style="margin-top:8px;"></img></div>
-   <div class="x-col" xid="col11"><div xid="div11" class="swiper-container" style="height:40px;"><div xid="div12" class="swiper-wrapper"><div xid="div13" class="swiper-slide" style="padding-top:10px;"><span xid="span11"><![CDATA[霞** 成功购买禾言清茶]]></span>
-  <span xid="span12" class="pull-right text-muted"><![CDATA[刚刚]]></span></div>
-  <div xid="div14" class="swiper-slide" style="padding-top:10px;">
-   <span xid="span14"><![CDATA[*敏 成功购买遇见玫好系列普洱茶]]></span>
-   <span xid="span13" class="pull-right text-muted"><![CDATA[5分钟前]]></span></div></div></div></div>
+   <div class="x-col" xid="col11"><div xid="topswiperdiv" class="swiper-container" style="height:40px;"><div xid="div12" class="swiper-wrapper"></div></div></div>
    </div>
   <div component="$UI/system/components/justep/row/row" class="x-row text-center" xid="row4" style="margin-top:15px;">
    <div class="x-col" xid="hctjcol" style="background-color:white;border-radius: 5px;margin-left:5px;margin-right:5px;" bind-click="hctjcolClick"><div xid="div15"><span xid="span15" style="color:#333333;font-size:medium;font-weight:bold;"><![CDATA[好茶推荐]]></span></div>

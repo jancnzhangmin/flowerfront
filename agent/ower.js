@@ -1,6 +1,9 @@
 define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
+	var realnamestatus = 0;
+	var examinestatus = 0;
+	var adjust = 0;
 
 	var Model = function() {
 		this.callParent();
@@ -41,19 +44,36 @@ define(function(require) {
 						'checked' : false
 					});
 				}
+				realnamestatus = jsonstr.realnamestatus;
+				examinestatus = jsonstr.examinestatus;
+				adjust = jsonstr.adjust;
+				if (realnamestatus == 0) {
+					$(self.getElementByXid("realnamespan")).text('未实名');
+				} else if (adjust == 1) {
+					$(self.getElementByXid("realnamespan")).text('需要调整');
+				} else if (examinestatus == 1) {
+					$(self.getElementByXid("realnamespan")).text('审核中');
+				}
 			},
 			error : function(xhr) {
 				// justep.Util.hint("错误，请检查网络");
 			}
 		});
 		justep.Shell.on("agent_ower_setphone", this.agent_ower_setphone, this);
-	};
-	
-	Model.prototype.agent_ower_setphone = function(phone){
-	$(this.getElementByXid("span7")).text(phone);
+		justep.Shell.on("agent_change_realname", this.agent_change_realname, this);
 	};
 
-	Model.prototype.toggle2Change = function(event){
+	Model.prototype.agent_ower_setphone = function(phone) {
+		$(this.getElementByXid("span7")).text(phone);
+	};
+
+	Model.prototype.agent_change_realname = function(params) {
+		realnamestatus = 1;
+		examinestatus = 1;
+		$(this.getElementByXid("realnamespan")).text('审核中');
+	};
+
+	Model.prototype.toggle2Change = function(event) {
 		var self = this;
 		$.ajax({
 			async : true,
@@ -64,7 +84,7 @@ define(function(require) {
 			timeout : 5000,
 			data : {
 				openid : openid,
-				autoupgrade:self.comp('toggle2').val()
+				autoupgrade : self.comp('toggle2').val()
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 
@@ -75,7 +95,7 @@ define(function(require) {
 		});
 	};
 
-	Model.prototype.toggle3Change = function(event){
+	Model.prototype.toggle3Change = function(event) {
 		var self = this;
 		$.ajax({
 			async : true,
@@ -86,7 +106,7 @@ define(function(require) {
 			timeout : 5000,
 			data : {
 				openid : openid,
-				showphone:self.comp('toggle3').val()
+				showphone : self.comp('toggle3').val()
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 
@@ -97,15 +117,19 @@ define(function(require) {
 		});
 	};
 
-	Model.prototype.row4Click = function(event){
-	var params = {
-	phone:$(this.getElementByXid("span7")).text()
-	}
-justep.Shell.showPage(require.toUrl("./owerphone.w"),params);
+	Model.prototype.row4Click = function(event) {
+		var params = {
+			phone : $(this.getElementByXid("span7")).text()
+		}
+		justep.Shell.showPage(require.toUrl("./owerphone.w"), params);
 	};
 
-	Model.prototype.row2Click = function(event){
-justep.Shell.showPage(require.toUrl("./agentcertificate.w"));
+	Model.prototype.row2Click = function(event) {
+		if (realnamestatus == 0 || adjust == 1) {
+			justep.Shell.showPage(require.toUrl("./realname.w"));
+		} else if (realnamestatus == 1 && examinestatus == 0 && adjust == 0) {
+			justep.Shell.showPage(require.toUrl("./agentcertificate.w"));
+		}
 	};
 
 	return Model;

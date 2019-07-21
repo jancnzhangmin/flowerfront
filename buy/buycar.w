@@ -19,7 +19,8 @@
   <column name="subtitle" type="String" xid="xid25"></column>
   <column name="hasoptional" type="String" xid="xid26"></column>
   <column name="agentuserid" type="String" xid="xid27"></column>
-  <column name="destock" type="String" xid="xid28"></column></div> 
+  <column name="destock" type="String" xid="xid28"></column>
+  <column name="isselect" type="String" xid="xid29"></column></div> 
    <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="optionalData" idColumn="id">
     <column name="id" type="String" xid="xid14"></column>
   <column name="selectcondition_id" type="String" xid="xid15"></column>
@@ -53,7 +54,7 @@
   <div component="$UI/system/components/justep/list/list" class="x-list" xid="list1" data="buycarData" filter='$row.val("number") &gt; 0  &amp;&amp;  $row.val("producttype") == 0'>
    <ul class="x-list-template" xid="listTemplateUl1" style="overflow:hidden;">
     <div xid="div1" class="swiper-container"><div xid="div5" class="swiper-wrapper"><div xid="div6" class="swiper-slide"><div component="$UI/system/components/justep/row/row" class="x-row movrow" xid="row1" style="padding-bottom:0px;padding-top:5px;z-index:10;" bind-click="row1Click" bind-touchstart="row1Touchstart">
-   <div class="x-col x-col-25" xid="col1"><img src=" " alt="" xid="image1" bind-attr-src=' val("cover")' style="width:100%;" class="imageradius"></img></div>
+   <div class="x-col x-col-fixed" xid="col42" style="width:30px;padding-top:5px;"><i xid="selecti" class="my2 my2-xuanzhong2 text-muted" style="font-size:20px;" bind-css=' $model.change_select_css( val("isselect"), $element)' bind-click="selectiClick"></i></div><div class="x-col x-col-25" xid="col1"><img src=" " alt="" xid="image1" bind-attr-src=' val("cover")' style="width:100%;" class="imageradius"></img></div>
    <div class="x-col lastborder" xid="col2" style="padding:0px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row2" style="padding:0px;">
    <div class="x-col" xid="col6"><span xid="span1" bind-text='val("name")'></span>
   <span xid="span2" bind-text='val("subtitle")'></span></div></div>
@@ -142,17 +143,17 @@
   <div class="x-panel-bottom" xid="bottom1" style="border-top-style:solid;border-top-color:#f6f6f6;border-top-width:1px;"><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row13" style="height:48px;padding:2px;">
    <div class="x-col x-col-20" xid="col19" style="padding-left:0px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;"><a component="$UI/system/components/justep/button/button" class="btn btn-link" label="更多" xid="morebutton" style="color:#555555;" icon="linear linear-menu" onClick="morebuttonClick">
    <i xid="i10" class="linear linear-menu"></i>
-   <span xid="span23">更多</span></a></div><div class="x-col x-col-20 text-right" xid="col22" style="padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link" label="清空" xid="button4" icon="glyphicon glyphicon-trash" style="color:#555555;">
-   <i xid="i9" class="glyphicon glyphicon-trash"></i>
-   <span xid="span20">清空</span></a>
-  </div>
-   <div class="x-col text-right" xid="col23"><span xid="span18"><![CDATA[合计：]]></span>
+   <span xid="span23">更多</span></a></div><div class="x-col x-col-20 text-center" xid="col22" style="padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-left" label="全选" xid="selectallbtn" icon="my2 my2-xuanzhong2" style="color:#555555;padding:0px;" onClick="selectallbtnClick">
+   <i xid="selectalli" class="my2 my2-xuanzhong2 text-muted" style="font-size:20px;"></i>
+   <span xid="span20" style="margin-left:-8px;">全选</span></a></div>
+   <div class="x-col text-right" xid="col23" style="padding-left:0px;"><span xid="span18"><![CDATA[合计：]]></span>
   <span xid="span19" style="color:#fe2e23;"></span></div>
    <div class="x-col" xid="col24" style="padding:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-default btn-block surebtn" label="结算" xid="settleBtn" onClick="settleBtnClick">
    <i xid="i8"></i>
    <span xid="span17">结算</span></a></div>
   </div></div></div> 
-<resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require></resource>
+<resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require>
+  <require xid="require2" url="css!$UI/flowerfront/icon2/my2.icons"></require></resource>
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver" direction="auto" xid="directagentpopOver" position="bottom">
    <div class="x-popOver-overlay" xid="div3"></div>
    <div class="x-popOver-content" xid="div4" style="width:100%;height:80%;"><div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer3" style="height:100%;background-color:white;border-top-left-radius:5px;border-top-right-radius:5px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row14">

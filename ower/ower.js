@@ -215,5 +215,29 @@ define(function(require) {
 justep.Shell.showPage(require.toUrl("../agent/directagent.w"));
 	};
 
+	Model.prototype.taskcolClick = function(event){
+justep.Shell.showPage(require.toUrl("../agent/mytask.w"));
+	};
+
+	Model.prototype.row13Click = function(event){
+justep.Shell.showPage(require.toUrl("./joinagent.w"));
+	};
+
+	Model.prototype.incomebtnClick = function(event){
+justep.Shell.showPage(require.toUrl("./income.w"));
+	};
+
+	Model.prototype.customercolClick = function(event){
+justep.Shell.showPage(require.toUrl("../agent/customerlist.w"));
+	};
+
+	Model.prototype.salescolClick = function(event){
+justep.Shell.showPage(require.toUrl("../agent/sales.w"));
+	};
+
+	Model.prototype.withdrawbtnClick = function(event){
+justep.Shell.showPage(require.toUrl("./withdraw.w"));
+	};
+
 	return Model;
 });
