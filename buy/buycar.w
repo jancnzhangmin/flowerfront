@@ -20,7 +20,8 @@
   <column name="hasoptional" type="String" xid="xid26"></column>
   <column name="agentuserid" type="String" xid="xid27"></column>
   <column name="destock" type="String" xid="xid28"></column>
-  <column name="isselect" type="String" xid="xid29"></column></div> 
+  <column name="isselect" type="String" xid="xid29"></column>
+  <column name="trial" type="String" xid="xid30"></column></div> 
    <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="optionalData" idColumn="id">
     <column name="id" type="String" xid="xid14"></column>
   <column name="selectcondition_id" type="String" xid="xid15"></column>

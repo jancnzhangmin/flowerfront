@@ -46,27 +46,41 @@ define(function(require) {
 			if (JSON.parse(evt.data).identifier && JSON.parse(evt.data).message) {
 				self.add_wxmessage(JSON.parse(evt.data).message);
 			}
-			//console.log(JSON.stringify(evt.data));
+			// console.log(JSON.stringify(evt.data));
 		};
 
 		publictime = setInterval(function() {
 			if (wxwebsocket.readyState == 3) {
 				self.get_websocket_msg();
 			}
-			//console.log(topSwiper.autoplay.paused);
-			//console.log(window.location.href.indexOf('topsalecontent'));
+			// console.log(topSwiper.autoplay.paused);
+			// console.log(window.location.href.indexOf('topsalecontent'));
 			if (topSwiper.autoplay.paused) {
 				topSwiper.slideTo(0);
 				topSwiper.autoplay.stop();
 				topSwiper.autoplay.start();
 			}
 
-			//console.log(wxwebsocket.readyState);
+			// console.log(wxwebsocket.readyState);
 			$('.timespan').each(function(i, el) {
 				difftime = self.timediff($(el).attr('value'));
 				$(el).text(difftime);
 			});
 		}, 10000);
+		self.redirect();
+	};
+	
+		Model.prototype.redirect = function(){
+	if(ctype == 'product'){
+			var params = {
+			data : {
+				id : cid
+			}
+		}
+		ctype = null;
+		cid = null
+		justep.Shell.showPage(require.toUrl("../product/productdetail.w"), params);
+	}
 	};
 
 	Model.prototype.check_useragent_status = function() {
@@ -135,7 +149,9 @@ define(function(require) {
 								odd : odd,
 								discount : item.discount,
 								collection : item.collection,
-								agentprice : item.agentprice
+								agentprice : item.agentprice,
+								displaysale:item.displaysale,
+								salecount:item.salecount
 							} ]
 						};
 						data.newData(options);
@@ -362,6 +378,7 @@ define(function(require) {
 	};
 
 	Model.prototype.get_websocket_msg = function() {
+	var self = this;
 		wxwebsocket = new WebSocket(publicws);
 		wxwebsocket.onopen = function() {
 			var identifier = '"{"channel":"WxmessageChannel"}"';
@@ -458,19 +475,28 @@ define(function(require) {
 	};
 
 	Model.prototype.wxmessageDataAfterNew = function(event) {
+		var self = this;
 		if (this.comp('wxmessageData').count() > 0) {
 			topSwiper.removeAllSlides();
 		}
-		this.comp('wxmessageData').each(function(param) {
-			var swiper = $('<div class="swiper-slide" style="padding-top:10px;"></div>');
-			var namespan = $('<span></span>');
-			namespan.text(param.row.val('name') + ' ' + param.row.val('message'));
-			var timespan = $('<span class="text-muted pull-right timespan" value="' + param.row.val('created_at') + '"></span>');
-			timespan.text(param.row.val('timesummary'));
-			swiper.append(namespan);
-			swiper.append(timespan);
-			topSwiper.appendSlide(swiper);
-		});
+		this.comp('wxmessageData').each(
+				function(param) {
+					var swiper = $('<div class="swiper-slide" style="padding-top:10px;"></div>');
+					var namespan = $('<span></span>');
+					namespan.text(param.row.val('name') + ' ' + param.row.val('message'));
+					var timespan = $('<span class="text-muted pull-right timespan" value="' + param.row.val('created_at') + '"></span>');
+					timespan.text(param.row.val('timesummary'));
+					swiper.append(namespan);
+					swiper.append(timespan);
+					// topSwiper.appendSlide(swiper);
+
+					var maindiv = $('<div class="swiper-slide"></div>');
+					var table = $('<table width="100%" height="40px"><tr><td valign="middle"><div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;">' + param.row.val('name')
+							+ ' ' + param.row.val('message') + '</div></td><td valign="middle" width="60px"><div class="text-right text-muted"><span class="text-muted pull-right timespan" value="'
+							+ param.row.val('created_at') + '">' + param.row.val('timesummary') + '</span></div></td></tr></table>');
+					maindiv.append(table);
+					topSwiper.appendSlide(maindiv);
+				});
 		// topSwiper.slideTo(0);
 
 		topSwiper.update();

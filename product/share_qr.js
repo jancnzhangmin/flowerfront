@@ -28,7 +28,7 @@ define(function(require) {
 				timeout : 5000,
 				data : {
 					product_id : event.data.data.id,
-					openid : 'o_L1a1F_7rOT0RxFXBc5Ki4W5Cuk'
+					openid : openid
 				},
 				success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 
@@ -57,7 +57,7 @@ define(function(require) {
 							render : "canvas",
 							width : 238,
 							height : 238,
-							text : 'http://flowerfront.ysdsoft.com?type=product&id=' + event.data.data.id + '&vid=' + jsonstr.user.vipid// 需要生成的内容
+							text : 'http://flower.ysdsoft.com/usersubscribes?type=product&id=' + event.data.data.id + '&userid=' + jsonstr.user.id// 需要生成的内容
 						});
 						var qrmaincanvas = $('<canvas id ="qrmain" width ="258px" height="258px" style="display:none;" />');
 						$(self.getElementByXid("content1")).append(qrmaincanvas);

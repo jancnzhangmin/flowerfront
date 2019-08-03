@@ -20,12 +20,17 @@
           </div>
         </div> 
       </div>  
-    <div class="x-panel-content x-cards" xid="content1" style="padding-top:0px;"><div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer backcolor" xid="smartContainer1" style="height:200px;padding-top:50px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row1">
-   <div class="x-col text-center" xid="col1"><span xid="span1" style="color:white;font-size:large;"><![CDATA[可提现额(元)]]></span></div>
+    <div class="x-panel-content x-cards" xid="content1"><div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer1" style="padding-top:50px;background-color:white;height:220px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row1">
+   <div class="x-col text-center" xid="col1"><span xid="span1" style=";font-size:large;"><![CDATA[可提现额(元)]]></span></div>
    </div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row2">
    <div class="x-col text-center" xid="col4">
-    <span xid="span2" style="color:white;font-size:40px;"><![CDATA[0.00]]></span></div> </div></div>
+    <span xid="span2" style="font-size:40px;"><![CDATA[0.00]]></span></div> </div>
+  <hr xid="hr3" style="margin:0px;margin-left:0px;border-top: 1px solid #f6f6f6;"></hr><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row6">
+   <div class="x-col x-col-fixed" xid="col12" style="width:50px;"><span xid="span6"><![CDATA[提现]]></span></div>
+   <div class="x-col" xid="col13"><input component="$UI/system/components/justep/input/input" class="form-control input-class" xid="withdrawinput"></input></div>
+   </div>
+  </div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row3" style="padding-left:20px;">
    <div class="x-col" xid="col5"><span xid="span3" class="text-muted"><![CDATA[最低提现额度：1元]]></span></div>
    </div>
@@ -33,7 +38,7 @@
    <div class="x-col" xid="col8">
     <span xid="span4" class="text-muted"><![CDATA[每日最高提现额度：5000元]]></span></div> </div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row5" style="margin-top:100px;">
-   <div class="x-col" xid="col9"><a component="$UI/system/components/justep/button/button" class="btn btn-success btn-block surebtn" label="提现至微信" xid="button1">
+   <div class="x-col" xid="col9"><a component="$UI/system/components/justep/button/button" class="btn btn-success btn-block" label="提现至微信" xid="button1">
    <i xid="i1"></i>
    <span xid="span5">提现至微信</span></a></div>
    </div></div>

@@ -16,6 +16,7 @@ define(function(require) {
 		justep.Shell.on("ower_refresh", this.ower_refresh, this);
 		justep.Shell.on("ower_refresh_unpay_count", this.ower_refresh_unpay_count, this);
 		justep.Shell.on("ower_unreceipt_count", this.ower_unreceipt_count, this);
+		justep.Shell.on("ower_undeliver_count", this.ower_undeliver_count, this);
 		justep.Shell.on("ower_uncomment_count", this.ower_uncomment_count, this);
 	};
 
@@ -133,6 +134,30 @@ define(function(require) {
 
 	Model.prototype.refreshdata = function() {
 		var self = this;
+		
+				$.ajax({
+			async : true,
+			url : publicurl + '/api/get_user_info',
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				openid : openid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+			if(jsonstr.user.headurl){
+				$(self.getElementByXid("image1")).attr('src',jsonstr.user.headurl);
+				}
+				if(jsonstr.user.nickname){
+				$(self.getElementByXid("span2")).text(jsonstr.user.nickname);
+				}
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+		
 		$.ajax({
 			async : true,
 			url : publicurl + '/api/get_collection',

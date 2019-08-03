@@ -1,6 +1,7 @@
 define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
+	var wx = require("http://res.wx.qq.com/open/js/jweixin-1.4.0.js");
 	var orderid = 0;
 	var price = 0;
 	var banlance = 0;
@@ -11,6 +12,8 @@ define(function(require) {
 	var agentname = '';
 	var pwdstep = 0;
 	var mergeorderids = [];
+	var pwdstep = 0;
+	var pay_success_status = 0;
 
 	var Model = function() {
 		this.callParent();
@@ -69,7 +72,7 @@ define(function(require) {
 									pwdstep = 0;
 								}, 100);
 							} else {
-self.create_agentpayment_order();								
+								self.create_agentpayment_order();
 							}
 						},
 						error : function(xhr) {
@@ -77,14 +80,31 @@ self.create_agentpayment_order();
 						}
 					});
 
-				};
+				}
+				;
+			}
+		});
+		$(".nub_ggg li .zf_del").click(function() {
+			if (pwdstep > 0) {
+				pwdstep--
+				$(".mm_box li").eq(pwdstep).removeClass("mmdd");
+				$(".mm_box li").eq(pwdstep).attr("data", "");
 			}
 		});
 
+		$(".nub_ggg li .zf_empty").click(function() {
+			$(".mm_box li").removeClass("mmdd");
+			$(".mm_box li").attr("data", "");
+			pwdstep = 0;
+		});
 	};
-	
-	Model.prototype.create_agentpayment_order = function(){
-			var self = this;
+
+	Model.prototype.create_agentpayment_order = function() {
+		mergeorderids = [];
+		var self = this;
+		self.comp('paystatusData').each(function(param) {
+			mergeorderids.push(param.row.val('id'));
+		});
 		$.ajax({
 			async : true,
 			url : publicurl + "api/create_agentpayment_order",
@@ -97,7 +117,7 @@ self.create_agentpayment_order();
 				mergeorderids : mergeorderids
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
-				
+				self.paysuccess();
 			},
 			error : function(xhr) {
 				// justep.Util.hint("错误，请检查网络");
@@ -188,6 +208,7 @@ self.create_agentpayment_order();
 							destock : item.destock,
 							agentuserid : item.agentuserid,
 							agentname : item.agentname,
+							postage:item.postage,
 							isselect : 0
 						} ]
 					};
@@ -289,49 +310,9 @@ self.create_agentpayment_order();
 
 	Model.prototype.paynowBtnClick = function(event) {
 		var row = event.bindingContext.$object;
-		var self = this;
 		mergeorderids = [];
 		mergeorderids.push(row.val('id'));
-		$.ajax({
-			async : true,
-			url : publicurl + "api/get_unapyorder",
-			type : "GET",
-			dataType : 'jsonp',
-			jsonp : 'callback',
-			timeout : 5000,
-			data : {
-				orderid : row.val('id'),
-				openid : openid
-			},
-			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
-				self.comp('payBtn').set({
-					'disabled' : false
-				});
-				price = parseFloat(jsonstr.order.paysum);
-				balance = parseFloat(jsonstr.balance);
-				paytype = jsonstr.order.paytype;
-				agentname = jsonstr.order.agentname;
-				if (jsonstr.order.paytype == 0) {
-					$(self.getElementByXid("span25")).text('微信支付');
-				} else if (jsonstr.order.paytype == 1) {
-					$(self.getElementByXid("span25")).text('货款支付');
-				} else if (jsonstr.order.paytype == 2) {
-					$(self.getElementByXid("span25")).text(jsonstr.order.agentname + '货款支付');
-				} else {
-					$(self.getElementByXid("span25")).text(jsonstr.order.agentname + '货款不足');
-					self.comp('payBtn').set({
-						'disabled' : true
-					});
-				}
-
-				$(self.getElementByXid("span23")).text("￥" + price.toFixed(2));
-				$(self.getElementByXid("span31")).text("￥" + price.toFixed(2));
-			},
-			error : function(xhr) {
-				// justep.Util.hint("错误，请检查网络");
-			}
-		});
-		this.comp('popOver1').show();
+		this.mergepaycallback();
 	};
 
 	Model.prototype.toggle1Change = function(event) {
@@ -392,23 +373,160 @@ self.create_agentpayment_order();
 	};
 
 	Model.prototype.forgetbtnClick = function(event) {
-
+	this.comp('passwordpopOver').hide();
+		justep.Shell.showPage(require.toUrl("../ower/change_password.w"));
 	};
+
+	Model.prototype.wxpay = function() {
+		var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + "api/wx_pay",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				openid : openid,
+				mergeorderids : mergeorderids,
+				url : window.location.href
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				wx.config({
+					debug : false,
+					appId : jsonstr.sign_packge.appId,
+					url : jsonstr.sign_packge.url,
+					timestamp : jsonstr.sign_packge.timestamp,
+					nonceStr : jsonstr.sign_packge.nonceStr,
+					signature : jsonstr.sign_packge.signature,
+					jsApiList : [ 'chooseWXPay' ]
+				});
+				wx.ready(function() {
+					// window.weixin_ready = true;
+					wx.chooseWXPay({
+						timestamp : jsonstr.pay_ticket_param.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+						nonceStr : jsonstr.pay_ticket_param.nonceStr, // 支付签名随机串，不长于
+						// 32 位
+						package : jsonstr.pay_ticket_param.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***
+						signType : jsonstr.pay_ticket_param.signType, // 签名方式，默认为"SHA1"，使用新版支付需传入"MD5"
+						paySign : jsonstr.pay_ticket_param.paySign, // 支付签名
+						success : function(res) {
+							// alert("支付成功");
+							// self.close();
+							self.paysuccess();
+						}
+					});
+				});
+
+				wx.error(function() {
+
+					// window.weixin_ready = false;
+				});
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.paysuccess = function() {
+		page = 1;
+		pay_success_status = 1;
+		this.comp('passwordpopOver').hide();
+		// self.refreshdata();
+		justep.Util.hint("支付成功", {
+			"tyep" : "info",
+			"position" : "middle",
+			"style" : "background:rgba(0,0,0,0.65);border:0px;color:#fff;"
+		});
+		var rows = this.comp('orderData').find([ 'id' ], mergeorderids);
+		this.comp('orderData').deleteData(rows);
+	}
 
 	Model.prototype.payBtnClick = function(event) {
-	this.comp('popOver1').hide();
-		if (paytype == 1 || paytype == 2) {
-			this.comp('passwordpopOver').show();
-		}
+		var self = this;
+		this.comp('popOver1').hide();
+		var flag = false;
+		this.comp('paystatusData').each(function(param) {
+			if (param.row.val('paytype') == 0) {
+				self.wxpay();
+			} else {
+				self.comp('passwordpopOver').show();
+			}
+		});
 	};
 
-	Model.prototype.i2Click = function(event){
+	Model.prototype.i2Click = function(event) {
 		this.comp('passwordpopOver').hide();
 		$('.mz').text('');
 
 		$(".mm_box li").removeClass("mmdd");
 		$(".mm_box li").attr("data", "");
 		pwdstep = 0;
+	};
+
+	Model.prototype.mergepaycallback = function() {
+		var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + "api/get_merge_unpayorders",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				mergeorderids : mergeorderids
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				self.comp('payBtn').set({
+					'disabled' : false
+				});
+				var data = self.comp('paystatusData');
+				data.clear();
+				paysum = 0;
+				$.each(jsonstr.paystatus, function(i, item) {
+					var option = {
+						defaultValues : [ {
+							id : item.id,
+							paytype : item.paytype,
+							paysummary : item.paysummary,
+							paysum : parseFloat(item.paysum).toFixed(2)
+						} ]
+					}
+					data.newData(option);
+					if (item.paytype == 3) {
+						self.comp('payBtn').set({
+							'disabled' : true
+						});
+					}
+					paysum += parseFloat(item.paysum);
+				});
+				$(self.getElementByXid("span23")).text("￥" + paysum.toFixed(2));
+				$(self.getElementByXid("span31")).text("￥" + paysum.toFixed(2));
+				self.comp('popOver1').show();
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.mergepaybtnClick = function(event) {
+		mergeorderids = [];
+		this.comp('orderData').each(function(param) {
+			if (param.row.val('isselect') == 1) {
+				mergeorderids.push(param.row.val('id'));
+			}
+		});
+		this.mergepaycallback();
+
+	};
+
+	Model.prototype.modelUnLoad = function(event) {
+		if (pay_success_status == 1) {
+			justep.Shell.fireEvent("ower_refresh_unpay_count", self);
+			justep.Shell.fireEvent("ower_undeliver_count", self);
+		}
 	};
 
 	return Model;

@@ -139,21 +139,38 @@ define(function(require) {
 							cover : publicurl + item.cover,
 							baseprice : parseFloat(item.price).toFixed(2),
 							agentprice : parseFloat(item.agentprice).toFixed(2),
-							baseagentprice : parseFloat(item.agentprice).toFixed(2)
+							baseagentprice : parseFloat(item.agentprice).toFixed(2),
+							shelflife : item.shelflife,
+							displaysale : item.displaysale,
+							salecount : item.salecount
 						} ]
 					};
 					data.newData(options);
 					$(self.getElementByXid("contentdiv")).html(self.eachimg(item.content));
+					var productdetailSwiper = new Swiper(self.getElementByXid('productdetailswiper'), {
+						loop : false,
+						pagination : {
+							el : '.swiper-pagination',
+						},
+						paginationClickable : true,
+
+
+					// 循环模式选项
+					});
+					productdetailSwiper.removeAllSlides();
 					$.each(item.images, function(imagei, imageitem) {
 						var myimage = publicurl + imageitem;
 						myimage = '<div class="swiper-slide"><img width=100% src=' + myimage + '></div>';
-						//$('.swiper-wrapper').append(myimage);
+						// myimage = '<div class="swiper-slide"
+						// style="background-image:url(' + myimage
+						// +');height:400px;"></div>'
+						// $('.swiper-wrapper').append(myimage);
 						$(self.getElementByXid("productdetailswiperwrapper")).append(myimage);
 					});
-					var productdetailSwiper = new Swiper(self.getElementByXid('productdetailswiper'), {
-						loop : false
-					// 循环模式选项
-					});
+
+					productdetailSwiper.update();
+					// productdetailSwiper.pagination.update();
+
 					// ///////////////////////
 
 					// ///////////////////////
@@ -211,7 +228,9 @@ define(function(require) {
 						conditiondata.newData(options);
 					});
 				});
-
+if(optionaldata.count() > 0){
+$(self.getElementByXid("chooserow")).show();
+};
 				var explaindata = self.comp("explainData");
 				explaindata.clear();
 				$.each(jsonstr.explains, function(i, item) {
@@ -455,7 +474,7 @@ define(function(require) {
 				product_id : product_id
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
-
+				justep.Shell.fireEvent("ower_refresh", this);
 			},
 			error : function(xhr) {
 				// justep.Util.hint("错误，请检查网络");
@@ -559,9 +578,9 @@ define(function(require) {
 			number : buy_number,
 			buycaroptional : buycaroptionalparams,
 			producttype : 0,
-			agentuserid:0,
-			destock:0,
-			isselect:0
+			agentuserid : 0,
+			destock : 0,
+			isselect : 0
 		}
 
 		buycar.push(buycarparams);
@@ -586,6 +605,7 @@ define(function(require) {
 			processData : false,
 			success : function(data) {
 				// 成功
+
 				AddToBuycar(data.buycars);
 			},
 			error : function() {
@@ -679,7 +699,7 @@ define(function(require) {
 				openid : openid
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
-				if (jsonstr.status != 0) {
+				if (jsonstr.status == 0) {
 					self.pop_subscribe();
 				} else {
 					var params = {
@@ -775,7 +795,9 @@ define(function(require) {
 								cover : publicurl + item.cover,
 								odd : odd,
 								discount : item.discount,
-								collection : item.collection
+								collection : item.collection,
+								displaysale : item.displaysale,
+								salecount : item.salecount
 							} ]
 						};
 						if (productid != item.id) {
@@ -810,7 +832,7 @@ define(function(require) {
 
 	};
 
-	Model.prototype.popaddcarBtnClick = function(event){
+	Model.prototype.popaddcarBtnClick = function(event) {
 		var selectstatus = true;
 		this.comp('optionalData').each(function(params) {
 			if (params.row.val('selectcondition_id') == 0) {
@@ -824,6 +846,16 @@ define(function(require) {
 			this.comp('choosepop').hide();
 			this.addTocar();
 		}
+	};
+
+	Model.prototype.image6Load = function(event) {
+		if (event.target.width > event.target.height) {
+			$(event.target).height('100%');
+			$(event.target).width('auto');
+			$(event.target).css('margin-left', (event.target.parentElement.clientWidth - event.target.width) / 2);
+		}
+		$(event.target).css('margin-top', (event.target.parentElement.clientHeight - event.target.height) / 2);
+
 	};
 
 	return Model;

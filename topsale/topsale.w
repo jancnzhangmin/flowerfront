@@ -13,7 +13,9 @@
   <column name="odd" type="String" xid="xid10"></column>
   <column name="discount" type="String" xid="xid11"></column>
   <column name="collection" type="String" xid="xid12"></column>
-  <column name="agentprice" type="String" xid="xid22"></column></div>
+  <column name="agentprice" type="String" xid="xid22"></column>
+  <column name="displaysale" type="String" xid="xid29"></column>
+  <column name="salecount" type="String" xid="xid30"></column></div>
   <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="searchData" idColumn="id"><column name="id" type="String" xid="xid13"></column>
   <column name="name" type="String" xid="xid14"></column>
   <column name="price" type="String" xid="xid15"></column>
@@ -99,7 +101,7 @@
   <div xid="div28" style="background-color:white;padding-bottom:5px;border-radius: 0 0 5px 5px;"><div xid="div26" style="padding-top:10px;padding-left:10px;"><span xid="span21" bind-text='val("name")' style="font-size:medium;"></span></div><div xid="div27" style="padding-left:10px;"><span xid="span22" bind-text='val("subtitle")' style="background-color:white;font-size:small;" class="text-muted"></span></div>
   <div xid="div29" style="padding-left:10px;padding-right:5px;"><span xid="span23" bind-text="'￥' + val(&quot;price&quot;)" style="font-size:large;color:#fe2e23;"></span>
   <span xid="span24" style="font-size:small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-visible=' $model.agentstatusData.val("status") == 1' bind-text="'代理 ￥' + val(&quot;agentprice&quot;)"><![CDATA[]]></span>
-  <span xid="span25" class="pull-right text-muted" style="font-size:x-small;font-weight:lighter;margin-top:9px;"><![CDATA[售100件]]></span></div></div></div></ul> 
+  <span xid="span25" class="pull-right text-muted" style="font-size:x-small;font-weight:lighter;margin-top:9px;" bind-text="'售' +  val(&quot;salecount&quot;) + '件'" bind-visible=' val("displaysale") == 1'><![CDATA[售100件]]></span></div></div></div></ul> 
   </div></div>
   </div> 
 <resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require>

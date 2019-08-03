@@ -43,7 +43,10 @@ AddToBuycar(jsonstr.buycars);
 		});
 	
 justep.Shell.on("buycar_change_buynumber", this.buycar_change_buynumber, this);
+
 	};
+	
+
 
 	Model.prototype.topsalecontentActive = function(event){
 

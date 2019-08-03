@@ -12,6 +12,7 @@ define(function(require) {
 	};
 
 	Model.prototype.modelLoad = function(event) {
+	pwdstep = 0;
 		var self = this;
 		$.ajax({
 			async : true,
@@ -40,22 +41,21 @@ define(function(require) {
 		});
 
 		$(".nub_ggg li .zf_num").click(function() {
-
 			if (pwdstep < 6) {
-				$(".mm_box li").eq(pwdstep).addClass("mmdd");
-				$(".mm_box li").eq(pwdstep).attr("data", $(this).text());
+				$(".change_box li").eq(pwdstep).addClass("mmdd");
+				$(".change_box li").eq(pwdstep).attr("data", $(this).text());
 				pwdstep++
 				if (pwdstep == 6) {
 					var data = "";
-					$(".mm_box li").each(function() {
+					$(".change_box li").each(function() {
 						data += $(this).attr("data");
 					});
 
 					if (pwd1.length == 0) {
 						pwd1 = data;
 						setTimeout(function() {
-							$(".mm_box li").removeClass("mmdd");
-							$(".mm_box li").attr("data", "");
+							$(".change_box li").removeClass("mmdd");
+							$(".change_box li").attr("data", "");
 						}, 500);
 						$('.mz').text('请再次输入操作密码');
 						pwdstep = 0;
@@ -82,8 +82,8 @@ define(function(require) {
 							});
 						} else {
 							setTimeout(function() {
-								$(".mm_box li").removeClass("mmdd");
-								$(".mm_box li").attr("data", "");
+								$(".change_box li").removeClass("mmdd");
+								$(".change_box li").attr("data", "");
 							}, 500);
 							$('.mz').text('两次密码不一致，请重新输入');
 							pwdstep = 0;
@@ -99,14 +99,14 @@ define(function(require) {
 		$(".nub_ggg li .zf_del").click(function() {
 			if (pwdstep > 0) {
 				pwdstep--
-				$(".mm_box li").eq(pwdstep).removeClass("mmdd");
-				$(".mm_box li").eq(pwdstep).attr("data", "");
+				$(".change_box li").eq(pwdstep).removeClass("mmdd");
+				$(".change_box li").eq(pwdstep).attr("data", "");
 			}
 		});
 
 		$(".nub_ggg li .zf_empty").click(function() {
-			$(".mm_box li").removeClass("mmdd");
-			$(".mm_box li").attr("data", "");
+			$(".change_box li").removeClass("mmdd");
+			$(".change_box li").attr("data", "");
 			pwdstep = 0;
 		});
 
@@ -191,6 +191,7 @@ define(function(require) {
 				},
 				success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 					if (jsonstr.status == 1) {
+					event.target.blur();
 						self.comp('passwordpopOver').show();
 					}
 				},

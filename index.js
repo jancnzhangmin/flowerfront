@@ -1,11 +1,15 @@
 var publicurl = 'http://192.168.0.151:3000/';
-var publicws = 'ws://192.168.0.151:3000/cable';
-//
+var publicurl = 'http://flower.ysdsoft.com/';
+//var publicws = 'ws://192.168.0.151:3000/cable';
+var publicws = 'ws://flower.ysdsoft.com/cable';
+
 var openid = '1';
-//var openid = 'o_L1a1F_7rOT0RxFXBc5Ki4W5Cuk';
+//var openid = 'o_L1a1BjPSaDGIYgJeHX5Wb9v1oI';
 var buycar = new Array();
 //buycar{id,product_id,user_id,number,price,cost,discount,cover,firstprofit,secondprofit,owerprofit,
-//producttype,buycaroptional[id,buycar_id,select_optional,select_condition],activetype[id,buycar_id,active,showlable,summary,keywords],openid,agentuserid,destock,isselect}
+//producttype,buycaroptional[id,buycar_id,select_optional,select_condition],activetype[id,buycar_id,active,showlable,summary,keywords],openid,agentuserid,destock,isselect,trial}
+var ctype = null;
+var cid = null;
 define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
@@ -24,6 +28,9 @@ define(function(require) {
 	};
 
 	Model.prototype.modelLoad = function(event){
+	openid = this.getContext().getRequestParameter("openid");
+	ctype = this.getContext().getRequestParameter("ctype");
+	cid = this.getContext().getRequestParameter("cid");
 		justep.Shell.showPage("main");
 	};
 

@@ -7,3 +7,11 @@
 	border: 0px;
 	background: linear-gradient(to bottom, #ff6ca0, #ff4256);
 }
+
+.input-class {
+	border: 0px;
+}
+
+.input-class:focus {
+	box-shadow: 0 0 0px rgba(102, 175, 233, 0);
+}

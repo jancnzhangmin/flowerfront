@@ -37,10 +37,10 @@
    <div class="x-col" xid="col13" style="padding:0px;"><i xid="i1" class="my2 my2-meigui" style="font-size:xx-large;color:#ff4256;"></i></div>
    </div></div>
    <div class="x-col" xid="col5"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row3" style="padding-top:0px;padding-bottom:0px;">
-   <div class="x-col" xid="col7" style="padding-top:0px;padding-bottom:0px;"><label xid="label2" style="font-size:large;font-weight:normal;" bind-text="val(&quot;name&quot;) + '代理'">label</label></div>
+   <div class="x-col" xid="col7" style="padding-top:0px;padding-bottom:0px;"><label xid="label2" style="font-size:large;font-weight:normal;" bind-text='val("name")'>label</label></div>
    </div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row4" style="padding-top:0px;padding-bottom:0px;">
-   <div class="x-col" xid="col10"><span xid="span2" bind-text="'首次预存款达到' +  val(&quot;amount&quot;) + '元' +  val(&quot;name&quot;) + '代理价格(支持混批，包邮)'" class="text-muted"></span></div>
+   <div class="x-col" xid="col10"><span xid="span2" bind-text="'首次预存款达到' +  val(&quot;amount&quot;) + '元' +  val(&quot;name&quot;) + '价格(支持混批，包邮)'" class="text-muted"></span></div>
    </div></div>
    </div></li></ul> </div></div>
   </div> 

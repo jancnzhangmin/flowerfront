@@ -20,6 +20,7 @@ define(function(require) {
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 				$(self.getElementByXid("span2")).text(parseFloat(jsonstr.withdraw).toFixed(2));
+				self.comp('withdrawinput').val(parseFloat(jsonstr.withdraw).toFixed(2));
 			},
 			error : function(xhr) {
 				// justep.Util.hint("错误，请检查网络");

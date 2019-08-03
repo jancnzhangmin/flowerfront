@@ -4,17 +4,25 @@ define(function(require) {
 	var UUID = require("$UI/system/lib/base/uuid");
 	var address_id = 0;
 	var UUID = require("$UI/system/lib/base/uuid");
+	var wx = require("http://res.wx.qq.com/open/js/jweixin-1.4.0.js");
 	var frontuuid = '';
 	var price = 0;
 	var banlance = 0;
 	var localbuycar = [];
 	var surbuycar = [];
 	var deduction = 0;// 抵扣
+	var mergeorderids = [];
+	var pwdstep = 0;
+	var adcode = '';// 行政区域代码
+	var sumprice = 0;
+	var postage = 0;// 邮费
 	var Model = function() {
 		this.callParent();
 	};
 
 	Model.prototype.modelLoad = function(event) {
+		sumprice = 0;
+		postage = 0;
 		localbuycar = [];
 		surbuycar = [];
 		if (localbuycar.length == 0) {
@@ -52,6 +60,8 @@ define(function(require) {
 						$(self.getElementByXid("span2")).text(item.contactphone);
 						$(self.getElementByXid("span3")).text('收货地址：' + item.province + item.city + item.district + item.street + item.address);
 						address_id = item.id;
+						adcode = item.adcode;
+						self.check_postage();
 					}
 				});
 
@@ -140,7 +150,9 @@ define(function(require) {
 	Model.prototype.calower = function() {
 		var saveprofit = 0;
 		var owerprofit = 0;
-		var sumprice = 0;
+		sumprice = 0;
+		sumprice += postage;
+
 		this.comp('buycarData').each(function(params) {
 			if (params.row.val('producttype') == 0) {
 				saveprofit += parseFloat(params.row.val('number')) * parseFloat(params.row.val('discount'));
@@ -162,6 +174,7 @@ define(function(require) {
 			$(this.getElementByXid("row12")).hide();
 		}
 		$(this.getElementByXid("span19")).text('￥' + sumprice.toFixed(2));
+		$(this.getElementByXid("postagespan")).text('￥' + postage.toFixed(2));
 	};
 
 	Model.prototype.subBtnClick = function(event) {
@@ -178,6 +191,39 @@ define(function(require) {
 			type : 'order'
 		}
 		justep.Shell.showPage(url, params);
+	};
+
+	Model.prototype.check_postage = function() {
+		productarr = [];
+		this.comp('buycarData').each(function(param) {
+			if (param.row.val('producttype') == 0) {
+				var option = {
+					id : param.row.val('product_id'),
+					number : param.row.val('number')
+				}
+				productarr.push(option);
+			}
+		});
+		var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + '/api/get_postage',
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				productarr : productarr,
+				adcode : adcode
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				postage = parseFloat(jsonstr.postage);
+				self.calower();
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
 	};
 
 	Model.prototype.confirmorder_refreshaddress = function(params) {
@@ -198,6 +244,9 @@ define(function(require) {
 				$(self.getElementByXid("span2")).text(jsonstr.receiptaddr.contactphone);
 				$(self.getElementByXid("span3")).text(
 						'收货地址：' + jsonstr.receiptaddr.province + jsonstr.receiptaddr.city + jsonstr.receiptaddr.district + jsonstr.receiptaddr.street + jsonstr.receiptaddr.address);
+				adcode = jsonstr.receiptaddr.adcode;
+
+				self.check_postage();
 			},
 			error : function(xhr) {
 				// justep.Util.hint("错误，请检查网络");
@@ -206,6 +255,14 @@ define(function(require) {
 	};
 
 	Model.prototype.submitBtnClick = function(event) {
+		if (address_id == 0) {
+			justep.Util.hint("收货地址不能为空", {
+				"tyep" : "info",
+				"position" : "middle",
+				"style" : "background:rgba(0,0,0,0.65);border:0px;color:#fff;"
+			});
+			return false;
+		}
 		justep.Shell.fireEvent("buycar_change", this);
 		var params = {
 			number : 0
@@ -250,6 +307,8 @@ define(function(require) {
 
 				justep.Shell.fireEvent("ower_refresh_unpay_count", self);
 				self.submit_buycar();
+				orderid = data.orderid;
+				self.mergepaycallback();
 				// localbuycar = [];
 			},
 			error : function(e) {
@@ -257,16 +316,16 @@ define(function(require) {
 			}
 		});
 	};
-	
-	Model.prototype.submit_buycar = function(){
-			var self = this;
-			var agentuserid = 0;
-			var destock = 0;
-			if(buycar.length > 0){
+
+	Model.prototype.submit_buycar = function() {
+		var self = this;
+		var agentuserid = 0;
+		var destock = 0;
+		if (buycar.length > 0) {
 			agentuserid = buycar[0].agentuserid;
 			destock = buycar[0].destock;
-			}
-			buycar = [];
+		}
+		buycar = [];
 		var fd = new FormData();
 		fd.append("openid", openid);
 		fd.append("data", JSON.stringify(surbuycar));
@@ -332,6 +391,136 @@ define(function(require) {
 		}
 
 	};
+
+	Model.prototype.mergepaycallback = function() {
+		mergeorderids = [];
+		mergeorderids.push(orderid);
+		var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + "api/get_merge_unpayorders",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				mergeorderids : mergeorderids
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				self.comp('payBtn').set({
+					'disabled' : false
+				});
+				var data = self.comp('paystatusData');
+				data.clear();
+				paysum = 0;
+				$.each(jsonstr.paystatus, function(i, item) {
+					var option = {
+						defaultValues : [ {
+							id : item.id,
+							paytype : item.paytype,
+							paysummary : item.paysummary,
+							paysum : parseFloat(item.paysum).toFixed(2)
+						} ]
+					}
+					data.newData(option);
+					if (item.paytype == 3) {
+						self.comp('payBtn').set({
+							'disabled' : true
+						});
+					}
+					paysum += parseFloat(item.paysum);
+				});
+				$(self.getElementByXid("span23")).text("￥" + paysum.toFixed(2));
+				$(self.getElementByXid("span31")).text("￥" + paysum.toFixed(2));
+				self.comp('popOver1').show();
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.payBtnClick = function(event) {
+		var self = this;
+		this.comp('popOver1').hide();
+		var flag = false;
+		this.comp('paystatusData').each(function(param) {
+			if (param.row.val('paytype') == 0) {
+				self.wxpay();
+			} else {
+				self.comp('passwordpopOver').show();
+			}
+		});
+	};
+
+	Model.prototype.forgetbtnClick = function(event) {
+		justep.Shell.showPage(require.toUrl("../ower/change_password.w"));
+	};
+
+	Model.prototype.wxpay = function() {
+		var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + "api/wx_pay",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				openid : openid,
+				mergeorderids : mergeorderids,
+				url : window.location.href
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				wx.config({
+					debug : false,
+					appId : jsonstr.sign_packge.appId,
+					url : jsonstr.sign_packge.url,
+					timestamp : jsonstr.sign_packge.timestamp,
+					nonceStr : jsonstr.sign_packge.nonceStr,
+					signature : jsonstr.sign_packge.signature,
+					jsApiList : [ 'chooseWXPay' ]
+				});
+				wx.ready(function() {
+					// window.weixin_ready = true;
+					wx.chooseWXPay({
+						timestamp : jsonstr.pay_ticket_param.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+						nonceStr : jsonstr.pay_ticket_param.nonceStr, // 支付签名随机串，不长于
+						// 32 位
+						package : jsonstr.pay_ticket_param.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***
+						signType : jsonstr.pay_ticket_param.signType, // 签名方式，默认为"SHA1"，使用新版支付需传入"MD5"
+						paySign : jsonstr.pay_ticket_param.paySign, // 支付签名
+						success : function(res) {
+							// alert("支付成功");
+							// self.close();
+							self.paysuccess();
+						}
+					});
+				});
+
+				wx.error(function() {
+
+					// window.weixin_ready = false;
+				});
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.paysuccess = function() {
+		this.comp('passwordpopOver').hide();
+		// self.refreshdata();
+		justep.Util.hint("支付成功", {
+			"tyep" : "info",
+			"position" : "middle",
+			"style" : "background:rgba(0,0,0,0.65);border:0px;color:#fff;"
+		});
+		justep.Shell.fireEvent("ower_refresh_unpay_count", self);
+		justep.Shell.fireEvent("ower_undeliver_count", self);
+		this.close();
+	}
 
 	return Model;
 });

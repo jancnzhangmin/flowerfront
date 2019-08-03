@@ -7,15 +7,15 @@
       <div class="x-panel-content x-cards" xid="content1" style="padding-top:0px;padding-bottom:10px;">
   <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer topimg" xid="smartContainer1" style="position:relative;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row1" style="z-index:1;">
    <div class="x-col" xid="col1"></div>
-   <div class="x-col text-center" xid="col2"><span xid="span1" style="font-size:large;color:#FFFFFF;"><![CDATA[个人中心]]></span></div>
+   <div class="x-col text-center" xid="col2"><span xid="span1" style="font-size:large;color:#FFFFFF;"><![CDATA[　]]></span></div>
    <div class="x-col" xid="col3"></div></div>
-  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row2">
+  <div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row2">
    <div class="x-col x-col-20 text-center" xid="col4">
   <div xid="div1" class="backhead" bind-click="div1Click"><img src="$UI/flowerfront/image/user-192.png" alt="" xid="image1" class="fronthead"></img></div></div>
    <div class="x-col" xid="col5" style="padding:0px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row3" style="padding:0px;">
-   <div class="x-col" xid="col6"><span xid="span2" style="font-size:x-large;color:#FFFFFF;"><![CDATA[风信子]]></span></div>
+   <div class="x-col" xid="col6"><span xid="span2" style="font-size:x-large;color:#FFFFFF;"><![CDATA[]]></span></div>
    </div>
-  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row4" style="padding:0px;">
+  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row4" style="padding:0px;display:none;">
    <div class="x-col" xid="col9"><span xid="span3" style="color:#FFFFFF;"><![CDATA[会员号：]]></span>
   <span xid="span4" style="color:#FFFFFF;"><![CDATA[10001]]></span></div>
    </div></div>
@@ -66,7 +66,7 @@
    <a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="售后" xid="button8" icon="my2 my2-shouhou">
     <i xid="i9" class="btnclass my2 my2-shouhou" style="font-size:xx-large;"></i>
     <span xid="span14" class="text-muted">售后</span></a> </div></div></div></div>
-  <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="agent_smartContainer" style="margin-top:10px;background-color:white;display:block;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row11">
+  <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="agent_smartContainer" style="margin-top:10px;background-color:white;display:none;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row11">
    <div class="x-col" xid="col27" style="border-bottom-style:solid;border-bottom-color:#f6f6f6;border-bottom-width:1px;"><span xid="span19" style="font-size:medium;"><![CDATA[代理]]></span></div>
    </div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row12">

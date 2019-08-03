@@ -42,7 +42,9 @@ define(function(require){
 								cover : publicurl + item.cover,
 								odd : odd,
 								discount : item.discount,
-								collection : item.collection
+								collection : item.collection,
+								displaysale:item.displaysale,
+								salecount:item.salecount
 							} ]
 						};
 						data.newData(options);
@@ -150,7 +152,9 @@ define(function(require){
 								cover : publicurl + item.cover,
 								odd : odd,
 								discount : item.discount,
-								collection : item.collection
+								collection : item.collection,
+								displaysale:item.displaysale,
+								salecount:item.salecount
 							} ]
 						};
 						data.newData(options);

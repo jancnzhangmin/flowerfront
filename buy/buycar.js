@@ -50,6 +50,28 @@ define(function(require) {
 
 	};
 
+	Model.prototype.check_trial_number = function() {
+		var trialnumber = 0;
+		var flag = false;
+		this.comp('buycarData').each(function(param){
+		if(param.row.val('isselect') == 1 && param.row.val('trial') == 1){
+		trialnumber += parseInt(param.row.val('number'));
+		}
+		if(param.row.val('isselect') == 1 && param.row.val('trial') == 0){
+		flag = true;
+		}
+		});
+		if (flag && trialnumber <= 10) {
+		try{
+			this.comp('settleBtn').set({'disabled':false});
+			}catch(e){}
+		} else {
+		try{
+			this.comp('settleBtn').set({'disabled':true});
+			}catch(e){}
+		}
+	};
+
 	Model.prototype.buycar_change_directagent = function(params) {
 		if (params.agentuserid == 0) {
 			$(this.getElementByXid("agentnamespan")).text('');
@@ -155,7 +177,8 @@ define(function(require) {
 					hasoptional : hasoptional,
 					agentuserid : item.agentuserid,
 					destock : item.destock,
-					isselect : item.isselect
+					isselect : item.isselect,
+					trial:item.trial
 				} ]
 			}
 
@@ -300,6 +323,8 @@ define(function(require) {
 		} else {
 			$(this.getElementByXid("row12")).hide();
 		}
+this.check_trial_number();
+
 
 	};
 
@@ -583,6 +608,7 @@ define(function(require) {
 
 	Model.prototype.settleBtnClick = function(event) {
 		var self = this;
+		var selectcount = 0;
 		this.comp('buycarData').each(function(param) {
 			var paramap = [];
 			var rows = self.comp('optionalData').find([ 'buycar_id' ], [ param.row.val('id') ]);
@@ -600,8 +626,13 @@ define(function(require) {
 					item.isselect = param.row.val('isselect');
 				}
 			});
+			if (param.row.val('isselect') == 1) {
+				selectcount++;
+			}
 		});
-
+		if (selectcount == 0) {
+			return false;
+		}
 		var params = {
 			agentuserid : agentuserid,
 			agentusertext : $(this.getElementByXid("span25")).text(),

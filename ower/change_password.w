@@ -27,7 +27,7 @@
   <hr xid="hr1" style="margin:0px;margin-left:0px;border-top: 1px solid #f6f6f6;"></hr><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row2">
    <div class="x-col x-col-fixed" xid="col4" style="width:80px;"><span xid="span2"><![CDATA[验证码]]></span></div>
    <div class="x-col" xid="col5"><input component="$UI/system/components/justep/input/input" class="form-control input-class" xid="vcodeinput" bind-keyup="vcodeinputKeyup"></input></div>
-   <div class="x-col x-col-fixed text-right" xid="col6" style="width:200px;"><a component="$UI/system/components/justep/button/button" class="btn btn-default surebtn" label="获取验证码" xid="vcodebtn" onClick="vcodebtnClick">
+   <div class="x-col x-col-fixed text-right" xid="col6" style="width:100px;"><a component="$UI/system/components/justep/button/button" class="btn btn-default surebtn" label="获取验证码" xid="vcodebtn" onClick="vcodebtnClick">
    <i xid="i1"></i>
    <span xid="span3">获取验证码</span></a></div></div>
   </div></div>
@@ -45,7 +45,7 @@
         <span xid="span4">测试商品</span></div> 
        <div xid="div11" class="zhifu_price">
         <span xid="span5"><![CDATA[设置操作密码]]></span></div> </div> 
-      <ul xid="ul1" class="mm_box">
+      <ul xid="ul1" class="mm_box change_box">
        <li xid="li1"></li>
        <li xid="li2"></li>
        <li xid="li3"></li>

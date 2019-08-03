@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <div xmlns="http://www.w3.org/1999/xhtml" component="$UI/system/components/justep/window/window" design="device:m;" xid="window" class="window">  
-  <div component="$UI/system/components/justep/model/model" xid="model" style="left:18px;top:83px;height:244px;" onLoad="modelLoad"> 
+  <div component="$UI/system/components/justep/model/model" xid="model" style="left:18px;top:83px;height:244px;" onLoad="modelLoad" onunLoad="modelUnLoad"> 
   <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="orderData" idColumn="id" confirmDelete="false" confirmRefresh="false"><column name="id" type="String" xid="xid1"></column>
   <column name="user_id" type="String" xid="xid2"></column>
   <column name="ordernumber" type="String" xid="xid3"></column>
@@ -32,7 +32,8 @@
   <column name="destock" type="String" xid="xid55"></column>
   <column name="agentuserid" type="String" xid="xid56"></column>
   <column name="agentname" type="String" xid="xid57"></column>
-  <column name="isselect" type="String" xid="xid58"></column></div>
+  <column name="isselect" type="String" xid="xid58"></column>
+  <column name="postage" type="String" xid="xid63"></column></div>
   <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="orderdetailData" idColumn="id"><column name="id" type="String" xid="xid23"></column>
   <column name="product_id" type="String" xid="xid24"></column>
   <column name="name" type="String" xid="xid25"></column>
@@ -58,7 +59,11 @@
   <column name="active" type="String" xid="xid41"></column>
   <column name="showlable" type="String" xid="xid42"></column>
   <column name="summary" type="String" xid="xid43"></column>
-  <column name="keywords" type="String" xid="xid44"></column></div></div>  
+  <column name="keywords" type="String" xid="xid44"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="paystatusData" idColumn="id"><column name="id" type="String" xid="xid59"></column>
+  <column name="paytype" type="String" xid="xid60"></column>
+  <column name="paysummary" type="String" xid="xid61"></column>
+  <column name="paysum" type="String" xid="xid62"></column></div></div>  
   <div component="$UI/system/components/justep/panel/panel" 
     class="x-panel x-full" xid="panel1"> 
       <div class="x-panel-top" xid="top1"> 
@@ -115,7 +120,10 @@
    </div></div>
   </div></ul> 
   </div>
-  <div component="$UI/system/components/justep/row/row" class="x-row text-muted" xid="row9" bind-visible=' val("discount") &gt; 0  ||  val("owerprofit") &gt; 0'>
+  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row13" style="border-top-style:solid;border-top-width:1px;border-top-color:#F0F0F0;" bind-visible=' val("postage") &gt; 0'>
+   <div class="x-col" xid="col16" style="padding-left:35px;"><span xid="span34"><![CDATA[邮费]]></span></div>
+   <div class="x-col text-right" xid="col17"><span xid="postage" bind-text="'￥' + parseFloat( val(&quot;postage&quot;)).toFixed(2)"><![CDATA[￥0.00]]></span></div>
+   </div><div component="$UI/system/components/justep/row/row" class="x-row text-muted" xid="row9" bind-visible=' val("discount") &gt; 0  ||  val("owerprofit") &gt; 0'>
    <div class="x-col" xid="col6"><i xid="i6" class="my my-shouyi" bind-visible=' val("discount") &gt; 0'></i>
   <span xid="span10" bind-text="'节省￥' + val(&quot;discount&quot;) + '元'" style="margin-right:10px;" bind-visible=' val("discount") &gt; 0'></span>
   <i xid="i7" class="my my-tixian1" bind-visible=' val("owerprofit") &gt; 0'></i>
@@ -145,7 +153,7 @@
   </div></div>
    <div class="x-content-center x-pull-up" xid="div6">
     <span class="x-pull-up-label" xid="span18">加载更多...</span></div> </div>
-  <div xid="mergediv" style="height:48px;position:absolute;bottom:0px;background-color:white;width:100%;padding-top:4px;border-top:solid 1px #f6f6f6;padding-right:5px;display:none;" class="text-right"><a component="$UI/system/components/justep/button/button" class="btn btn-default merge-btn" label="　合并付款　" xid="button3">
+  <div xid="mergediv" style="height:48px;position:absolute;bottom:0px;background-color:white;width:100%;padding-top:4px;border-top:solid 1px #f6f6f6;padding-right:5px;display:none;" class="text-right"><a component="$UI/system/components/justep/button/button" class="btn btn-default merge-btn" label="　合并付款　" xid="mergepaybtn" onClick="mergepaybtnClick">
    <i xid="i11"></i>
    <span xid="span22">　合并付款　</span></a></div></div>
   </div> 
@@ -167,17 +175,24 @@
      <div class="x-col text-center" xid="col27">
       <span xid="span23" style="color:#fe2e23;font-size:x-large;">￥0.00</span></div> 
      <div class="x-col" xid="col28"></div></div> 
-    <div component="$UI/system/components/justep/row/row" class="x-row" xid="row16" style="margin-top:20px;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;">
+    <div component="$UI/system/components/justep/row/row" class="x-row" xid="row16" style="margin-top:20px;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;display:none;">
      <div class="x-col x-col-25" xid="col29">
       <span xid="span16"><![CDATA[支付方式]]></span></div> 
      <div class="x-col text-right" xid="col30">
       <span xid="span25">可用余额：￥0.00</span></div> 
      </div> 
-    <div component="$UI/system/components/justep/row/row" class="x-row" xid="row17" style="position:absolute;bottom:20px;">
+    <div component="$UI/system/components/justep/list/list" class="x-list" xid="list4" data="paystatusData">
+   <ul class="x-list-template" xid="listTemplateUl4">
+    <li xid="li19"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row12">
+   <div class="x-col x-col-33" xid="col13"><![CDATA[]]>
+  <span xid="span32"><![CDATA[支付方式]]></span></div>
+   <div class="x-col text-right" xid="col14"><span xid="span33" bind-text='val("paysummary")'></span></div>
+   </div></li></ul> </div><hr xid="hr3" style="margin:0px;margin-left:0px;border-top: 1px solid #f6f6f6;"></hr><div component="$UI/system/components/justep/row/row" class="x-row" xid="row17" style="position:absolute;bottom:20px;">
      <div class="x-col" xid="col32">
       <a component="$UI/system/components/justep/button/button" class="btn btn-default btn-block wxcolor" label="立即支付" xid="payBtn" onClick="payBtnClick">
        <i xid="i10"></i>
-       <span xid="span26">立即支付</span></a> </div> </div> </div> </div>
+       <span xid="span26">立即支付</span></a> </div> </div> 
+  </div> </div>
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver" direction="auto" xid="passwordpopOver" opacity="0.5" position="bottom">
    <div class="x-popOver-overlay" xid="div10"></div>
    <div class="x-popOver-content" xid="div9" style="width:100%;height:100%;">
@@ -190,7 +205,7 @@
        <div xid="div10" class="mz">
         <span xid="span28">测试商品</span></div> 
        <div xid="div11" class="zhifu_price">
-        <span xid="span29"><![CDATA[货款支付订单]]></span>
+        <span xid="span29"><![CDATA[支付订单]]></span>
   <span xid="span31" style="color:#fe2e23;"></span></div> </div> 
       <ul xid="ul1" class="mm_box">
        <li xid="li1"></li>
