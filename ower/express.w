@@ -31,8 +31,9 @@
       </div>  
     <div class="x-panel-content x-cards" xid="content1"><div component="$UI/system/components/justep/list/list" class="x-list" xid="list1" data="expressData">
    <ul class="x-list-template" xid="listTemplateUl1" style="padding:5px;">
-    <div xid="div1" style="background-color:white;border-radius:5px;"><ul xid="ul1" style="padding-top:10px;padding-left:30px;"><li xid="li2" style="font-size:medium;color:#555;"><span xid="span1" bind-text='val("name")'></span>
-  <span xid="span14" bind-text='val("nu")' style="margin-left:5px;"></span></li></ul>
+    <div xid="div1" style="background-color:white;border-radius:5px;"><ul xid="ul1" style="padding-top:10px;padding-left:30px;"><li xid="li2" style="font-size:medium;color:#555;padding-right:20px;"><span xid="span1" bind-text='val("name")'></span>
+  <span xid="span14" bind-text='val("nu")' style="margin-left:5px;"></span>
+  <span xid="span4" class="pull-right" bind-text='val("state")'></span></li></ul>
   <div component="$UI/system/components/justep/list/list" class="x-list" xid="list2" data="detailData" filter=' $row.val("express_id") == val("id")'>
    <ul class="x-list-template track-list" xid="listTemplateUl2" style="padding-bottom:10px;">
     <ul xid="ul2"><li xid="li4" bind-css=" val(&quot;ffirst&quot;) == 1 ? 'first' : ''"><i xid="i1" class="dataControl dataControl-oc node-icon"></i>

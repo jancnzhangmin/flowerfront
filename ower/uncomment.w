@@ -111,7 +111,7 @@
    </div></div></div></ul> 
   </div>
   <div component="$UI/system/components/justep/row/row" class="x-row text-muted" xid="row9" bind-visible=' val("discount") &gt; 0  ||  val("owerprofit") &gt; 0'>
-   <div class="x-col" xid="col6"><i xid="i6" class="my my-shouyi" bind-visible=' val("discount") &gt; 0'></i>
+   <div class="x-col" xid="col6"><i xid="i6" class="my2 my2-jiesheng" bind-visible=' val("discount") &gt; 0'></i>
   <span xid="span10" bind-text="'节省￥' + val(&quot;discount&quot;) + '元'" style="margin-right:10px;" bind-visible=' val("discount") &gt; 0'></span>
   <i xid="i7" class="my my-tixian1" bind-visible=' val("owerprofit") &gt; 0'></i>
   <span xid="span11" bind-text="'获得￥' + val(&quot;owerprofit&quot;) + '元返现'" style="margin-right:10px;" bind-visible=' val("owerprofit") &gt; 0'></span></div>

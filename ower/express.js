@@ -12,7 +12,7 @@ define(function(require) {
 			var self = this;
 			$.ajax({
 				async : true,
-				url : publicurl + "api/query_express",
+				url : publicurl + "/api/query_express",
 				type : "GET",
 				dataType : 'jsonp',
 				jsonp : 'callback',
@@ -26,18 +26,38 @@ define(function(require) {
 					var detaildata = self.comp('detailData');
 					detaildata.clear();
 					$.each(jsonstr.express, function(i, item) {
+					var message = null;
+					try{
+					message = JSON.parse(item.message);
+					}catch(e){}
+					var status ='';
+					if(item.status == 0){
+					status = '在途';
+					}else if(item.status == 1){
+					status = '揽收';
+					}else if(item.status == 2){
+					status = '疑难';
+					}else if(item.status == 3){
+					status = '签收';
+					}else if(item.status == 4){
+					status = '退签';
+					}else if(item.status == 5){
+					status = '派件';
+					}else if(item.status == 6){
+					status = '退回';
+					}
 						var express_options = {
 							defaultValues : [ {
 								id : i,
 								name : item.name,
-								message : item.data.message,
-								nu : item.data.nu,
-								state : item.data.state
+								nu : item.num,
+								state : status
 							} ]
 						};
 						expressdata.newData(express_options);
+						if(message && message.lastResult){
 						var ffirst = 1;
-						$.each(item.data.data, function(di, ditem) {
+						$.each(message.lastResult.data, function(di, ditem) {
 							var detail_options = {
 								defaultValues : [ {
 									id : new UUID().toString(),
@@ -50,6 +70,7 @@ define(function(require) {
 							detaildata.newData(detail_options);
 							ffirst = 0;
 						});
+						}
 					});
 
 				},

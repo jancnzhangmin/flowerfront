@@ -2,6 +2,7 @@ define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
 	var cla_id = 0;
+	var UUID = require("$UI/system/lib/base/uuid");
 	var Model = function() {
 		this.callParent();
 	};
@@ -105,10 +106,12 @@ define(function(require) {
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 				var data = self.comp("productData");
 				data.clear();
+								var activedata = self.comp('activetypeData');
+				activedata.clear();
 				$.each(jsonstr.products, function(i, item) {
 					if (item.producttype == 0) {
 						var odd = 0;
-						odd = i % 2;
+						//odd = i % 2;
 						var options = {
 							defaultValues : [ {
 								id : item.id,
@@ -127,6 +130,19 @@ define(function(require) {
 							} ]
 						};
 						data.newData(options);
+												$.each(item.activetype, function(ai, aitem) {
+							var options = {
+								defaultValues : [ {
+									id : new UUID().toString(),
+									product_id : item.id,
+									active : aitem.active,
+									showlable : aitem.showlable,
+									summary : aitem.summary,
+									keywords : aitem.keywords
+								} ]
+							};
+							activedata.newData(options);
+						});
 					}
 				});
 
@@ -204,6 +220,105 @@ define(function(require) {
 				// justep.Util.hint("错误，请检查网络");
 			}
 		});
+	};
+
+	Model.prototype.cancelsearchBtnClick = function(event){
+this.comp('serachpopOver').hide();
+	};
+
+
+
+	Model.prototype.keyClick = function(event){
+		this.comp('serachpopOver').show();
+		$(this.getElementByXid("searchinput")).val($(this.getElementByXid("key")).attr('placeholder'));
+		$(this.getElementByXid("searchinput")).focus();
+	};
+
+	Model.prototype.searchinputKeyup = function(event){
+		search = event.currentTarget.value;
+		if (search.length > 0) {
+			this.search(search);
+		} else {
+			this.comp("searchData").clear();
+		}
+	};
+	
+		Model.prototype.search = function(searchkey) {
+		var self = this;
+		$.ajax({
+			async : false,
+			url : publicurl + "api/get_search",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				search : searchkey,
+				openid:openid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				var data = self.comp("searchData");
+				data.clear();
+				$.each(jsonstr.products, function(i, item) {
+
+					var options = {
+						defaultValues : [ {
+							id : item.id,
+							name : item.name,
+							price : item.price,
+							unit : item.unit,
+							spec : item.spec,
+							pinyin : item.pinyin,
+							fullpinyin : item.fullpinyin,
+							subtitle : item.subtitle,
+							cover : publicurl + item.cover,
+							agentprice:item.agentprice
+						} ]
+					};
+					data.newData(options);
+
+				});
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
+	};
+
+	Model.prototype.div33Click = function(event){
+		var row = event.bindingContext.$object;
+		var params = {
+			data : {
+				id : row.val('id')
+			}
+		}
+		justep.Shell.showPage(require.toUrl("../product/productdetail.w"), params);
+	};
+	
+		Model.prototype.active_showlable = function(productid) {
+		result = false;
+		var rows = this.comp('activetypeData').find([ 'product_id' ], [ productid ]);
+		if (rows.length > 0) {
+			$.each(rows, function(i, item) {
+				if (item.val('showlable') == 1) {
+					result = true;
+				}
+			});
+		}
+		return result;
+	};
+	
+	Model.prototype.active_text = function(productid){
+	result = '';
+			var rows = this.comp('activetypeData').find([ 'product_id' ], [ productid ]);
+		if (rows.length > 0) {
+			$.each(rows, function(i, item) {
+				if (item.val('showlable') == 1) {
+					result = item.val('active');
+				}
+			});
+		}
+		return result;
 	};
 
 	return Model;

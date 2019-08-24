@@ -153,14 +153,16 @@ define(function(require) {
 							el : '.swiper-pagination',
 						},
 						paginationClickable : true,
-
+						lazy : {
+							loadPrevNext : true,
+						},
 
 					// 循环模式选项
 					});
 					productdetailSwiper.removeAllSlides();
 					$.each(item.images, function(imagei, imageitem) {
 						var myimage = publicurl + imageitem;
-						myimage = '<div class="swiper-slide"><img width=100% src=' + myimage + '></div>';
+						myimage = '<div class="swiper-slide"><img class="swiper-lazy" width=100% data-src=' + myimage + '><div class="swiper-lazy-preloader"></div></div>';
 						// myimage = '<div class="swiper-slide"
 						// style="background-image:url(' + myimage
 						// +');height:400px;"></div>'
@@ -169,6 +171,7 @@ define(function(require) {
 					});
 
 					productdetailSwiper.update();
+					productdetailSwiper.lazy.load();
 					// productdetailSwiper.pagination.update();
 
 					// ///////////////////////
@@ -186,7 +189,10 @@ define(function(require) {
 							icon = 'my my-xianshiyouhui';
 						} else if (activeitem.keywords == 'firstbuy') {
 							icon = 'my my-fanxian';
+						} else if(activeitem.keywords == 'addmoney'){
+						icon = 'my2 my2-jiajiahuangou';
 						}
+						
 						var options = {
 							defaultValues : [ {
 								id : activei,
@@ -228,9 +234,10 @@ define(function(require) {
 						conditiondata.newData(options);
 					});
 				});
-if(optionaldata.count() > 0){
-$(self.getElementByXid("chooserow")).show();
-};
+				if (optionaldata.count() > 0) {
+					$(self.getElementByXid("chooserow")).show();
+				}
+				;
 				var explaindata = self.comp("explainData");
 				explaindata.clear();
 				$.each(jsonstr.explains, function(i, item) {
@@ -778,6 +785,8 @@ $(self.getElementByXid("chooserow")).show();
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 				var data = self.comp("product_tuijian_Data");
 				data.clear();
+								var activedata = self.comp('tuijianactivetypeData');
+				activedata.clear();
 				$.each(jsonstr.products, function(i, item) {
 					if (item.producttype == 0) {
 						var odd = 0;
@@ -797,11 +806,25 @@ $(self.getElementByXid("chooserow")).show();
 								discount : item.discount,
 								collection : item.collection,
 								displaysale : item.displaysale,
-								salecount : item.salecount
+								salecount : item.salecount,
+								agentprice:item.agentprice
 							} ]
 						};
 						if (productid != item.id) {
 							data.newData(options);
+													$.each(item.activetype, function(ai, aitem) {
+							var options = {
+								defaultValues : [ {
+									id : new UUID().toString(),
+									product_id : item.id,
+									active : aitem.active,
+									showlable : aitem.showlable,
+									summary : aitem.summary,
+									keywords : aitem.keywords
+								} ]
+							};
+							activedata.newData(options);
+						});
 						}
 					}
 				});
@@ -856,6 +879,32 @@ $(self.getElementByXid("chooserow")).show();
 		}
 		$(event.target).css('margin-top', (event.target.parentElement.clientHeight - event.target.height) / 2);
 
+	};
+	
+		Model.prototype.active_showlable = function(productid) {
+		var result = false;
+		var rows = this.comp('tuijianactivetypeData').find([ 'product_id' ], [ productid ]);
+		if (rows.length > 0) {
+			$.each(rows, function(i, item) {
+				if (item.val('showlable') == 1) {
+					result = true;
+				}
+			});
+		}
+		return result;
+	};
+	
+	Model.prototype.active_text = function(productid){
+	var result = '';
+			var rows = this.comp('tuijianactivetypeData').find([ 'product_id' ], [ productid ]);
+		if (rows.length > 0) {
+			$.each(rows, function(i, item) {
+				if (item.val('showlable') == 1) {
+					result = item.val('active');
+				}
+			});
+		}
+		return result;
 	};
 
 	return Model;

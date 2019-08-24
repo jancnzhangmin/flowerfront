@@ -158,6 +158,8 @@ define(function(require) {
 				saveprofit += parseFloat(params.row.val('number')) * parseFloat(params.row.val('discount'));
 				owerprofit += parseFloat(params.row.val('number')) * parseFloat(params.row.val('owerprofit'));
 				sumprice += parseFloat(params.row.val('number')) * parseFloat(params.row.val('price'));
+			}else if(params.row.val('producttype') == 1){
+				sumprice += parseFloat(params.row.val('number')) * parseFloat(params.row.val('price'));
 			}
 		});
 		$(this.getElementByXid("span15")).text('节省了' + saveprofit.toFixed(2) + '元');

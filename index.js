@@ -1,4 +1,4 @@
-var publicurl = 'http://192.168.0.151:3000/';
+//var publicurl = 'http://192.168.0.151:3000/';
 var publicurl = 'http://flower.ysdsoft.com/';
 //var publicws = 'ws://192.168.0.151:3000/cable';
 var publicws = 'ws://flower.ysdsoft.com/cable';

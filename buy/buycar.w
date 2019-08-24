@@ -33,7 +33,19 @@
   <column name="active" type="String" xid="xid20"></column>
   <column name="showlable" type="String" xid="xid21"></column>
   <column name="summary" type="String" xid="xid22"></column>
-  <column name="keywords" type="String" xid="xid23"></column></div></div><div component="$UI/system/components/justep/panel/panel" 
+  <column name="keywords" type="String" xid="xid23"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="addmoneyData" idColumn="id"><column name="id" type="String" xid="xid31"></column>
+  <column name="buynumber" type="String" xid="xid32"></column>
+  <column name="givenumber" type="String" xid="xid33"></column>
+  <column name="name" type="String" xid="xid34"></column>
+  <column name="amount" type="String" xid="xid35"></column>
+  <column name="buyproductids" type="String" xid="xid36"></column>
+  <column name="giveproductids" type="String" xid="xid37"></column>
+  <column name="number" type="String" xid="xid42"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="giveproductData" idColumn="id"><column name="id" type="String" xid="xid38"></column>
+  <column name="name" type="String" xid="xid39"></column>
+  <column name="cover" type="String" xid="xid40"></column>
+  <column name="number" type="String" xid="xid41"></column></div></div><div component="$UI/system/components/justep/panel/panel" 
     class="x-panel x-full" xid="panel1"> 
       <div class="x-panel-top" xid="top1"> 
         <div component="$UI/system/components/justep/titleBar/titleBar" title="购物车"
@@ -73,7 +85,7 @@
   </div></div>
    <div class="x-col" xid="col15"></div></div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row5" style="padding:0px;">
-   <div class="x-col" xid="col5"><span xid="span5" style="color:#fe2e23;font-size:large;" bind-text="'￥' + val(&quot;price&quot;)"></span>
+   <div class="x-col" xid="col5"><span xid="span5" style="color:#fe2e23;font-size:large;" bind-text="'￥' + val(&quot;price&quot;).toFixed(2)"></span>
   <span xid="span10" bind-text="'￥' + (parseFloat(val(&quot;price&quot;)) + parseFloat(val(&quot;discount&quot;)))" class="text-muted" style="text-decoration:line-through;margin-left:5px;" bind-visible=' val("discount") &gt; 0'></span></div>
    <div class="x-col text-right" xid="col7"><a component="$UI/system/components/justep/button/button" class="btn btn-default btn-sm btn-only-icon addbtn" label="button" xid="subBtn" icon="icon-android-remove" onClick="subBtnClick">
    <i xid="i4" class="icon-android-remove"></i>
@@ -92,16 +104,17 @@
   </div>
   <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer2" style="background-color:white;overflow-x: unset;padding-bottom:0px;border-radius:5px;display:none;">
    <div component="$UI/system/components/justep/row/row" class="x-row" xid="row11" style="color:#ff4665;">
-   <div class="x-col x-col-fixed" xid="col17" style="width:30px;"><i xid="i6" class="my my-shouyi"></i></div>
-   <div class="x-col" xid="col18"><span xid="span15"><![CDATA[节省了35.32元]]></span></div>
+   <div class="x-col x-col-fixed" xid="col17" style="width:30px;"><i xid="i6" class="my2 my2-jiesheng"></i></div>
+   <div class="x-col" xid="col18"><span xid="span15"><![CDATA[节省了0.00元]]></span></div>
    </div><div component="$UI/system/components/justep/row/row" class="x-row" xid="row12" style="color:#ff4665;">
    <div class="x-col x-col-fixed" xid="col21" style="width:30px;">
     <i xid="i7" class="my my-tixian1"></i></div> 
    <div class="x-col" xid="col20">
-    <span xid="span16"><![CDATA[获得35.32元返现]]></span></div> </div><div component="$UI/system/components/justep/list/list" class="x-list" xid="list4" data="buycarData" filter='$row.val("number") &gt; 0  &amp;&amp;  $row.val("producttype") == 1' style="border-top-style:solid;border-top-width:1px;border-top-color:#f6f6f6;">
+    <span xid="span16"><![CDATA[获得0.00元返现]]></span></div> 
+  </div><div component="$UI/system/components/justep/list/list" class="x-list" xid="list4" data="buycarData" filter='$row.val("number") &gt; 0  &amp;&amp;  $row.val("producttype") == 1' style="border-top-style:solid;border-top-width:1px;border-top-color:#f6f6f6;">
     <ul class="x-list-template" xid="listTemplateUl6">
      <div component="$UI/system/components/justep/row/row" class="x-row" xid="row6" style="padding-bottom:0px;padding-top:5px;">
-      <div class="x-col x-col-25" xid="col16">
+      <div class="x-col x-col-fixed" xid="col63" style="width:30px;"></div><div class="x-col x-col-25" xid="col16">
        <img src=" " alt="" xid="image2" bind-attr-src=' val("cover")' style="width:100%;" class="imageradius"></img></div> 
       <div class="x-col lastborder" xid="col13" style="padding:0px;">
        <div component="$UI/system/components/justep/row/row" class="x-row" xid="row8" style="padding:0px;">
@@ -122,7 +135,7 @@
          <i xid="i3" class="linear linear-chevrondown text-muted" style="font-size:x-small;" bind-visible=' val("hasoptional") &gt; 0'></i></div> </div> 
        <div component="$UI/system/components/justep/row/row" class="x-row" xid="row9" style="padding:0px;">
         <div class="x-col" xid="col12">
-         <span xid="span12" style="font-size:large;" class="text-muted"><![CDATA[￥0]]></span>
+         <span xid="span12" style="font-size:large;" class="text-muted" bind-text="'￥' + val(&quot;price&quot;)"><![CDATA[￥0]]></span>
          <span xid="span14" bind-text="'￥' + (parseFloat(val(&quot;price&quot;)) + parseFloat(val(&quot;discount&quot;)))" class="text-muted" style="text-decoration:line-through;margin-left:5px;" bind-visible='false'></span></div> 
         <div class="x-col text-right" xid="col10">
          <a component="$UI/system/components/justep/button/button" class="btn btn-default btn-sm btn-only-icon addbtn" label="button" xid="button2" icon="icon-android-remove" onClick="subBtnClick" bind-visible="false">
@@ -131,7 +144,8 @@
          <label xid="label1" style="font-weight:normal;width:30px;" class="text-center" bind-text="'×' + val(&quot;number&quot;)">1</label>
          <a component="$UI/system/components/justep/button/button" class="btn btn-default btn-sm btn-only-icon addbtn" label="button" xid="button1" icon="icon-android-add" onClick="addBtnClick" bind-visible="false">
           <i xid="i2" class="icon-android-add"></i>
-          <span xid="span7"></span></a> </div> </div> </div> </div> </ul> </div> 
+          <span xid="span7"></span></a> </div> </div> </div> 
+  </div> </ul> </div> 
   </div>
   <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer4" style="background-color:white;display:none;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="directagentrow">
    <div class="x-col x-col-fixed" xid="col35" style="width:50px;"></div>
@@ -140,9 +154,12 @@
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="destockrow">
    <div class="x-col x-col-fixed" xid="col39" style="width:50px;"></div>
    <div class="x-col" xid="col40"><span xid="span29" class="text-muted"><![CDATA[去库存]]></span></div>
-   <div class="x-col" xid="col41"></div></div></div></div>
+   <div class="x-col" xid="col41"></div></div></div>
+  <div component="$UI/system/components/justep/row/row" class="x-row" xid="addmoneyrow" style="background-color:white;margin-top:5px;display:none;" bind-click="addmoneyrowClick">
+   <div class="x-col" xid="col43"><span xid="addmoneyspan" style="color:#ff4256;"><![CDATA[加钱换购]]></span></div>
+   <div class="x-col text-right" xid="col46"><i xid="i1" class="linear linear-chevronright"></i></div></div></div>
   <div class="x-panel-bottom" xid="bottom1" style="border-top-style:solid;border-top-color:#f6f6f6;border-top-width:1px;"><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row13" style="height:48px;padding:2px;">
-   <div class="x-col x-col-20" xid="col19" style="padding-left:0px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;"><a component="$UI/system/components/justep/button/button" class="btn btn-link" label="更多" xid="morebutton" style="color:#555555;" icon="linear linear-menu" onClick="morebuttonClick">
+   <div class="x-col x-col-20" xid="morecol" style="padding-left:0px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;display:none;"><a component="$UI/system/components/justep/button/button" class="btn btn-link" label="更多" xid="morebutton" style="color:#555555;" icon="linear linear-menu" onClick="morebuttonClick">
    <i xid="i10" class="linear linear-menu"></i>
    <span xid="span23">更多</span></a></div><div class="x-col x-col-20 text-center" xid="col22" style="padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-left" label="全选" xid="selectallbtn" icon="my2 my2-xuanzhong2" style="color:#555555;padding:0px;" onClick="selectallbtnClick">
    <i xid="selectalli" class="my2 my2-xuanzhong2 text-muted" style="font-size:20px;"></i>
@@ -177,4 +194,39 @@
   <div component="$UI/system/components/justep/row/row" class="x-row text-muted" xid="row18">
    <div class="x-col" xid="col37">
     <span xid="span28"><![CDATA[去库存：下单后，订单不提交至公司，公司不安排发货，客户所需货品由自己安排处理；选中直属代理时，以直属代理价扣除直属代理货款，你获得直属与自己商品价差提现额。]]></span></div> </div></div></div></div>
-  <span component="$UI/system/components/justep/windowDialog/windowDialog" xid="windowDialog1" onReceive="windowDialog1Receive"></span></div>
+  <span component="$UI/system/components/justep/windowDialog/windowDialog" xid="windowDialog1" onReceive="windowDialog1Receive"></span>
+  <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver" direction="auto" xid="addmoneypopOver" position="bottom">
+   <div class="x-popOver-overlay" xid="div8"></div>
+   <div class="x-popOver-content" xid="div9" style="background-color:white;height:80%;width:100%;border-top-left-radius:10px;border-top-right-radius:10px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row19">
+   <div class="x-col" xid="col47"></div>
+   <div class="x-col text-center" xid="col48"><span xid="span31" bind-text='$model.addmoneyData.val("name")' style="font-size:large;"></span></div>
+   <div class="x-col text-right" xid="col49"><i xid="addmoneyclosei" class="linear linear-cross" bind-click="addmoneycloseiClick"></i></div></div>
+  <hr xid="hr4" style="margin:0px;border-top: 1px solid #f6f6f6;"></hr>
+  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row20">
+   <div class="x-col" xid="col50"><span xid="addmoneypopspan"></span></div>
+   <div class="x-col text-right" xid="col51"><span xid="addmountcountspan"><![CDATA[合计：￥0.00元]]></span></div>
+   <div class="x-col text-right" xid="col52"><a component="$UI/system/components/justep/button/button" class="btn  btn-sm btn-only-icon addbtn" label="button" xid="addmoneysubbtn" icon="icon-android-remove" onClick="addmoneysubbtnClick">
+   <i xid="i11" class="icon-android-remove"></i>
+   <span xid="span33"></span></a>
+  <label xid="label2" style="font-weight:normal;width:30px;" class="text-center" bind-text='$model.addmoneyData.val("number")'>1</label>
+  <a component="$UI/system/components/justep/button/button" class="btn  btn-sm btn-only-icon addbtn" label="button" xid="addmoneyaddbtn" icon="icon-android-add" onClick="addmoneyaddbtnClick">
+   <i xid="i14" class="icon-android-add"></i>
+   <span xid="span34"></span></a></div></div>
+  <div component="$UI/system/components/justep/list/list" class="x-list" xid="list7" data="giveproductData">
+   <ul class="x-list-template" xid="listTemplateUl7">
+    <li xid="li1"><hr xid="hr5" style="margin:0px;margin-left:10px;border-top: 1px solid #f6f6f6;"></hr><div component="$UI/system/components/justep/row/row" class="x-row" xid="row21">
+   <div class="x-col x-col-20" xid="col53"><img src=" " alt="" xid="image3" style="width:100%;" bind-attr-src=' val("cover")'></img></div>
+   <div class="x-col" xid="col54" style="padding-top:0px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row22" style="padding-top:0px;">
+   <div class="x-col" xid="col56"><span xid="span36" bind-text='val("name")'></span></div>
+   </div>
+  <div component="$UI/system/components/justep/row/row" class="x-row" xid="row23">
+   <div class="x-col text-right" xid="col59"><a component="$UI/system/components/justep/button/button" class="btn  btn-sm btn-only-icon addbtn" label="button" xid="givesubbtn" icon="icon-android-remove" onClick="givesubbtnClick">
+   <i xid="i15" class="icon-android-remove"></i>
+   <span xid="span37"></span></a>
+  <label xid="label3" style="font-weight:normal;width:30px;" class="text-center" bind-text='val("number")'>1</label>
+  <a component="$UI/system/components/justep/button/button" class="btn  btn-sm btn-only-icon addbtn" label="button" xid="giveaddbtn" icon="icon-android-add" onClick="giveaddbtnClick">
+   <i xid="i16" class="icon-android-add"></i>
+   <span xid="span38"></span></a></div>
+   </div></div>
+   </div>
+  </li></ul> </div></div></div></div>

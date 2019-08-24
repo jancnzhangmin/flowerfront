@@ -60,8 +60,16 @@
   <column name="discount" type="String" xid="column8"></column>
   <column name="collection" type="String" xid="column9"></column>
   <column name="displaysale" type="String" xid="xid47"></column>
-  <column name="salecount" type="String" xid="xid48"></column></div>
-  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="agentstatusData" idColumn="status"><column name="status" type="String" xid="xid41"></column></div></div>  
+  <column name="salecount" type="String" xid="xid48"></column>
+  <column name="agentprice" type="String" xid="xid49"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="agentstatusData" idColumn="status"><column name="status" type="String" xid="xid41"></column></div>
+  <div component="$UI/system/components/justep/data/data" autoLoad="true" xid="tuijianactivetypeData" idColumn="id">
+   <column name="id" type="String" xid="column13"></column>
+   <column name="product_id" type="String" xid="column14"></column>
+   <column name="active" type="String" xid="column15"></column>
+   <column name="showlable" type="String" xid="column10"></column>
+   <column name="summary" type="String" xid="column11"></column>
+   <column name="keywords" type="String" xid="column12"></column></div></div>  
   <div component="$UI/system/components/justep/panel/panel" 
     class="x-panel x-full" xid="panel1" bind-touchend="panel1Touchend"> 
       <div class="x-panel-top" xid="top1" height="45" style="z-index:10;"> 
@@ -174,7 +182,8 @@
     <div xid="div25" class="col-xs-4 col-sm-4" style="padding:5px;padding-top:5px;padding-bottom:5px;" bind-click="div25Click">
      <div xid="div24" style="border-radius:5px 5px 0px 0px;overflow: hidden;background-color:#eaeaea;" class="imagediv">
       <img src=" " alt="" xid="image13" bind-attr-src=' val("cover")' style="width:100%;"></img>
-      </div> 
+      <div xid="ribbondiv" class="wrap" bind-visible=' $model.active_showlable( val("id"))'>
+   <span xid="ribbonspan" class="ribbon ribbon-ef" bind-text=' $model.active_text( val("id"))'>预售</span></div></div> 
      <div xid="div28" style="background-color:white;padding-bottom:5px;border-radius: 0 0 5px 5px;">
       <div xid="div26" style="padding-top:10px;padding-left:10px;">
        <span xid="span55" bind-text='val("name")' style="font-size:small;"></span></div> 
@@ -182,8 +191,8 @@
        <span xid="span57" bind-text='val("subtitle")' style="background-color:white;font-size:small;" class="text-muted" bind-visible="false"></span></div> 
       <div xid="div29" style="padding-left:10px;padding-right:5px;">
        <span xid="span56" bind-text="'￥' + val(&quot;price&quot;)" style="font-size:large;color:#fe2e23;"></span>
-       <span xid="span54" style="font-size:x-small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-text="'省' + val(&quot;discount&quot;) + '元'" bind-visible=' val("discount") &gt; 0'></span>
-       <span xid="span53" class="pull-right text-muted" style="font-size:x-small;font-weight:lighter;margin-top:9px;" bind-visible=' val("displaysale") == 1' bind-text="'已售' +  val(&quot;salecount&quot;) + '件'">已售100件</span></div> </div> </div> </ul> </div></div></div>
+       <span xid="span9" style="font-size:x-small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-visible=' $model.agentstatusData.val("status") == 1' bind-text="'代理 ￥' + val(&quot;agentprice&quot;)"></span><span xid="span53" class="pull-right text-muted" style="font-size:x-small;font-weight:lighter;margin-top:9px;" bind-visible=' val("displaysale") == 1' bind-text="'已售' +  val(&quot;salecount&quot;) + '件'">已售100件</span>
+  </div> </div> </div> </ul> </div></div></div>
   <div class="x-panel-bottom" xid="bottom1" height="50" style="border-top-style:solid;border-top-width:1px;border-top-color:#f6f6f6;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row9" style="padding:0px;">
    <div class="x-col x-col-20 text-center" xid="col21" style="padding:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="客服" xid="button7" icon="my my-shouhou1" style="font-size:small;color:#555555;margin-top:-8px;">
    <i xid="i10" class="my my-shouhou1" style="font-size:x-large;color:#fe2e23;"></i>

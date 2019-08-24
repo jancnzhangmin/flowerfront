@@ -3,14 +3,38 @@ define(function(require) {
 	var justep = require("$UI/system/lib/justep");
 	require("../js/fabric");
 	require("../js/jquery.qrcode.min");
+	var clipboard = require("../js/clipboard.min");
 	var canvas;
 	var localjson;
 	var jstr;
 	var images = [];
 	var headimage;
 	var Swiper = require("../swiper-4.4.2/swiper.min");
+	var productid = 0;
+	var clipurl = '';
 	var Model = function() {
 		this.callParent();
+	};
+
+	Model.prototype.get_shorturl = function() {
+		var self = this;
+		$.ajax({
+			async : false,
+			url : publicurl + "api/shorturl",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 5000,
+			data : {
+				long_url : clipurl
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				clipurl = jsonstr.short;
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
 	};
 
 	Model.prototype.modelParamsReceive = function(event) {
@@ -31,14 +55,15 @@ define(function(require) {
 					openid : openid
 				},
 				success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
-
+					clipurl = 'http://flower.ysdsoft.com/usersubscribes?type=product&id=' + event.data.data.id + '&userid=' + jsonstr.user.id;
+					self.get_shorturl();
 					var headcanvas = $('<canvas id = "headcanvas" style="display:none;"/>');
 					$(self.getElementByXid("content1")).append(headcanvas);
 					var backcanvas = $('<canvas id="backcanvas" width ="720px" height="1280px" style="display:none;" />');
 					$(self.getElementByXid("content1")).append(backcanvas);
 
 					var img = new Image;
-					img.crossOrigin = 'anonymous';
+					img.crossOrigin = 'Anonymous';
 					img.src = jsonstr.userinfo.result['headimgurl'];
 
 					img.onload = function() {
@@ -66,6 +91,7 @@ define(function(require) {
 
 						var qrimage = new Image();
 						qrimage.src = $('#qr').children()[0].toDataURL();
+						// qrimage.crossOrigin = 'Anonymous';
 						qrimage.onload = function() {
 							$('#qrmain')[0].width = 258;
 							$('#qrmain')[0].height = 258;
@@ -80,6 +106,9 @@ define(function(require) {
 
 							$.each(jsonstr.productqrs, function(i, item) {
 								localjson = JSON.parse(item);
+								if (localjson.backgroundImage) {
+									localjson.backgroundImage.crossOrigin = 'Anonymous';
+								}
 								$.each(localjson.objects, function(oi, oitem) {
 									if (oitem.type == 'textbox' && oitem.text == '花当家') {
 										oitem.text = jsonstr.userinfo["result"].nickname;
@@ -90,8 +119,9 @@ define(function(require) {
 									if (oitem.type == 'group') {
 										$.each(oitem.objects, function(li, litem) {
 											if (litem.type == 'image') {
+												// litem.crossOrigin =
+												// 'Anonymous';
 												litem.src = headimage;
-												litem.crossOrigin = 'anonymous';
 											}
 										});
 									}
@@ -99,19 +129,16 @@ define(function(require) {
 										oitem.src = images[0];
 									}
 								});
-								// debugger;
 
 								var canvas = new fabric.Canvas('backcanvas');
 								$('#backcanvas')[0].width = 720;
 								$('#backcanvas')[0].height = 1280;
 								canvas.loadFromJSON(localjson);
 								canvas.on('after:render', function(o) {
-
 									images.push($('#backcanvas')[0].toDataURL());
 									if (images.length == jsonstr.productqrs.length + 1) {
 										$(self.getElementByXid("content1")).empty();
 										self.create_swiper();
-
 									}
 								});
 
@@ -135,20 +162,22 @@ define(function(require) {
 		$.each(images, function(i, item) {
 			// var slide = '<div class="swiper-slide"
 			// style="background-image:url('+item+');background-size:100%;"></div>';
-			var slide = $('<div class="swiper-slide text-center"></div>');
+			var slide = $('<div class="swiper-slide  ui-flex justify-center center"></div>');
 			var image = $('<img></img>');
+			// image.crossOrigin = 'Anonymous';
 			image[0].src = item;
 			if (i == 0) {
 				image.css('width', '80%');
 			} else {
 				image.css('height', '100%');
 			}
-
-			slide.append(image);
-			$('#topdiv').append(slide);
-			if (slide.height() - image.height() > 0) {
-				image.css('margin-top', (slide.height() - image.height()) / 2);
+			if (i != 0) {
+				slide.append(image);
+				$('#topdiv').append(slide);
 			}
+			// if (slide.height() - image.height() > 0) {
+			// image.css('margin-top', (slide.height() - image.height()) / 2);
+			// }
 		});
 
 		var gallery_thumbs_div = '<div class="swiper-container gallery-thumbs"><div id="thumbsdiv" class="swiper-wrapper"></div></div>';
@@ -157,20 +186,22 @@ define(function(require) {
 		$.each(images, function(i, item) {
 			// var slide = '<div class="swiper-slide"
 			// style="background-image:url('+item+');background-size:100%;"></div>';
-			var slide = $('<div class="swiper-slide text-center"></div>');
+			var slide = $('<div class="swiper-slide ui-flex justify-center center"></div>');
 			var image = $('<img></img>');
+			image.crossOrigin = 'Anonymous';
 			image[0].src = item;
 			if (i == 0) {
 				image.css('width', '100%');
 			} else {
 				image.css('height', '100%');
 			}
-
-			slide.append(image);
-			$('#thumbsdiv').append(slide);
-			if (slide.height() - image.height() > 0) {
-				image.css('margin-top', (slide.height() - image.height()) / 2);
+			if (i != 0) {
+				slide.append(image);
+				$('#thumbsdiv').append(slide);
 			}
+			// if (slide.height() - image.height() > 0) {
+			// image.css('margin-top', (slide.height() - image.height()) / 2);
+			// }
 		});
 
 		var galleryThumbs = new Swiper('.gallery-thumbs', {
@@ -190,13 +221,28 @@ define(function(require) {
 		});
 	};
 
-
-
-	Model.prototype.modelUnLoad = function(event){
-images=[];
+	Model.prototype.modelUnLoad = function(event) {
+		images = [];
 	};
 
+	Model.prototype.modelLoad = function(event) {
 
+	};
+
+	Model.prototype.copybtnClick = function(event) {
+		var cb = new clipboard('.copyBtn', {
+			text : function() {
+				return clipurl;
+			}
+		});
+		cb.on('success', function(e) {
+			justep.Util.hint("链接已复制", {
+				"tyep" : "info",
+				"position" : "middle",
+				"style" : "background:rgba(0,0,0,0.65);border:0px;color:#fff;"
+			});
+		});
+	};
 
 	return Model;
 });

@@ -92,7 +92,7 @@
             <i xid="i3" class="linear linear-chevrondown text-muted" style="font-size:x-small;" bind-visible='false'></i></div> </div> 
           <div component="$UI/system/components/justep/row/row" class="x-row" xid="row5" style="padding:0px;">
            <div class="x-col" xid="col12">
-            <span xid="span5" style="color:#fe2e23;font-size:large;" bind-text="'￥' + val(&quot;price&quot;)"></span>
+            <span xid="span5" style="color:#fe2e23;font-size:large;" bind-text="'￥' + val(&quot;price&quot;).toFixed(2)"></span>
             <span xid="span10" bind-text="'￥' + (parseFloat(val(&quot;price&quot;)) + parseFloat(val(&quot;discount&quot;)))" class="text-muted" style="text-decoration:line-through;margin-left:5px;" bind-visible=' val("discount") &gt; 0'></span></div> 
            <div class="x-col text-right" xid="col10">
             <a component="$UI/system/components/justep/button/button" class="btn btn-default btn-sm btn-only-icon addbtn" label="button" xid="subBtn" icon="icon-android-remove" onClick="subBtnClick" bind-visible="false">
@@ -115,7 +115,7 @@
    </div><div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer" xid="smartContainer2" style="background-color:white;overflow-x: unset;padding-bottom:0px;border-radius:5px;">
    <div component="$UI/system/components/justep/row/row" class="x-row" xid="row11" style="color:#ff4665;">
     <div class="x-col x-col-fixed" xid="col17" style="width:30px;">
-     <i xid="i6" class="my my-shouyi"></i></div> 
+     <i xid="i6" class="my2 my2-jiesheng"></i></div> 
     <div class="x-col" xid="col18">
      <span xid="span15">节省了35.32元</span></div> </div> 
    <div component="$UI/system/components/justep/row/row" class="x-row" xid="row12" style="color:#ff4665;">
@@ -147,7 +147,7 @@
          <i xid="i3" class="linear linear-chevrondown text-muted" style="font-size:x-small;" bind-visible=' val("hasoptional") &gt; 0'></i></div> </div> 
        <div component="$UI/system/components/justep/row/row" class="x-row" xid="row9" style="padding:0px;">
         <div class="x-col" xid="col12">
-         <span xid="span12" style="font-size:large;" class="text-muted">￥0</span>
+         <span xid="span12" style="font-size:large;" class="text-muted" bind-text="'￥' + val(&quot;price&quot;)">￥0</span>
          <span xid="span14" bind-text="'￥' + (parseFloat(val(&quot;price&quot;)) + parseFloat(val(&quot;discount&quot;)))" class="text-muted" style="text-decoration:line-through;margin-left:5px;" bind-visible="false"></span></div> 
         <div class="x-col text-right" xid="col10">
          <a component="$UI/system/components/justep/button/button" class="btn btn-default btn-sm btn-only-icon addbtn" label="button" xid="button2" icon="icon-android-remove" onClick="subBtnClick" bind-visible="false">
@@ -180,7 +180,8 @@
    <span xid="span17">提交订单</span></a></div>
    </div></div></div> 
 <resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require>
-  <require xid="require2" url="css!$UI/flowerfront/css/zhifu"></require></resource>
+  <require xid="require2" url="css!$UI/flowerfront/css/zhifu"></require>
+  <require xid="require3" url="css!$UI/flowerfront/icon2/my2.icons"></require></resource>
   <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver" direction="auto" xid="popOver1" position="bottom">
    <div class="x-popOver-overlay" xid="div1"></div>
    <div class="x-popOver-content" xid="div3" style="background-color:white;width:100%;height:70%;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row14" style="border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:#f6f6f6;">

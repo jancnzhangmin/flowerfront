@@ -3,6 +3,7 @@ define(function(require) {
 	var justep = require("$UI/system/lib/justep");
 	require("css!../swiper-4.4.2/swiper.min").load();
 	var Swiper = require("../swiper-4.4.2/swiper.min");
+	var UUID = require("$UI/system/lib/base/uuid");
 	var Model = function() {
 		this.callParent();
 	};
@@ -69,18 +70,18 @@ define(function(require) {
 		}, 10000);
 		self.redirect();
 	};
-	
-		Model.prototype.redirect = function(){
-	if(ctype == 'product'){
+
+	Model.prototype.redirect = function() {
+		if (ctype == 'product') {
 			var params = {
-			data : {
-				id : cid
+				data : {
+					id : cid
+				}
 			}
+			ctype = null;
+			cid = null
+			justep.Shell.showPage(require.toUrl("../product/productdetail.w"), params);
 		}
-		ctype = null;
-		cid = null
-		justep.Shell.showPage(require.toUrl("../product/productdetail.w"), params);
-	}
 	};
 
 	Model.prototype.check_useragent_status = function() {
@@ -131,10 +132,12 @@ define(function(require) {
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 				var data = self.comp("productData");
 				data.clear();
+				var activedata = self.comp('activetypeData');
+				activedata.clear();
 				$.each(jsonstr.products, function(i, item) {
 					if (item.producttype == 0) {
 						var odd = 0;
-						odd = i % 2;
+						odd = 0;
 						var options = {
 							defaultValues : [ {
 								id : item.id,
@@ -150,14 +153,26 @@ define(function(require) {
 								discount : item.discount,
 								collection : item.collection,
 								agentprice : item.agentprice,
-								displaysale:item.displaysale,
-								salecount:item.salecount
+								displaysale : item.displaysale,
+								salecount : item.salecount
 							} ]
 						};
 						data.newData(options);
+						$.each(item.activetype, function(ai, aitem) {
+							var options = {
+								defaultValues : [ {
+									id : new UUID().toString(),
+									product_id : item.id,
+									active : aitem.active,
+									showlable : aitem.showlable,
+									summary : aitem.summary,
+									keywords : aitem.keywords
+								} ]
+							};
+							activedata.newData(options);
+						});
 					}
 				});
-
 			},
 			error : function(xhr) {
 				// justep.Util.hint("错误，请检查网络");
@@ -252,7 +267,8 @@ define(function(require) {
 			jsonp : 'callback',
 			timeout : 5000,
 			data : {
-				search : searchkey
+				search : searchkey,
+				openid:openid
 			},
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 				var data = self.comp("searchData");
@@ -269,11 +285,12 @@ define(function(require) {
 							pinyin : item.pinyin,
 							fullpinyin : item.fullpinyin,
 							subtitle : item.subtitle,
-							cover : publicurl + item.cover
+							cover : publicurl + item.cover,
+							agentprice:item.agentprice
 						} ]
 					};
 					data.newData(options);
-
+					
 				});
 			},
 			error : function(xhr) {
@@ -378,7 +395,7 @@ define(function(require) {
 	};
 
 	Model.prototype.get_websocket_msg = function() {
-	var self = this;
+		var self = this;
 		wxwebsocket = new WebSocket(publicws);
 		wxwebsocket.onopen = function() {
 			var identifier = '"{"channel":"WxmessageChannel"}"';
@@ -491,15 +508,42 @@ define(function(require) {
 					// topSwiper.appendSlide(swiper);
 
 					var maindiv = $('<div class="swiper-slide"></div>');
-					var table = $('<table width="100%" height="40px"><tr><td valign="middle"><div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;">' + param.row.val('name')
-							+ ' ' + param.row.val('message') + '</div></td><td valign="middle" width="60px"><div class="text-right text-muted"><span class="text-muted pull-right timespan" value="'
-							+ param.row.val('created_at') + '">' + param.row.val('timesummary') + '</span></div></td></tr></table>');
+					var table = $('<table width="100%" height="40px"><tr><td valign="middle"><div style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;">'
+							+ param.row.val('name') + ' ' + param.row.val('message')
+							+ '</div></td><td valign="middle" width="60px"><div class="text-right text-muted"><span class="text-muted pull-right timespan" value="' + param.row.val('created_at')
+							+ '">' + param.row.val('timesummary') + '</span></div></td></tr></table>');
 					maindiv.append(table);
 					topSwiper.appendSlide(maindiv);
 				});
 		// topSwiper.slideTo(0);
 
 		topSwiper.update();
+	};
+
+	Model.prototype.active_showlable = function(productid) {
+		result = false;
+		var rows = this.comp('activetypeData').find([ 'product_id' ], [ productid ]);
+		if (rows.length > 0) {
+			$.each(rows, function(i, item) {
+				if (item.val('showlable') == 1) {
+					result = true;
+				}
+			});
+		}
+		return result;
+	};
+	
+	Model.prototype.active_text = function(productid){
+	result = '';
+			var rows = this.comp('activetypeData').find([ 'product_id' ], [ productid ]);
+		if (rows.length > 0) {
+			$.each(rows, function(i, item) {
+				if (item.val('showlable') == 1) {
+					result = item.val('active');
+				}
+			});
+		}
+		return result;
 	};
 
 	Model.prototype.hotcolClick = function(event) {
