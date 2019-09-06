@@ -1,7 +1,7 @@
-//var publicurl = 'http://192.168.0.151:3000/';
-var publicurl = 'http://flower.ysdsoft.com/';
-//var publicws = 'ws://192.168.0.151:3000/cable';
-var publicws = 'ws://flower.ysdsoft.com/cable';
+var publicurl = 'http://192.168.0.151:3000/';
+//var publicurl = 'http://flower.ysdsoft.com/';
+var publicws = 'ws://192.168.0.151:3000/cable';
+//var publicws = 'ws://flower.ysdsoft.com/cable';
 
 var openid = '1';
 //var openid = 'o_L1a1BjPSaDGIYgJeHX5Wb9v1oI';
@@ -28,7 +28,7 @@ define(function(require) {
 	};
 
 	Model.prototype.modelLoad = function(event){
-	openid = this.getContext().getRequestParameter("openid");
+	//openid = this.getContext().getRequestParameter("openid");
 	ctype = this.getContext().getRequestParameter("ctype");
 	cid = this.getContext().getRequestParameter("cid");
 		justep.Shell.showPage("main");

@@ -2,7 +2,9 @@ define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
 	require("css!../swiper-4.4.2/swiper.min").load();
+	//require("css!https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min").load();
 	var Swiper = require("../swiper-4.4.2/swiper.min");
+	//var Swiper = require("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js");
 	var UUID = require("$UI/system/lib/base/uuid");
 	require("../js/flower");
 	var product_id = 0;
@@ -191,6 +193,10 @@ define(function(require) {
 							icon = 'my my-fanxian';
 						} else if(activeitem.keywords == 'addmoney'){
 						icon = 'my2 my2-jiajiahuangou';
+						} else if(activeitem.keywords == 'multibuyfull'){
+						icon = 'my my-song';
+						} else if(activeitem.keywords == 'mashup'){
+						icon = 'my my-song';
 						}
 						
 						var options = {
@@ -901,6 +907,7 @@ define(function(require) {
 			$.each(rows, function(i, item) {
 				if (item.val('showlable') == 1) {
 					result = item.val('active');
+					return false;
 				}
 			});
 		}

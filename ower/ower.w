@@ -8,7 +8,7 @@
   <div component="$UI/system/components/justep/smartContainer/smartContainer" class="x-smartcontainer topimg" xid="smartContainer1" style="position:relative;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row1" style="z-index:1;">
    <div class="x-col" xid="col1"></div>
    <div class="x-col text-center" xid="col2"><span xid="span1" style="font-size:large;color:#FFFFFF;"><![CDATA[　]]></span></div>
-   <div class="x-col" xid="col3"></div></div>
+   <div class="x-col text-right" xid="col3"></div></div>
   <div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row2">
    <div class="x-col x-col-20 text-center" xid="col4">
   <div xid="div1" class="backhead" bind-click="div1Click"><img src="$UI/flowerfront/image/user-192.png" alt="" xid="image1" class="fronthead"></img></div></div>
@@ -19,12 +19,14 @@
    <div class="x-col" xid="col9"><span xid="span3" style="color:#FFFFFF;"><![CDATA[会员号：]]></span>
   <span xid="span4" style="color:#FFFFFF;"><![CDATA[10001]]></span></div>
    </div></div>
-   </div>
+   <div class="x-col text-right" xid="col7"><a component="$UI/system/components/justep/button/button" class="btn btn-link" label="关注公众号" xid="subscribebtn" icon="my2 my2-guanzhugongzhonghao" style="color:white;font-size:large;display:none;" onClick="subscribebtnClick">
+   <i xid="i11" class="my2 my2-guanzhugongzhonghao" style="font-size:large;"></i>
+   <span xid="span15">关注公众号</span></a></div></div>
   <div component="$UI/system/components/justep/row/row" class="x-row" xid="row5" style="bottom:0px;position:absolute;">
    <div class="x-col text-center" xid="col12" style="padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="未入账" xid="button1" icon="my my-wodeleijishouyi" style="color:#FFFFFF;">
    <i xid="i1" class="my my-wodeleijishouyi" style="font-size:xx-large;"></i>
    <span xid="span5">未入账</span><div xid="div2" class="text-center">
-   <label xid="label3" class="angle"><![CDATA[2]]></label></div></a>
+   <label xid="label3" class="angle" style="display:none;"><![CDATA[0]]></label></div></a>
   <label xid="label1" style="height:40px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;margin-top:15px;" class="pull-right"></label>
   </div>
    <div class="x-col text-center" xid="col13" style="padding-left:0px;padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-top" label="收益" xid="incomebtn" icon="my my-shouyi1" style="color:#FFFFFF;" onClick="incomebtnClick">
@@ -118,4 +120,9 @@
     <i xid="i21" class="linear linear-chevronright text-muted"></i></div> </div></div>
   </div> 
 <resource xid="resource2"><require xid="require1" url="css!$UI/flowerfront/icon/my.icons"></require>
-  <require xid="require2" url="css!$UI/flowerfront/icon2/my2.icons"></require></resource></div>
+  <require xid="require2" url="css!$UI/flowerfront/icon2/my2.icons"></require></resource>
+  <div component="$UI/system/components/justep/popOver/popOver" class="x-popOver" direction="auto" xid="subscribe_popover">
+   <div class="x-popOver-overlay" xid="div14"></div>
+   <div class="x-popOver-content text-center" xid="div20" style="width:100%;">
+    <img src=" " alt="" xid="sysqrimg" style="width:60%;"></img>
+    </div> </div></div>

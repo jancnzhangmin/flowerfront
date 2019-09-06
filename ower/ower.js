@@ -18,6 +18,30 @@ define(function(require) {
 		justep.Shell.on("ower_unreceipt_count", this.ower_unreceipt_count, this);
 		justep.Shell.on("ower_undeliver_count", this.ower_undeliver_count, this);
 		justep.Shell.on("ower_uncomment_count", this.ower_uncomment_count, this);
+		this.check_subscribe();
+	};
+	
+	Model.prototype.check_subscribe = function(){
+			var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + "api/check_subscribe",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 30000,
+			data : {
+				openid : openid
+			},
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				if (jsonstr.status == 0) {
+					$(self.getElementByXid("subscribebtn")).show();
+				}
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
 	};
 
 	Model.prototype.ower_refresh = function() {
@@ -32,7 +56,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -58,7 +82,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -84,7 +108,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -110,7 +134,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -141,7 +165,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -164,7 +188,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -182,7 +206,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -262,6 +286,29 @@ justep.Shell.showPage(require.toUrl("../agent/sales.w"));
 
 	Model.prototype.withdrawbtnClick = function(event){
 justep.Shell.showPage(require.toUrl("./withdraw.w"));
+	};
+
+	Model.prototype.subscribebtnClick = function(event){
+	this.get_sysqr();
+this.comp('subscribe_popover').show();
+	};
+	
+	Model.prototype.get_sysqr = function(){
+			var self = this;
+		$.ajax({
+			async : true,
+			url : publicurl + "api/get_sysqr",
+			type : "GET",
+			dataType : 'jsonp',
+			jsonp : 'callback',
+			timeout : 30000,
+			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
+				$(self.getElementByXid("sysqrimg")).attr('src', publicurl + jsonstr.sysqr);
+			},
+			error : function(xhr) {
+				// justep.Util.hint("错误，请检查网络");
+			}
+		});
 	};
 
 	return Model;

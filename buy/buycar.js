@@ -2,8 +2,10 @@ define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
 	var UUID = require("$UI/system/lib/base/uuid");
-	require("css!../swiper-4.4.2/swiper.min").load();
-	var Swiper = require("../swiper-4.4.2/swiper.min");
+	//require("css!../swiper-4.4.2/swiper.min").load();
+	require("css!https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min").load();
+	//var Swiper = require("../swiper-4.4.2/swiper.min");
+	var Swiper = require("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js");
 	var originalX = 0;
 	var lastX = 0;
 	var swiper;
@@ -37,7 +39,7 @@ define(function(require) {
 				destock = 1;
 			}
 			$.each(buycar, function(i, item) {
-				item.isselect = 0;
+				item.isselect = 1;
 			});
 		}
 
@@ -50,17 +52,24 @@ define(function(require) {
 		this.get_addmoney();
 		this.check_agent_status();
 		this.check_buycar();
+		if (buycar.length == 0) {
+			$(this.getElementByXid("addmoneyrow")).hide();
+			$(this.getElementByXid("selectalli")).removeClass('my2-xuanzhong1');
+			$(this.getElementByXid("selectalli")).removeClass('isselect');
+			$(this.getElementByXid("selectalli")).addClass('my2-xuanzhong2');
+			$(this.getElementByXid("selectalli")).addClass('text-muted');
+		}
 	};
 
 	Model.prototype.check_agent_status = function() {
 		var self = this;
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/check_agent_status",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 10000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -79,12 +88,12 @@ define(function(require) {
 	Model.prototype.get_addmoney = function() {
 		var self = this;
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/get_addmoneyactive",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 10000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -133,7 +142,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 10000,
+			timeout : 30000,
 			data : {
 				product_id : productid,
 				openid : openid
@@ -236,7 +245,7 @@ define(function(require) {
 				type : "GET",
 				dataType : 'jsonp',
 				jsonp : 'callback',
-				timeout : 5000,
+				timeout : 30000,
 				data : {
 					id : agentuserid
 				},
@@ -346,9 +355,9 @@ define(function(require) {
 		this.changeNum('add', event);
 
 	};
-	
-	Model.prototype.check_buycar = function(){
-			var self = this;
+
+	Model.prototype.check_buycar = function() {
+		var self = this;
 		buycar = [];
 
 		self.comp('buycarData').each(function(params) {
@@ -435,7 +444,7 @@ define(function(require) {
 		var row = event.bindingContext.$object;
 		if (type == 'sub') {
 			row.val('number', parseFloat(row.val('number') - 1));
-		} else if(type == 'add'){
+		} else if (type == 'add') {
 			row.val('number', parseFloat(row.val('number') + 1));
 		}
 
@@ -516,6 +525,7 @@ define(function(require) {
 				// 成功
 				AddToBuycar(data.buycars);
 				self.calower();
+
 			},
 			error : function() {
 
@@ -528,6 +538,7 @@ define(function(require) {
 		var saveprofit = 0;
 		var owerprofit = 0;
 		var sumprice = 0;
+		var giveproduct = false;
 		this.comp('buycarData').each(function(params) {
 			if (params.row.val('producttype') == 0) {
 				saveprofit += parseFloat(params.row.val('number')) * parseFloat(params.row.val('discount'));
@@ -535,6 +546,9 @@ define(function(require) {
 				if (params.row.val('isselect') == 1) {
 					sumprice += parseFloat(params.row.val('number')) * parseFloat(params.row.val('price'));
 				}
+			}
+			if (params.row.val('producttype') == 1) {
+				giveproduct = true;
 			}
 		});
 		this.comp('addmoneyData').each(function(param) {
@@ -555,6 +569,9 @@ define(function(require) {
 			$(this.getElementByXid("smartContainer2")).show();
 		} else {
 			$(this.getElementByXid("row12")).hide();
+		}
+		if (giveproduct) {
+			$(this.getElementByXid("smartContainer2")).show();
 		}
 		this.check_trial_number();
 		this.cal_addmoney();
@@ -590,12 +607,12 @@ define(function(require) {
 					});
 				}
 				if (maxnumber == 0) {
-				var temcount = 0;
+					var temcount = 0;
 					this.comp('giveproductData').each(function(param) {
 						temcount += parseInt(param.row.val('number'));
 					});
-					if(temcount > 0){
-					$(this.getElementByXid("addmoneyrow")).show();
+					if (temcount > 0) {
+						$(this.getElementByXid("addmoneyrow")).show();
 					}
 				}
 			} catch (e) {
@@ -812,7 +829,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid,
 				product_id : row.val('product_id')
@@ -885,6 +902,9 @@ define(function(require) {
 		var self = this;
 		var selectcount = 0;
 		this.comp('buycarData').each(function(param) {
+			if (param.row.val('producttype') == 1) {
+				param.row.val('isselect', 1);
+			}
 			var paramap = [];
 			var rows = self.comp('optionalData').find([ 'buycar_id' ], [ param.row.val('id') ]);
 			$.each(rows, function(rowi, rowitem) {

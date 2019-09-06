@@ -28,7 +28,7 @@
         </div> 
       </div>  
     <div class="x-panel-content x-cards" xid="content1"><div component="$UI/system/components/justep/row/row" class="x-row text-muted" xid="row1">
-   <div class="x-col" xid="col1"><div xid="div1" bind-html="'成为遇见玫好代理，享受相应代理等级提货价，代理提货一件包邮（东三省等偏远地区需要加收邮费），详见&lt;a href =&quot;&quot;&gt;招商政策&lt;/a&gt;'"></div></div>
+   <div class="x-col" xid="col1"><div xid="div1" bind-html="'成为遇见玫好代理，享受相应代理等级提货价，代理提货一件包邮（东三省等偏远地区需要加收邮费），详见招商政策'"></div></div>
    </div>
   <div component="$UI/system/components/justep/list/list" class="x-list" xid="list1" data="agentlevelData">
    <ul class="x-list-template" xid="listTemplateUl1">

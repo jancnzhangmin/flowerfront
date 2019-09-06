@@ -67,7 +67,7 @@
   <div component="$UI/system/components/justep/list/list" class="x-list" xid="list1" data="buycarData" filter='$row.val("number") &gt; 0  &amp;&amp;  $row.val("producttype") == 0'>
    <ul class="x-list-template" xid="listTemplateUl1" style="overflow:hidden;">
     <div xid="div1" class="swiper-container"><div xid="div5" class="swiper-wrapper"><div xid="div6" class="swiper-slide"><div component="$UI/system/components/justep/row/row" class="x-row movrow" xid="row1" style="padding-bottom:0px;padding-top:5px;z-index:10;" bind-click="row1Click" bind-touchstart="row1Touchstart">
-   <div class="x-col x-col-fixed" xid="col42" style="width:30px;padding-top:5px;"><i xid="selecti" class="my2 my2-xuanzhong2 text-muted" style="font-size:20px;" bind-css=' $model.change_select_css( val("isselect"), $element)' bind-click="selectiClick"></i></div><div class="x-col x-col-25" xid="col1"><img src=" " alt="" xid="image1" bind-attr-src=' val("cover")' style="width:100%;" class="imageradius"></img></div>
+   <div class="x-col x-col-fixed" xid="col42" style="width:30px;padding-top:5px;display:none;"><i xid="selecti" class="my2 my2-xuanzhong2 text-muted" style="font-size:20px;" bind-css=' $model.change_select_css( val("isselect"), $element)' bind-click="selectiClick"></i></div><div class="x-col x-col-25" xid="col1"><img src=" " alt="" xid="image1" bind-attr-src=' val("cover")' style="width:100%;" class="imageradius"></img></div>
    <div class="x-col lastborder" xid="col2" style="padding:0px;"><div component="$UI/system/components/justep/row/row" class="x-row" xid="row2" style="padding:0px;">
    <div class="x-col" xid="col6"><span xid="span1" bind-text='val("name")'></span>
   <span xid="span2" bind-text='val("subtitle")'></span></div></div>
@@ -114,7 +114,7 @@
   </div><div component="$UI/system/components/justep/list/list" class="x-list" xid="list4" data="buycarData" filter='$row.val("number") &gt; 0  &amp;&amp;  $row.val("producttype") == 1' style="border-top-style:solid;border-top-width:1px;border-top-color:#f6f6f6;">
     <ul class="x-list-template" xid="listTemplateUl6">
      <div component="$UI/system/components/justep/row/row" class="x-row" xid="row6" style="padding-bottom:0px;padding-top:5px;">
-      <div class="x-col x-col-fixed" xid="col63" style="width:30px;"></div><div class="x-col x-col-25" xid="col16">
+      <div class="x-col x-col-fixed" xid="col63" style="width:30px;display:none;"></div><div class="x-col x-col-25" xid="col16">
        <img src=" " alt="" xid="image2" bind-attr-src=' val("cover")' style="width:100%;" class="imageradius"></img></div> 
       <div class="x-col lastborder" xid="col13" style="padding:0px;">
        <div component="$UI/system/components/justep/row/row" class="x-row" xid="row8" style="padding:0px;">
@@ -161,7 +161,7 @@
   <div class="x-panel-bottom" xid="bottom1" style="border-top-style:solid;border-top-color:#f6f6f6;border-top-width:1px;"><div component="$UI/system/components/justep/row/row" class="x-row x-row-center" xid="row13" style="height:48px;padding:2px;">
    <div class="x-col x-col-20" xid="morecol" style="padding-left:0px;border-right-style:solid;border-right-width:1px;border-right-color:#f6f6f6;display:none;"><a component="$UI/system/components/justep/button/button" class="btn btn-link" label="更多" xid="morebutton" style="color:#555555;" icon="linear linear-menu" onClick="morebuttonClick">
    <i xid="i10" class="linear linear-menu"></i>
-   <span xid="span23">更多</span></a></div><div class="x-col x-col-20 text-center" xid="col22" style="padding-right:0px;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-left" label="全选" xid="selectallbtn" icon="my2 my2-xuanzhong2" style="color:#555555;padding:0px;" onClick="selectallbtnClick">
+   <span xid="span23">更多</span></a></div><div class="x-col x-col-20 text-center" xid="col22" style="padding-right:0px;display:none;"><a component="$UI/system/components/justep/button/button" class="btn btn-link btn-icon-left" label="全选" xid="selectallbtn" icon="my2 my2-xuanzhong2" style="color:#555555;padding:0px;" onClick="selectallbtnClick">
    <i xid="selectalli" class="my2 my2-xuanzhong2 text-muted" style="font-size:20px;"></i>
    <span xid="span20" style="margin-left:-8px;">全选</span></a></div>
    <div class="x-col text-right" xid="col23" style="padding-left:0px;"><span xid="span18"><![CDATA[合计：]]></span>

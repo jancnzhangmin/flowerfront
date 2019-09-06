@@ -16,12 +16,12 @@ define(function(require) {
 		Model.prototype.check_useragent_status = function() {
 		var self = this;
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/check_agent_status",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -56,7 +56,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -98,7 +98,7 @@ define(function(require) {
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid,
 				cla_id : cla_id
@@ -193,12 +193,12 @@ define(function(require) {
 
 		var self = this;
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/collection",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid,
 				product_id : row.val('id')
@@ -246,12 +246,12 @@ this.comp('serachpopOver').hide();
 		Model.prototype.search = function(searchkey) {
 		var self = this;
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/get_search",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				search : searchkey,
 				openid:openid
@@ -315,6 +315,7 @@ this.comp('serachpopOver').hide();
 			$.each(rows, function(i, item) {
 				if (item.val('showlable') == 1) {
 					result = item.val('active');
+					return false;
 				}
 			});
 		}

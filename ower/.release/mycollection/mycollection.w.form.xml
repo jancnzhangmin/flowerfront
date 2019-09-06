@@ -36,7 +36,7 @@
               <div xid="div29" style="padding-left:10px;padding-right:5px;" __cid="cUzIvMr" class="cUzIvMr"> 
                 <span xid="span23" bind-text="'￥' + val(&quot;price&quot;)" style="font-size:large;color:#fe2e23;" __cid="cUzIvMr" class="cUzIvMr"/>  
                 <span xid="span24" style="font-size:x-small;background-color:#ffeae9;color:#fe2e23;font-weight:lighter;padding:1px;border-radius:3px;" bind-text="'省' + val(&quot;discount&quot;) + '元'" bind-visible=" val(&quot;discount&quot;) &gt; 0" __cid="cUzIvMr" class="cUzIvMr"/>  
-                <span xid="span25" class="pull-right text-muted cUzIvMr" style="font-size:x-small;font-weight:lighter;margin-top:9px;" __cid="cUzIvMr">已售100件</span>
+                <span xid="span25" class="pull-right text-muted cUzIvMr" style="font-size:x-small;font-weight:lighter;margin-top:9px;" bind-visible=" val(&quot;displaysale&quot;) == 1" bind-text="'已售' +  val(&quot;salecount&quot;) + '件'" __cid="cUzIvMr">已售100件</span>
               </div> 
             </div> 
           </div> 

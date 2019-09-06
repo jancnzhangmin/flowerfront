@@ -1,8 +1,10 @@
 define(function(require) {
 	var $ = require("jquery");
 	var justep = require("$UI/system/lib/justep");
-	require("css!../swiper-4.4.2/swiper.min").load();
-	var Swiper = require("../swiper-4.4.2/swiper.min");
+	//require("css!../swiper-4.4.2/swiper.min").load();
+	require("css!https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min").load();
+	//var Swiper = require("../swiper-4.4.2/swiper.min");
+	var Swiper = require("https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js");
 	var UUID = require("$UI/system/lib/base/uuid");
 	var Model = function() {
 		this.callParent();
@@ -87,12 +89,12 @@ define(function(require) {
 	Model.prototype.check_useragent_status = function() {
 		var self = this;
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/check_agent_status",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -120,12 +122,12 @@ define(function(require) {
 	Model.prototype.refreshdata = function() {
 		var self = this;
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/get_recommend_product",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid
 			},
@@ -218,12 +220,12 @@ define(function(require) {
 		// $(this.getElementByXid("i11")).addClass('my-xinxingxian');
 		// }
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/collection",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				openid : openid,
 				product_id : row.val('id')
@@ -260,12 +262,12 @@ define(function(require) {
 	Model.prototype.search = function(searchkey) {
 		var self = this;
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/get_search",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			data : {
 				search : searchkey,
 				openid:openid
@@ -439,12 +441,12 @@ define(function(require) {
 	Model.prototype.get_wxmessage = function() {
 		var self = this;
 		$.ajax({
-			async : false,
+			async : true,
 			url : publicurl + "api/get_wxmessage",
 			type : "GET",
 			dataType : 'jsonp',
 			jsonp : 'callback',
-			timeout : 5000,
+			timeout : 30000,
 			success : function(jsonstr) {// 客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
 				var data = self.comp("wxmessageData");
 				data.clear();
@@ -540,6 +542,7 @@ define(function(require) {
 			$.each(rows, function(i, item) {
 				if (item.val('showlable') == 1) {
 					result = item.val('active');
+					return false;
 				}
 			});
 		}

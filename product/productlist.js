@@ -233,6 +233,7 @@ var UUID = require("$UI/system/lib/base/uuid");
 			$.each(rows, function(i, item) {
 				if (item.val('showlable') == 1) {
 					result = item.val('active');
+					return false;
 				}
 			});
 		}
